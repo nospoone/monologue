@@ -1,0 +1,37 @@
+{
+	"project" : {
+		"name" : "Test Project",
+		"state" : {
+			"position" : {
+				"X" : 0,
+				"Y" : 0
+			}
+		}
+	},
+	"trees" : [
+		{
+			"id" : 0,
+			"displayName" : "Test Tree",
+			"nodes" : [
+				{
+					"id" : 0,
+					"displayName" : "Test Node",
+					"type" : "Node",
+					"editor" : {
+						"X" : 0,
+						"Y" : 0
+					}
+				},
+				{
+					"id" : 1,
+					"displayName" : "Test Node",
+					"type" : "Node",
+					"editor" : {
+						"X" : 500,
+						"Y" : 200
+					}
+				}
+			]
+		}
+	]
+}

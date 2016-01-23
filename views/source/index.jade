@@ -1,0 +1,78 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title Monologue - Branching Dialogue Editor
+		link(rel='stylesheet', href='../css/master.css')
+		script(src='../js/greetings.js')
+		script(src='../js/chosen.js')
+		script(src='../js/App.js')
+	body
+		#splash.shown
+			.content.shown
+				h2 
+				.buttons
+					span.new New Project
+					span.open Open Project
+			.icon
+				i.fa.fa-refresh.fa-spin
+		nav#menu-bar
+			h1 Monologue - Branching Dialogue Editor
+			.controls
+				span.close
+					i.fa.fa-times
+				span.maximize
+					i.fa.fa-clone
+					i.fa.fa-square-o
+				span.minimize
+					i.fa.fa-minus
+		nav#tool-bar
+			span.menu
+				i.fa.fa-bars
+				i.fa.fa-times
+			.dropdown
+				span.close 
+					i.fa.fa-times-circle
+					| Close Project
+				span.line
+				span.settings
+					i.fa.fa-cog
+					| Project Settings
+				span.languages
+					i.fa.fa-language
+					| Project Languages
+			select.trees
+				option Tree 1
+				option Tree 2
+				option Tree 3
+				option Tree 4
+				option Tree 5
+				option Tree 6
+			select.languages
+				option English (enUS)
+				option French (frCA)
+				option Brazilian Portuguese (ptBR)
+		section#nodes
+			.node(data-id="0")
+				header Node Title
+				.select
+					i.fa.fa-angle-double-down
+					select
+						option(disabled, selected, default) Node Type
+						option Text
+						option Choice
+						option Set
+						option Branch
+						option Node
+			.node(data-id="1")
+				header Node Title
+				.select
+					i.fa.fa-angle-double-down
+					select
+						option(disabled, selected, default) Node Type
+						option Text
+						option Choice
+						option Set
+						option Branch
+						option Node
+		canvas#canvas
