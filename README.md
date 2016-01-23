@@ -1,3 +1,2 @@
-# Monologue
-## Branching Dialog Editor
+# Monologue - Branching Dialog Editor
 
