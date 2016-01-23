@@ -15,12 +15,12 @@
 			App.Events.BindScrollControlEvents();
 			App.Events.BindMenuControlEvents();
 			App.Events.BindSplashEvents();
+			App.Events.BindNodeEvents();
 
 			$("select", "#tool-bar").chosen();
-
-			// App.File.OpenProject("C:\\testproject.json");
-
 			requestAnimationFrame(App.Draw.Loop);
+
+			App.File.OpenProject("testproject.mpf");
 		},
 		Events : {
 			BindWindowControlEvents : function () {
@@ -102,6 +102,23 @@
 						e.stopPropagation();
 						return false;
 				});
+
+				$("canvas, section#nodes, .node header").on('dblclick', function (e) {
+					if ($(e.target).prop("id") === "nodes" || $(e.target).prop("id") === "canvas") {
+						//TODO(romeo): add nodes from here
+					}
+				});
+
+				$(window).on('mousewheel', function (e) {
+					if (e.originalEvent.wheelDelta < 0) {
+						App.State.Zoom -= App.State.Zoom * 0.05;
+					} else {
+						App.State.Zoom += App.State.Zoom * 0.05;
+					}
+
+					App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;
+					$("section#nodes .tree").css({ transform : "scale(" + App.State.Zoom + ")" });
+				});
 			},
 			BindMenuControlEvents : function () {
 				var scope = "nav#tool-bar";
@@ -110,6 +127,11 @@
 					$(this).toggleClass("open");
 					App.View.DisplayAnimate($(".dropdown"), "shown", "open");
 				})
+
+				$(".node-menu", scope).on('click', function () {
+					$(this).toggleClass("open");
+					App.View.DisplayAnimate($(".node-dropdown"), "shown", "open");
+				});
 			},
 			BindSplashEvents : function () {
 				var scope = "div#splash";
@@ -130,6 +152,26 @@
 					e.stopPropagation();
 					return false;
 				});
+			},
+			BindNodeEvents : function () {
+				$(".controls select").on('change blur', function () {
+					if ($(this).find(":selected").val() === "placeholder") {
+						$(this).addClass("placeholder");
+					}
+				});
+
+				$(".controls select").on('click', function () {
+					$(this).removeClass("placeholder");
+				});
+
+				$("select.nodetype").change(function () {
+					var newType = $(this).find(":selected").val();
+					var parent = $(this).closest(".node");
+
+					parent.find(".controls:not(.hidden)").addClass("hidden");
+					parent.find(".controls[data-type=" + newType + "]").removeClass("hidden");
+
+				});
 			}
 		},
 		Draw : {
@@ -140,7 +182,7 @@
 					App.Draw.ScrollElements();
 				}
 
-				App.Draw.DrawLines();
+				// App.Draw.DrawLines();
 				requestAnimationFrame(App.Draw.Loop);
 			},
 			ScrollElements : function () {
@@ -227,7 +269,7 @@
 				} else {
 					element.one("webkitTransitionEnd", callback).addClass(cssClass);
 				}
-			},
+		},
 			NodeTemplate : $(".node.template")
 		},
 		Canvas : {
@@ -247,8 +289,7 @@
 				X : 0,
 				Y : 0
 			},
-			Velocity : 0,
-			Amplitude : 0,
+			Zoom : 1,
 			Dragging : false,
 			DraggedNode : null,
 			CurrentTree : 0

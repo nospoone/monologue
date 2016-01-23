@@ -8,6 +8,9 @@ html(lang='en')
 		script(src='../js/chosen.js')
 		script(src='../js/App.js')
 	body
+		.overlay.hidden.invisible
+			.modal.project-settings
+				h2 Project Settings
 		#splash.shown
 			.content.shown
 				h2 
@@ -31,7 +34,10 @@ html(lang='en')
 				i.fa.fa-bars
 				i.fa.fa-times
 			.dropdown
-				span.close 
+				span.save-project 
+					i.fa.fa-floppy-o
+					| Save Project
+				span.close-project 
 					i.fa.fa-times-circle
 					| Close Project
 				span.line
@@ -41,38 +47,48 @@ html(lang='en')
 				span.languages
 					i.fa.fa-language
 					| Project Languages
+			span.node-menu
+				i.fa.fa-plus
+				i.fa.fa-times
+			.node-dropdown
+				span.add-node
+					i.fa.fa-plus-circle
+					| Add Node
 			select.trees
-				option Tree 1
-				option Tree 2
-				option Tree 3
-				option Tree 4
-				option Tree 5
-				option Tree 6
+				option(data-tree="0") Tree 1
 			select.languages
 				option English (enUS)
 				option French (frCA)
 				option Brazilian Portuguese (ptBR)
 		section#nodes
-			.node(data-id="0")
-				header Node Title
-				.select
-					i.fa.fa-angle-double-down
-					select
-						option(disabled, selected, default) Node Type
-						option Text
-						option Choice
-						option Set
-						option Branch
-						option Node
-			.node(data-id="1")
-				header Node Title
-				.select
-					i.fa.fa-angle-double-down
-					select
-						option(disabled, selected, default) Node Type
-						option Text
-						option Choice
-						option Set
-						option Branch
-						option Node
+			.tree(data-id="0")
+				.node(data-id="0")
+					header
+						span.remove-node
+							i.fa.fa-close
+					.select
+						i.fa.fa-angle-double-down
+						select.nodetype
+							option(disabled, selected, default) Node Type
+							option(value="text") Text
+							//- option(value="choice") Choice
+							option(value="set") Set
+							option(value="branch") Branch
+							//- option(value="node") Node
+					.controls(data-type="text").hidden
+						input(type="text", data-type="text", data-name, placeholder="Name")
+						textarea(data-type="text", data-message, placeholder="Message")
+					.controls(data-type="set").hidden
+						select(data-type="set", data-variable).placeholder
+							option(disabled, selected, default, value="placeholder") Variable
+							option(value="var") Variable 1
+						input(type="text", data-type="set", data-value, placeholder="Value")
+					.controls(data-type="branch").hidden
+						select(data-type="set", data-variable).placeholder
+							option(disabled, selected, default, value="placeholder") Variable
+							option(value="var") Variable 1
+						input(type="text", data-type="set", data-value, placeholder="Value")
+					.links
+						span.connectFrom
+						span.connectTo
 		canvas#canvas

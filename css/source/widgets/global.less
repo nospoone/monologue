@@ -1,3 +1,16 @@
+* {
+	box-sizing: border-box;
+	&:not(input), &:not(textarea) {
+		-webkit-user-select: none;
+		cursor: default;
+	}
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 *:focus {
 	outline: 0;
 	outline: none;
@@ -23,9 +36,45 @@ canvas {
 	z-index: 1;
 }
 
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 100%;
+	z-index: 6;
+	&.hidden {
+		opacity: 0;
+	}
+	&.invisible {
+		display: none;
+	}
+}
+
+.modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	.translate(-50%, -50%);
+	width: 500px;
+	background: @white;
+	border-radius: 3px;
+	.BoxShadowHelper(2);
+	padding: 10px;
+	z-index: 7;
+	p {
+		margin: 0;
+	}
+	h2 {
+		margin-top: 0;
+		text-align: center;
+	}
+}
+
 #splash {
 	position: fixed;
-	z-index: 5;
+	z-index: 6;
 	top: 35px;
 	left: 0;
 	width: 100%;
@@ -99,7 +148,7 @@ canvas {
 	left: 0;
 	-webkit-app-region: drag;
 	.clearfix();
-	z-index: 6;
+	z-index: 7;
 	user-select: none;
 	h1 {
 		margin: 0;
@@ -168,7 +217,7 @@ canvas {
 	top: 45px;
 	left: 15px;
 	z-index: 3;
-	span.menu {
+	span.menu, span.node-menu {
 		background: @white;
 		.BoxShadowHelper();
 		display: block;
@@ -186,10 +235,13 @@ canvas {
 			.transition(all 150ms ease-out);
 			position: absolute;
 		}
-		i.fa-bars {
+		i.fa-bars, i.fa-plus {
 			opacity: 1;
 			top: 7px;
 			left: 7px;
+		}
+		i.fa-plus {
+			left: 8px;
 		}
 		i.fa-times {
 			opacity: 0;
@@ -199,7 +251,7 @@ canvas {
 			.rotate(-45deg);
 		}
 		&.open {
-			i.fa-bars {
+			i.fa-bars, i.fa-plus {
 				opacity: 0;
 				.rotate(45deg);
 			}
@@ -209,7 +261,7 @@ canvas {
 			}
 		}
 	}
-	.dropdown {
+	.dropdown, .node-dropdown {
 		padding: 3px 0;
 		-webkit-user-select: none;
 		.BoxShadowHelper(2);
@@ -241,22 +293,32 @@ canvas {
 			}
 			&:hover {
 				background: @silver;
+				i {
+					width: 37px;
+				}
 			}
 			i {
-				width: 30px;
+				.transition(all 50ms ease-out);
+				width: 35px;
 				padding-left: 10px;
 			}
 		}
+	}
+	.node-dropdown {
+		left: 45px;
+	}
+	span.node-menu {
+		left: 45px;
 	}
 	select {
 		width: 275px;
 	}
 	.chosen-container {
 		position: absolute;
-		left: 45px + 275px + 15px;
+		left: 45px + 275px + 15px + 45px;
 		top: 0;
 		&:not(:last-child) {
-			left: 45px;
+			left: 45px + 45px;
 		}
 	}
 }
@@ -265,19 +327,28 @@ canvas {
 	position: relative;
 	z-index: 2;
 	.node {
+		padding-bottom: 10px;
 		&.template {
 			display: none;
 		}
 		position: absolute;
 		border-radius: 3px;
 		border: 1px @greenSea solid;
-		width: 200px;
+		min-width: 200px;
 		.BoxShadowHelper();
 		background: @white;
 		header {
 			background: @turquoise;
+			padding: 0 9px;
+			text-align: right;
 			color: @white;
-			padding: 5px 10px;
+			height: 20px;
+			line-height: 20px;
+			span {
+				position: relative;
+			    top: -2px;
+    			font-size: 16px;
+			}
 		}
 		.select {
 			position: relative;
@@ -291,11 +362,68 @@ canvas {
 				pointer-events: none;
 			}
 		}
-		select {
-			-webkit-appearance: none;
-			width: 95%;
+		span.line {
 			display: block;
-			margin: 5px auto;
+			background: @silver;
+			height: 2px;
+			width: 97%;
+			margin: 3px auto;
+		}
+		input, textarea, select {
+			&:not(:last-child) {
+				margin-bottom: 5px;
+			}
+			&:focus {
+				border-color: @turquoise;
+			}
+			min-width: 300px;
+			width: 100%;
+			display: block;
+			-webkit-appearance: none;
+			border: 2px @silver solid;
+			padding: 5px 5px;
+			font-size: 14px;
+			&::-webkit-input-placeholder, &.placeholder {
+				font-size: 14px;
+				color: @silver;
+			}
+			[default] { 
+				display: none;
+			}
+		}
+		textarea {
+			min-height: 150px;
+		}
+		.controls {
+			padding: 10px 10px 0;
+			width: 100%;
+			&.hidden {
+				display: none;
+			}
+		}
+		.links {
+			span.connectFrom, span.connectTo {
+				position: absolute;
+				top: calc(~"50% - 15px");
+				display: block;
+				.size(15px, 30px);
+			}
+			span.connectFrom {
+				border-radius: 30px 0 0 30px;
+				background: @alizarin;
+				left: -16px;
+			}
+			span.connectTo {
+				border-radius: 0 30px 30px 0;
+				background: @emerald;
+				right: -16px;
+			}
+		}
+		select.nodetype {
+			-webkit-appearance: none;
+			width: 100%;
+			display: block;
+			margin: 5px auto 0;
 			background: transparent;
 			border-top: none;
 			border-left: none;
@@ -303,6 +431,7 @@ canvas {
 			border-bottom: 2px @greenSea solid;
 			text-transform: uppercase;
 			font-size: 14px;
+			padding: 2px 3px;
 			&:hover, &:active {
 				background: @silver;
 			}
