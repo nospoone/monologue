@@ -17,6 +17,7 @@
 			App.Events.BindMenuControlEvents();
 			App.Events.BindSplashEvents();
 			App.Events.BindNodeEvents();
+			App.Events.BindTreeChangeEvents();
 			// App.File.StartAutosaveLoop();
 
 			$("select", "#tool-bar").chosen();
@@ -182,6 +183,17 @@
 					parent.find(".controls:not(.hidden)").addClass("hidden");
 					parent.find(".controls[data-type=" + newType + "]").removeClass("hidden");
 				});
+			},
+			BindTreeChangeEvents : function () {
+				$("select.trees").chosen().change(function () {
+					var treeId = $(this).find(":selected").data('tree');
+
+					App.State.CurrentTree = treeId;
+					$('section#nodes .tree').addClass('hidden');
+					$('section#nodes .tree[data-id=' + treeId + ']').removeClass('hidden');
+					
+					App.State.Dirty = true;
+				});
 			}
 		},
 		Draw : {
@@ -210,7 +222,7 @@
 				App.State.Dirty = false;
 			},
 			DrawLinks : function () {
-				$.each($("section#nodes .node:not(.template)"), function () {
+				$.each($("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)"), function () {
 					var id = $(this).data('id');
 					if (App.Data.Trees[App.State.CurrentTree].nodes[id].links.length > 0) {
 						var fromX, fromY, toX, toY, cp1X, cp1Y, cp2X, cp2Y,
@@ -224,7 +236,7 @@
 							fromX = fromPos.left;
 							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
 
-							var toElem = $("section#nodes .node:not(.template)").filter(function () {
+							var toElem = $("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)").filter(function () {
 									return $(this).data('id') === link;
 								}).find("span.connectFrom"),
 								toPos = toElem.offset();
@@ -314,7 +326,10 @@
 			GenerateTrees : function () {
 				App.Data.Trees.forEach(function (tree, index) {
 					$("section#nodes").append("<section class='tree' data-id='" + tree.id + "'></section>");
+					$("select.trees").append("<option data-tree=" + tree.id + ">" + tree.displayName + "</option>");
 				});
+
+				$("select.trees").trigger("chosen:updated");
 			}
 		},
 		Canvas : {

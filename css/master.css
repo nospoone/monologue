@@ -3271,3 +3271,6 @@ textarea {
 #status-bar.hidden {
   opacity: 0;
 }
+section.tree.hidden {
+  display: none;
+}
