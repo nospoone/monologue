@@ -3256,3 +3256,18 @@ select [default] {
 textarea {
   min-height: 150px;
 }
+#status-bar {
+  font-weight: 600;
+  z-index: 1;
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  color: #ecf0f1;
+  font-size: 14px;
+  -webkit-transition: all 750ms ease-out;
+  transition: all 750ms ease-out;
+  opacity: 1;
+}
+#status-bar.hidden {
+  opacity: 0;
+}

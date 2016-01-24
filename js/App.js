@@ -8,6 +8,7 @@
 			App.BrowserWindow = App.Remote.require("browser-window").getFocusedWindow();
 			App.Canvas.Element = $("#canvas")[0];
 			App.Canvas.Context = App.Canvas.Element.getContext("2d");
+			App.File.FS = App.Remote.require('fs');
 
 			$("#splash h2").text(greetings[Math.floor(Math.random() * greetings.length)]);
 
@@ -16,6 +17,7 @@
 			App.Events.BindMenuControlEvents();
 			App.Events.BindSplashEvents();
 			App.Events.BindNodeEvents();
+			App.File.StartAutosaveLoop();
 
 			$("select", "#tool-bar").chosen();
 			App.File.OpenProject("testproject.mpf");
@@ -119,20 +121,27 @@
 					}
 
 					App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;
-					$("section#nodes .tree").css({ transform : "scale(" + App.State.Zoom + ")" });
+					App.State.Dirty = true;
 				});
 			},
 			BindMenuControlEvents : function () {
-				var scope = "nav#tool-bar";
+				var scope = "nav#tool-bar ";
+				var subscope = "";
 
-				$(".menu", scope).on('click', function () {
+				$(".menu", scope + subscope).on('click', function () {
 					$(this).toggleClass("open");
 					App.View.DisplayAnimate($(".dropdown"), "shown", "open");
 				});
 
-				$(".node-menu", scope).on('click', function () {
+				$(".node-menu", scope + subscope).on('click', function () {
 					$(this).toggleClass("open");
 					App.View.DisplayAnimate($(".node-dropdown"), "shown", "open");
+				});
+
+				var subscope = ".dropdown";
+				$(".save-project", scope + subscope).on('click', function () {
+					App.File.SaveProject();
+					$("nav#tool-bar .menu").click();
 				});
 			},
 			BindSplashEvents : function () {
@@ -172,7 +181,6 @@
 
 					parent.find(".controls:not(.hidden)").addClass("hidden");
 					parent.find(".controls[data-type=" + newType + "]").removeClass("hidden");
-
 				});
 			}
 		},
@@ -190,6 +198,7 @@
 			ScrollElements : function () {
 				$("body").css({ backgroundPosition : App.State.Position.X + "px " + App.State.Position.Y + "px" });
 				$("section#nodes").css({ transform : "translate(" + App.State.Position.X + "px, " + App.State.Position.Y + "px)" });
+				$("section#nodes .tree").css({ transform : "scale(" + App.State.Zoom + ")" });
 
 				if (App.Data.Trees) {
 					$.each($("section#nodes .node:not(.template)"), function () {
@@ -271,7 +280,15 @@
 				} else {
 					element.one("webkitTransitionEnd", callback).addClass(cssClass);
 				}
-		},
+			},
+			ShowStatusMessage : function (message) {
+				$("#status-bar span.message").text(message);
+				App.View.AnimateWithCallback($("#status-bar"), "hidden", function () {
+					setTimeout(function () {
+						$("#status-bar").addClass("hidden");
+					}, 1000)
+				}, true);
+			},
 			NodeTemplate : $(".node.template")
 		},
 		Canvas : {
@@ -298,12 +315,41 @@
 		},
 		File : {
 			OpenProject : function (file) {
-				var fs = App.Remote.require('fs');
-				var d = JSON.parse(fs.readFileSync(file, { encoding : "utf8"}));
+				var d = JSON.parse(App.File.FS.readFileSync(file, { encoding : "utf8"}));
 				App.Data.Project = d.project;
 				App.Data.Trees = d.trees;
+				App.File.CurrentProjectFile = file;
+				App.State.Position.X = App.Data.Project.state.position.X;
+				App.State.Position.Y = App.Data.Project.state.position.Y;
+				App.State.Zoom = App.Data.Project.state.zoom;
+				App.State.CurrentTree = App.Data.Project.state.currentTree;
+
 				App.View.LoadProject();
-			}
+			},
+			SaveProject : function (auto) {
+				auto = auto || false;
+				if (!App.File.Saving) {
+					App.File.Saving = true;
+					App.View.ShowStatusMessage((auto) ? "Auto-saving..." : "Saving...");
+
+					var data = { project : App.Data.Project, trees : App.Data.Trees };
+					data.project.state.position.X = App.State.Position.X;
+					data.project.state.position.Y = App.State.Position.Y;
+					data.project.state.zoom = App.State.Zoom;
+					data.project.state.currentTree = App.State.CurrentTree;
+
+					App.File.FS.writeFileSync(App.File.CurrentProjectFile, JSON.stringify(data));
+					App.File.Saving = false;
+				}
+			},
+			StartAutosaveLoop : function () {
+				setInterval(function () {
+					App.File.SaveProject(true);
+				}, 60000)
+			},
+			FS : null,
+			CurrentProjectFile : null,
+			Saving : false
 		},
 		Data : {
 			Project : null,

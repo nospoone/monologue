@@ -441,3 +441,18 @@ input, textarea, select {
 textarea {
 	min-height: 150px;
 }
+
+#status-bar {
+	font-weight: 600;
+	z-index: 1;
+	position: fixed;
+	bottom: 15px;
+	left: 15px;
+	color: @white;
+	font-size: 14px;
+	.transition(all 750ms ease-out);
+	opacity: 1;
+	&.hidden {
+		opacity: 0;
+	}
+}

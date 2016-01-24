@@ -1,0 +1,30 @@
+section#nodes
+	.node.template
+		header
+			span.remove-node
+				i.fa.fa-close
+		.select
+			i.fa.fa-angle-double-down
+			select.nodetype
+				option(disabled, selected, default) Node Type
+				option(value="text") Text
+				//- option(value="choice") Choice
+				option(value="set") Set
+				option(value="branch") Branch
+				//- option(value="node") Node
+		.controls(data-type="text").hidden
+			input(type="text", data-type="text", data-name, placeholder="Name")
+			textarea(data-type="text", data-message, placeholder="Message")
+		.controls(data-type="set").hidden
+			select(data-type="set", data-variable).placeholder
+				option(disabled, selected, default, value="placeholder") Variable
+				option(value="var") Variable 1
+			input(type="text", data-type="set", data-value, placeholder="Value")
+		.controls(data-type="branch").hidden
+			select(data-type="set", data-variable).placeholder
+				option(disabled, selected, default, value="placeholder") Variable
+				option(value="var") Variable 1
+			input(type="text", data-type="set", data-value, placeholder="Value")
+		.links
+			span.connectFrom
+			span.connectTo
