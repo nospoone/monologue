@@ -2,7 +2,6 @@
 	box-sizing: border-box;
 	&:not(input), &:not(textarea) {
 		-webkit-user-select: none;
-		cursor: default;
 	}
 }
 
@@ -25,11 +24,14 @@ body {
 	background: url(../img/bg-dark-alt2.png);
 	overflow: hidden;
 	&.dragging {
-		cursor: move;
+		canvas {
+			cursor: -webkit-grabbing;
+		}
 	}
 }
 
 canvas {
+	cursor: -webkit-grab;
 	position: fixed;
 	top: 35px;
 	left: 0;
@@ -369,31 +371,6 @@ canvas {
 			width: 97%;
 			margin: 3px auto;
 		}
-		input, textarea, select {
-			&:not(:last-child) {
-				margin-bottom: 5px;
-			}
-			&:focus {
-				border-color: @turquoise;
-			}
-			min-width: 300px;
-			width: 100%;
-			display: block;
-			-webkit-appearance: none;
-			border: 2px @silver solid;
-			padding: 5px 5px;
-			font-size: 14px;
-			&::-webkit-input-placeholder, &.placeholder {
-				font-size: 14px;
-				color: @silver;
-			}
-			[default] { 
-				display: none;
-			}
-		}
-		textarea {
-			min-height: 150px;
-		}
 		.controls {
 			padding: 10px 10px 0;
 			width: 100%;
@@ -437,4 +414,30 @@ canvas {
 			}
 		}
 	}
+}
+
+input, textarea, select {
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+	&:focus {
+		border-color: @turquoise;
+	}
+	width: 100%;
+	display: block;
+	-webkit-appearance: none;
+	border: 2px @silver solid;
+	padding: 5px 5px;
+	font-size: 14px;
+	&::-webkit-input-placeholder, &.placeholder {
+		font-size: 14px;
+		color: @silver;
+	}
+	[default] { 
+		display: none;
+	}
+}
+
+textarea {
+	min-height: 150px;
 }

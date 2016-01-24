@@ -4,16 +4,40 @@
 		"selected_items":
 		[
 			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"select",
+				"selected"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"margin",
+				"margin"
+			],
+			[
+				"pr",
+				"project"
+			],
+			[
+				"trans",
+				"transform"
+			],
+			[
+				"Dra",
+				"DraggingNode"
+			],
+			[
 				"Open",
 				"OpenProject"
 			],
 			[
 				"Brw",
 				"BrowserWindow"
-			],
-			[
-				"margin",
-				"margin-top"
 			],
 			[
 				"text",
@@ -62,10 +86,6 @@
 			[
 				"over",
 				"overflow"
-			],
-			[
-				"padding",
-				"padding"
 			],
 			[
 				"mar",
@@ -118,10 +138,6 @@
 			[
 				"ma",
 				"main"
-			],
-			[
-				"border",
-				"border-top"
 			],
 			[
 				"font-",
@@ -224,10 +240,6 @@
 				"imagesLoaded"
 			],
 			[
-				"trans",
-				"translate"
-			],
-			[
 				"o",
 				"opacity"
 			],
@@ -282,10 +294,6 @@
 			[
 				"photo",
 				"photoId"
-			],
-			[
-				"pr",
-				"parseInt"
 			],
 			[
 				"delete",
@@ -506,14 +514,6 @@
 			[
 				"pa",
 				"padding"
-			],
-			[
-				"svg",
-				"svg-bg"
-			],
-			[
-				"stop",
-				"stopPropagation"
 			]
 		]
 	},
@@ -536,13 +536,13 @@
 			}
 		},
 		{
-			"contents": "doctype html\nhtml(lang='en')\n	head\n		meta(charset='utf-8')\n		title Monologue - Branching Dialogue Editor\n		link(rel='stylesheet', href='../css/master.css')\n		script(src='../js/greetings.js')\n		script(src='../js/chosen.js')\n		script(src='../js/App.js')\n	body\n		#splash.shown\n			.content.shown\n				h2 \n				.buttons\n					span.new New Project\n					span.open Open Project\n			.icon\n				i.fa.fa-refresh.fa-spin\n		nav#menu-bar\n			h1 Monologue - Branching Dialogue Editor\n			.controls\n				span.close\n				span.maximize\n					i.fa.fa-clone\n					i.fa.fa-square-o\n				span.minimize\n					i.fa.fa-minus\n		nav#tool-bar\n			span.menu\n				i.fa.fa-bars\n				i.fa.fa-times\n			.dropdown\n				span.close \n					i.fa.fa-times-circle\n					| Close Project\n				span.line\n				span.settings\n					i.fa.fa-cog\n					| Project Settings\n				span.languages\n					i.fa.fa-language\n					| Project Languages\n			select.trees\n				option Tree 1\n				option Tree 2\n				option Tree 3\n				option Tree 4\n				option Tree 5\n				option Tree 6\n			select.languages\n				option English (enUS)\n				option French (frCA)\n				option Brazilian Portuguese (ptBR)\n		section#nodes\n			.node.template\n				header Node Title\n				.select\n					i.fa.fa-angle-double-down\n					select\n						option(disabled, selected, default) Node Type\n						option Text\n						option Choice\n						option Set\n						option Branch\n						option Node\n		canvas#canvas\n",
+			"contents": "doctype html\nhtml(lang='en')\n	head\n		meta(charset='utf-8')\n		title Monologue - Branching Dialogue Editor\n		link(rel='stylesheet', href='../css/master.css')\n		script(src='../js/greetings.js')\n		script(src='../js/chosen.js')\n		script(src='../js/App.js')\n	body\n		.overlay.hidden.invisible\n			.modal.project-settings\n				h2 Project Settings\n				label(for)\n				input(type=\"text\", data-project-title)\n				footer\n					span.close\n		#splash.shown\n			.content.shown\n				h2 \n				.buttons\n					span.new New Project\n					span.open Open Project\n			.icon\n				i.fa.fa-refresh.fa-spin\n		nav#menu-bar\n			h1 Monologue - Branching Dialogue Editor\n			.controls\n				span.close\n					i.fa.fa-times\n				span.maximize\n					i.fa.fa-clone\n					i.fa.fa-square-o\n				span.minimize\n					i.fa.fa-minus\n		nav#tool-bar\n			span.menu\n				i.fa.fa-bars\n				i.fa.fa-times\n			.dropdown\n				span.save-project \n					i.fa.fa-floppy-o\n					| Save Project\n				span.close-project \n					i.fa.fa-times-circle\n					| Close Project\n				span.line\n				span.settings\n					i.fa.fa-cog\n					| Project Settings\n				span.languages\n					i.fa.fa-language\n					| Project Languages\n			span.node-menu\n				i.fa.fa-plus\n				i.fa.fa-times\n			.node-dropdown\n				span.add-node\n					i.fa.fa-plus-circle\n					| Add Node\n			select.trees\n				option(data-tree=\"0\") Tree 1\n			select.languages\n				option English (enUS)\n				option French (frCA)\n				option Brazilian Portuguese (ptBR)\n		section#nodes\n			.tree(data-id=\"0\")\n				.node(data-id=\"0\")\n					header\n						span.remove-node\n							i.fa.fa-close\n					.select\n						i.fa.fa-angle-double-down\n						select.nodetype\n							option(disabled, selected, default) Node Type\n							option(value=\"text\") Text\n							//- option(value=\"choice\") Choice\n							option(value=\"set\") Set\n							option(value=\"branch\") Branch\n							//- option(value=\"node\") Node\n					.controls(data-type=\"text\").hidden\n						input(type=\"text\", data-type=\"text\", data-name, placeholder=\"Name\")\n						textarea(data-type=\"text\", data-message, placeholder=\"Message\")\n					.controls(data-type=\"set\").hidden\n						select(data-type=\"set\", data-variable).placeholder\n							option(disabled, selected, default, value=\"placeholder\") Variable\n							option(value=\"var\") Variable 1\n						input(type=\"text\", data-type=\"set\", data-value, placeholder=\"Value\")\n					.controls(data-type=\"branch\").hidden\n						select(data-type=\"set\", data-variable).placeholder\n							option(disabled, selected, default, value=\"placeholder\") Variable\n							option(value=\"var\") Variable 1\n						input(type=\"text\", data-type=\"set\", data-value, placeholder=\"Value\")\n					.links\n						span.connectFrom\n						span.connectTo\n		canvas#canvas",
 			"file": "views/source/index.jade",
-			"file_size": 1457,
-			"file_write_time": 130978073919350646,
+			"file_size": 2700,
+			"file_write_time": 130980603381968409,
 			"settings":
 			{
-				"buffer_size": 1371,
+				"buffer_size": 2648,
 				"line_ending": "Windows"
 			}
 		},
@@ -551,6 +551,14 @@
 			"settings":
 			{
 				"buffer_size": 178,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "css/source/widgets/global.less",
+			"settings":
+			{
+				"buffer_size": 6747,
 				"line_ending": "Windows"
 			}
 		},
@@ -571,21 +579,13 @@
 			}
 		},
 		{
-			"contents": "/*!\nChosen, a Select Box Enhancer for jQuery and Prototype\nby Patrick Filler for Harvest, http://getharvest.com\n\nVersion 1.4.2\nFull source at https://github.com/harvesthq/chosen\nCopyright (c) 2011-2015 Harvest http://getharvest.com\n\nMIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md\nThis file is generated by `grunt build`, do not edit it by hand.\n*/\n/* @group Base */\n.chosen-container {\n  position: relative;\n  display: inline-block;\n  vertical-align: middle;\n  font-size: 13px;\n  zoom: 1;\n  *display: inline;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  user-select: none;\n}\n.chosen-container * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.chosen-container .chosen-drop {\n  position: absolute;\n  top: 100%;\n  left: -9999px;\n  z-index: 1010;\n  width: 100%;\n  border: 1px solid #aaa;\n  border-top: 0;\n  background: #fff;\n  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);\n}\n.chosen-container.chosen-with-drop .chosen-drop {\n  left: 0;\n}\n.chosen-container a {\n  cursor: pointer;\n}\n.chosen-container .search-choice .group-name,\n.chosen-container .chosen-single .group-name {\n  margin-right: 4px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  font-weight: normal;\n  color: #999999;\n}\n.chosen-container .search-choice .group-name:after,\n.chosen-container .chosen-single .group-name:after {\n  content: \":\";\n  padding-left: 2px;\n  vertical-align: top;\n}\n/* @end */\n/* @group Single Chosen */\n.chosen-container-single .chosen-single {\n  position: relative;\n  display: block;\n  overflow: hidden;\n  padding: 0 0 0 8px;\n  height: 25px;\n  border: 1px solid #aaa;\n  border-radius: 5px;\n  background-color: #fff;\n  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #ffffff), color-stop(50%, #f6f6f6), color-stop(52%, #eeeeee), color-stop(100%, #f4f4f4));\n  background: -webkit-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);\n  background: -moz-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);\n  background: -o-linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);\n  background: linear-gradient(top, #ffffff 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%);\n  background-clip: padding-box;\n  box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);\n  color: #444;\n  text-decoration: none;\n  white-space: nowrap;\n  line-height: 24px;\n}\n.chosen-container-single .chosen-default {\n  color: #999;\n}\n.chosen-container-single .chosen-single span {\n  display: block;\n  overflow: hidden;\n  margin-right: 26px;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.chosen-container-single .chosen-single-with-deselect span {\n  margin-right: 38px;\n}\n.chosen-container-single .chosen-single abbr {\n  position: absolute;\n  top: 6px;\n  right: 26px;\n  display: block;\n  width: 12px;\n  height: 12px;\n  background: url('chosen-sprite.png') -42px 1px no-repeat;\n  font-size: 1px;\n}\n.chosen-container-single .chosen-single abbr:hover {\n  background-position: -42px -10px;\n}\n.chosen-container-single.chosen-disabled .chosen-single abbr:hover {\n  background-position: -42px -10px;\n}\n.chosen-container-single .chosen-single div {\n  position: absolute;\n  top: 0;\n  right: 0;\n  display: block;\n  width: 18px;\n  height: 100%;\n}\n.chosen-container-single .chosen-single div b {\n  display: block;\n  width: 100%;\n  height: 100%;\n  background: url('chosen-sprite.png') no-repeat 0px 2px;\n}\n.chosen-container-single .chosen-search {\n  position: relative;\n  z-index: 1010;\n  margin: 0;\n  padding: 3px 4px;\n  white-space: nowrap;\n}\n.chosen-container-single .chosen-search input[type=\"text\"] {\n  margin: 1px 0;\n  padding: 4px 20px 4px 5px;\n  width: 100%;\n  height: auto;\n  outline: 0;\n  border: 1px solid #aaa;\n  background: white url('chosen-sprite.png') no-repeat 100% -20px;\n  background: url('chosen-sprite.png') no-repeat 100% -20px;\n  font-size: 1em;\n  font-family: sans-serif;\n  line-height: normal;\n  border-radius: 0;\n}\n.chosen-container-single .chosen-drop {\n  margin-top: -1px;\n  border-radius: 0 0 4px 4px;\n  background-clip: padding-box;\n}\n.chosen-container-single.chosen-container-single-nosearch .chosen-search {\n  position: absolute;\n  left: -9999px;\n}\n/* @end */\n/* @group Results */\n.chosen-container .chosen-results {\n  color: #444;\n  position: relative;\n  overflow-x: hidden;\n  overflow-y: auto;\n  margin: 0 4px 4px 0;\n  padding: 0 0 0 4px;\n  max-height: 240px;\n  -webkit-overflow-scrolling: touch;\n}\n.chosen-container .chosen-results li {\n  display: none;\n  margin: 0;\n  padding: 5px 6px;\n  list-style: none;\n  line-height: 15px;\n  word-wrap: break-word;\n  -webkit-touch-callout: none;\n}\n.chosen-container .chosen-results li.active-result {\n  display: list-item;\n  cursor: pointer;\n}\n.chosen-container .chosen-results li.disabled-result {\n  display: list-item;\n  color: #ccc;\n  cursor: default;\n}\n.chosen-container .chosen-results li.highlighted {\n  background-color: #3875d7;\n  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));\n  background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);\n  background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%);\n  background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%);\n  background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);\n  color: #fff;\n}\n.chosen-container .chosen-results li.no-results {\n  color: #777;\n  display: list-item;\n  background: #f4f4f4;\n}\n.chosen-container .chosen-results li.group-result {\n  display: list-item;\n  font-weight: bold;\n  cursor: default;\n}\n.chosen-container .chosen-results li.group-option {\n  padding-left: 15px;\n}\n.chosen-container .chosen-results li em {\n  font-style: normal;\n  text-decoration: underline;\n}\n/* @end */\n/* @group Multi Chosen */\n.chosen-container-multi .chosen-choices {\n  position: relative;\n  overflow: hidden;\n  margin: 0;\n  padding: 0 5px;\n  width: 100%;\n  height: auto !important;\n  height: 1%;\n  border: 1px solid #aaa;\n  background-color: #fff;\n  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, #ffffff));\n  background-image: -webkit-linear-gradient(#eeeeee 1%, #ffffff 15%);\n  background-image: -moz-linear-gradient(#eeeeee 1%, #ffffff 15%);\n  background-image: -o-linear-gradient(#eeeeee 1%, #ffffff 15%);\n  background-image: linear-gradient(#eeeeee 1%, #ffffff 15%);\n  cursor: text;\n}\n.chosen-container-multi .chosen-choices li {\n  float: left;\n  list-style: none;\n}\n.chosen-container-multi .chosen-choices li.search-field {\n  margin: 0;\n  padding: 0;\n  white-space: nowrap;\n}\n.chosen-container-multi .chosen-choices li.search-field input[type=\"text\"] {\n  margin: 1px 0;\n  padding: 0;\n  height: 25px;\n  outline: 0;\n  border: 0 !important;\n  background: transparent !important;\n  box-shadow: none;\n  color: #999;\n  font-size: 100%;\n  font-family: sans-serif;\n  line-height: normal;\n  border-radius: 0;\n}\n.chosen-container-multi .chosen-choices li.search-choice {\n  position: relative;\n  margin: 3px 5px 3px 0;\n  padding: 3px 20px 3px 5px;\n  border: 1px solid #aaa;\n  max-width: 100%;\n  border-radius: 3px;\n  background-color: #eeeeee;\n  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));\n  background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-size: 100% 19px;\n  background-repeat: repeat-x;\n  background-clip: padding-box;\n  box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05);\n  color: #333;\n  line-height: 13px;\n  cursor: default;\n}\n.chosen-container-multi .chosen-choices li.search-choice span {\n  word-wrap: break-word;\n}\n.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {\n  position: absolute;\n  top: 4px;\n  right: 3px;\n  display: block;\n  width: 12px;\n  height: 12px;\n  background: url('chosen-sprite.png') -42px 1px no-repeat;\n  font-size: 1px;\n}\n.chosen-container-multi .chosen-choices li.search-choice .search-choice-close:hover {\n  background-position: -42px -10px;\n}\n.chosen-container-multi .chosen-choices li.search-choice-disabled {\n  padding-right: 5px;\n  border: 1px solid #ccc;\n  background-color: #e4e4e4;\n  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee));\n  background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  background-image: linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%);\n  color: #666;\n}\n.chosen-container-multi .chosen-choices li.search-choice-focus {\n  background: #d4d4d4;\n}\n.chosen-container-multi .chosen-choices li.search-choice-focus .search-choice-close {\n  background-position: -42px -10px;\n}\n.chosen-container-multi .chosen-results {\n  margin: 0;\n  padding: 0;\n}\n.chosen-container-multi .chosen-drop .result-selected {\n  display: list-item;\n  color: #ccc;\n  cursor: default;\n}\n/* @end */\n/* @group Active  */\n.chosen-container-active .chosen-single {\n  border: 1px solid #5897fb;\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n}\n.chosen-container-active.chosen-with-drop .chosen-single {\n  border: 1px solid #aaa;\n  -moz-border-radius-bottomright: 0;\n  border-bottom-right-radius: 0;\n  -moz-border-radius-bottomleft: 0;\n  border-bottom-left-radius: 0;\n  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));\n  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);\n  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);\n  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);\n  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);\n  box-shadow: 0 1px 0 #fff inset;\n}\n.chosen-container-active.chosen-with-drop .chosen-single div {\n  border-left: none;\n  background: transparent;\n}\n.chosen-container-active.chosen-with-drop .chosen-single div b {\n  background-position: -18px 2px;\n}\n.chosen-container-active .chosen-choices {\n  border: 1px solid #5897fb;\n  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n}\n.chosen-container-active .chosen-choices li.search-field input[type=\"text\"] {\n  color: #222 !important;\n}\n/* @end */\n/* @group Disabled Support */\n.chosen-disabled {\n  opacity: 0.5 !important;\n  cursor: default;\n}\n.chosen-disabled .chosen-single {\n  cursor: default;\n}\n.chosen-disabled .chosen-choices .search-choice .search-choice-close {\n  cursor: default;\n}\n/* @end */\n/* @group Right to Left */\n.chosen-rtl {\n  text-align: right;\n}\n.chosen-rtl .chosen-single {\n  overflow: visible;\n  padding: 0 8px 0 0;\n}\n.chosen-rtl .chosen-single span {\n  margin-right: 0;\n  margin-left: 26px;\n  direction: rtl;\n}\n.chosen-rtl .chosen-single-with-deselect span {\n  margin-left: 38px;\n}\n.chosen-rtl .chosen-single div {\n  right: auto;\n  left: 3px;\n}\n.chosen-rtl .chosen-single abbr {\n  right: auto;\n  left: 26px;\n}\n.chosen-rtl .chosen-choices li {\n  float: right;\n}\n.chosen-rtl .chosen-choices li.search-field input[type=\"text\"] {\n  direction: rtl;\n}\n.chosen-rtl .chosen-choices li.search-choice {\n  margin: 3px 5px 3px 0;\n  padding: 3px 5px 3px 19px;\n}\n.chosen-rtl .chosen-choices li.search-choice .search-choice-close {\n  right: auto;\n  left: 4px;\n}\n.chosen-rtl.chosen-container-single-nosearch .chosen-search,\n.chosen-rtl .chosen-drop {\n  left: 9999px;\n}\n.chosen-rtl.chosen-container-single .chosen-results {\n  margin: 0 0 4px 4px;\n  padding: 0 4px 0 0;\n}\n.chosen-rtl .chosen-results li.group-option {\n  padding-right: 15px;\n  padding-left: 0;\n}\n.chosen-rtl.chosen-container-active.chosen-with-drop .chosen-single div {\n  border-right: none;\n}\n.chosen-rtl .chosen-search input[type=\"text\"] {\n  padding: 4px 5px 4px 20px;\n  background: white url('chosen-sprite.png') no-repeat -30px -20px;\n  background: url('chosen-sprite.png') no-repeat -30px -20px;\n  direction: rtl;\n}\n.chosen-rtl.chosen-container-single .chosen-single div b {\n  background-position: 6px 2px;\n}\n.chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b {\n  background-position: -12px 2px;\n}\n/* @end */\n/* @group Retina compatibility */\n@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi), only screen and (min-resolution: 1.5dppx) {\n  .chosen-rtl .chosen-search input[type=\"text\"],\n  .chosen-container-single .chosen-single abbr,\n  .chosen-container-single .chosen-single div b,\n  .chosen-container-single .chosen-search input[type=\"text\"],\n  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,\n  .chosen-container .chosen-results-scroll-down span,\n  .chosen-container .chosen-results-scroll-up span {\n    background-image: url('chosen-sprite@2x.png') !important;\n    background-size: 52px 37px !important;\n    background-repeat: no-repeat !important;\n  }\n}\n/* @end */\n",
-			"file": "css/source/includes/chosen.css",
-			"file_size": 13358,
-			"file_write_time": 130977775449142858,
-			"settings":
-			{
-				"buffer_size": 13358,
-				"line_ending": "Unix"
-			}
-		},
-		{
+			"contents": "(function ($) {\n	'use strict';\n\n	var App = {\n		Bootstrap : function () {\n			App.Remote = require('remote');\n			App.Dialog = App.Remote.require(\"dialog\");\n			App.BrowserWindow = App.Remote.require(\"browser-window\").getFocusedWindow();\n			App.Canvas.Element = $(\"#canvas\")[0];\n			App.Canvas.Context = App.Canvas.Element.getContext(\"2d\");\n\n			$(\"#splash h2\").text(greetings[Math.floor(Math.random() * greetings.length)]);\n\n			App.Events.BindWindowControlEvents();\n			App.Events.BindScrollControlEvents();\n			App.Events.BindMenuControlEvents();\n			App.Events.BindSplashEvents();\n			App.Events.BindNodeEvents();\n\n			$(\"select\", \"#tool-bar\").chosen();\n			App.File.OpenProject(\"testproject.mpf\");\n\n			requestAnimationFrame(App.Draw.Loop);\n		},\n		Events : {\n			BindWindowControlEvents : function () {\n				var scope = \"nav#menu-bar\";\n\n				$(\"span.close\", scope).on('click', function () {\n					App.BrowserWindow.close();\n				});\n\n				$(\"span.maximize\", scope).on('click', function () {\n					if (App.BrowserWindow.isMaximized()) {\n						App.BrowserWindow.unmaximize();\n						$(this).removeClass(\"maximized\");\n					} else {\n						App.BrowserWindow.maximize();\n						$(this).addClass(\"maximized\");\n					}\n				});\n\n				$(\"span.minimize\", scope).on('click', function () {\n					App.BrowserWindow.minimize();\n				});\n			},\n			BindScrollControlEvents : function () {\n				$(\"canvas, section#nodes, .node header\").on('mousedown', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						App.State.Dragging = true;\n						$(\"body\").addClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\")) {\n						App.State.Dragging = true;\n						App.State.DraggedNode = $(e.target).closest(\".node\").data(\"id\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n\n				});\n\n				$(\"canvas, section#nodes\").on('mousemove', function (e) {\n					if (($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") && App.State.DraggedNode === null) {\n						if (App.State.Dragging) {\n							App.State.Position.X -= App.State.LastMousePosition.X - e.clientX;\n							App.State.Position.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n						\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\") || App.State.DraggedNode !== null) {\n						if (App.State.Dragging) {\n							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.X -= App.State.LastMousePosition.X - e.clientX;\n							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n						App.State.Dirty = true;\n						\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n				});\n\n				$(\"canvas, section#nodes\").on('mouseup', function (e) {\n						App.State.Dragging = false;\n						App.State.DraggedNode = null;\n						$(\"body\").removeClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n				});\n\n				$(\"canvas, section#nodes, .node header\").on('dblclick', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						//TODO(romeo): add nodes from here\n					}\n				});\n\n				$(window).on('mousewheel', function (e) {\n					if (e.originalEvent.wheelDelta < 0) {\n						App.State.Zoom -= App.State.Zoom * 0.05;\n					} else {\n						App.State.Zoom += App.State.Zoom * 0.05;\n					}\n\n					App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;\n					$(\"section#nodes .tree\").css({ transform : \"scale(\" + App.State.Zoom + \")\" });\n				});\n			},\n			BindMenuControlEvents : function () {\n				var scope = \"nav#tool-bar\";\n\n				$(\".menu\", scope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".dropdown\"), \"shown\", \"open\");\n				});\n\n				$(\".dropdown\")\n\n				$(\".node-menu\", scope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".node-dropdown\"), \"shown\", \"open\");\n				});\n			},\n			BindSplashEvents : function () {\n				var scope = \"div#splash\";\n				$(\"span.open\", scope).on('click', function (e) {\n					var file = App.Dialog.showOpenDialog(App.BrowserWindow, { \n						title : \"Open Project...\",  \n						properties: [ 'openFile' ],\n						filters : [\n							{ name : 'Monologue Project File', extensions: ['mpf', 'json'] }\n						]\n					});\n\n					if (file !== undefined) {\n						App.File.OpenProject(file[0]);\n					}\n\n					e.preventDefault();\n					e.stopPropagation();\n					return false;\n				});\n			},\n			BindNodeEvents : function () {\n				$(\".controls select\").on('change blur', function () {\n					if ($(this).find(\":selected\").val() === \"placeholder\") {\n						$(this).addClass(\"placeholder\");\n					}\n				});\n\n				$(\".controls select\").on('click', function () {\n					$(this).removeClass(\"placeholder\");\n				});\n\n				$(\"select.nodetype\").change(function () {\n					var newType = $(this).find(\":selected\").val();\n					var parent = $(this).closest(\".node\");\n\n					parent.find(\".controls:not(.hidden)\").addClass(\"hidden\");\n					parent.find(\".controls[data-type=\" + newType + \"]\").removeClass(\"hidden\");\n\n				});\n			}\n		},\n		Draw : {\n			Loop : function () {\n				App.Draw.Resize();\n\n				if (App.State.Dirty) {\n					App.Draw.ScrollElements();\n				}\n\n				// App.Draw.DrawLines();\n				requestAnimationFrame(App.Draw.Loop);\n			},\n			ScrollElements : function () {\n				$(\"body\").css({ backgroundPosition : App.State.Position.X + \"px \" + App.State.Position.Y + \"px\" });\n				$(\"section#nodes\").css({ transform : \"translate(\" + App.State.Position.X + \"px, \" + App.State.Position.Y + \"px)\" });\n\n				if (App.Data.Trees) {\n					$.each($(\"section#nodes .node:not(.template)\"), function () {\n						var coords = App.Data.GetNodeCoordinates(App.State.CurrentTree, $(this).data(\"id\"));\n						$(this).css({ transform : \"translate(\" + coords.X + \"px, \" + coords.Y + \"px)\" });\n					});\n				}\n\n				App.State.Dirty = false;\n			},\n			DrawLines : function () {\n				/*\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(0, 0);\n				App.Canvas.Context.lineTo(App.WindowSize.Width, App.WindowSize.Height);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.stroke();\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(0, App.WindowSize.Height);\n				App.Canvas.Context.quadraticCurveTo(0, App.WindowSize.Width / 2, App.WindowSize.Width, 0);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.stroke();\n				*/\n\n				var node = $(\"#nodes .node:first-child\");\n				var x = node.offset().left + node.outerWidth();\n				var y = node.offset().top + (node.outerHeight() / 2) - 35;\n\n				var node2 = $(\"#nodes .node:not(:first-child)\");\n				var toX = node2.offset().left;\n				var toY = node2.offset().top + (node2.outerHeight() / 2) - 35;\n\n				//var toX = 200 + App.State.Position.X;\n				//var toY = 200 + App.State.Position.Y;\n\n				var cp1X = x + (toX - x) / 3;\n				var cp2X = x + ((toX - x) / 3) * 2;\n				var cp1Y = y;\n				var cp2Y = toY;\n\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(x, y);\n				App.Canvas.Context.bezierCurveTo(cp1X, y, cp2X, toY, toX, toY);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.strokeStyle = \"#ECF0F1\";\n				App.Canvas.Context.stroke();\n			},\n			Resize : function () {\n				var windowSize = App.BrowserWindow.getContentSize();\n\n				App.Canvas.Element.width = App.WindowSize.Width = windowSize[0];\n				App.Canvas.Element.height = App.WindowSize.Height = windowSize[1] - 35;\n			}\n		},\n		View : {\n			LoadProject : function () {\n				App.View.AnimateWithCallback($(\"#splash .content\"), \"shown\", function () {\n					App.View.AnimateWithCallback($(\"#splash .icon\"), \"shown\", function () {\n						$(\"h1\").text(\"Monologue - \" + App.Data.Project.name);\n						App.State.Dirty = true;\n\n						App.View.AnimateWithCallback($(\"#splash\"), \"shown\", function () {\n							$(\"#splash\").addClass(\"gone\");\n						});\n					})\n				}, true);\n			},\n			DisplayAnimate : function (element, blockClass, opacityClass) {\n				element.toggleClass(blockClass);\n				setTimeout(function () {\n					element.toggleClass(opacityClass);\n				}, 1);\n			},\n			AnimateWithCallback : function (element, cssClass, callback, remove) {\n				remove = remove || false;\n\n				if (remove) {\n					element.one(\"webkitTransitionEnd\", callback).removeClass(cssClass);\n				} else {\n					element.one(\"webkitTransitionEnd\", callback).addClass(cssClass);\n				}\n		},\n			NodeTemplate : $(\".node.template\")\n		},\n		Canvas : {\n			Element : null,\n			Context : null\n		},\n		WindowSize : {\n			Width : 0,\n			Height : 0\n		},\n		State : {\n			Position : {\n				X : 150,\n				Y : 150\n			},\n			LastMousePosition : {\n				X : 0,\n				Y : 0\n			},\n			Zoom : 1,\n			Dragging : false,\n			DraggedNode : null,\n			CurrentTree : 0\n		},\n		File : {\n			OpenProject : function (file) {\n				var fs = App.Remote.require('fs');\n				var d = JSON.parse(fs.readFileSync(file, { encoding : \"utf8\"}));\n				App.Data.Project = d.project;\n				App.Data.Trees = d.trees;\n				App.View.LoadProject();\n			}\n		},\n		Data : {\n			Project : null,\n			Trees : null,\n			GetNodeCoordinates : function (treeId, nodeId) {\n				return {\n					X : App.Data.Trees[treeId].nodes[nodeId].editor.X,\n					Y : App.Data.Trees[treeId].nodes[nodeId].editor.Y\n				}\n			}\n		},\n		Remote : null,\n		BrowserWindow : null,\n		Dialog : null,\n	};\n\n	$(function () {\n		App.Bootstrap();\n		window.App = App;\n	});\n})(require('../js/jquery.js'));",
 			"file": "js/App.js",
+			"file_size": 10076,
+			"file_write_time": 130980612462944617,
 			"settings":
 			{
-				"buffer_size": 7193,
+				"buffer_size": 9769,
 				"line_ending": "Windows"
 			}
 		},
@@ -593,15 +593,7 @@
 			"file": "css/source/includes/variables.less",
 			"settings":
 			{
-				"buffer_size": 181,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "css/source/widgets/global.less",
-			"settings":
-			{
-				"buffer_size": 4697,
+				"buffer_size": 220,
 				"line_ending": "Windows"
 			}
 		},
@@ -633,7 +625,7 @@
 			"file": "testproject.mpf",
 			"settings":
 			{
-				"buffer_size": 341,
+				"buffer_size": 483,
 				"line_ending": "Windows"
 			}
 		}
@@ -894,6 +886,7 @@
 	],
 	"file_history":
 	[
+		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/testproject.json",
 		"/E/_dev/monologue/css/source/widgets/global.less",
 		"/E/_dev/monologue/css/source/includes/mixins.less",
@@ -1020,8 +1013,7 @@
 		"/D/github/frontend-guide/media/css/source/includes/fa/variables.less",
 		"/D/github/frontend-guide/media/css/source/includes/variables.less",
 		"/D/github/frontend-guide/media/css/source/breakpoints/global.less",
-		"/D/github/frontend-guide/media/css/master.less",
-		"/D/github/frontend-guide/views/layout/layout.jade"
+		"/D/github/frontend-guide/media/css/master.less"
 	],
 	"find":
 	{
@@ -1057,6 +1049,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"BindMenuControlEvents",
+			".close",
+			";\n",
+			") * App.State.Zoom",
+			" 0.1",
+			"b",
+			"a",
+			"x",
+			"1",
+			"data-type",
+			"Choice",
+			"25",
+			"50%",
+			"menu",
+			"trees",
 			"25px",
 			"z-index",
 			"203",
@@ -1169,22 +1176,7 @@
 			"175",
 			"blogcategory",
 			"list",
-			" \n",
-			"|",
-			" | ",
-			"png",
-			"svg",
-			"span",
-			"img(",
-			"img",
-			")\"",
-			"partenaire",
-			"wrapper",
-			"svg",
-			"icon",
-			"@L",
-			"extraLight",
-			";\n"
+			" \n"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1232,7 +1224,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -1263,7 +1255,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
@@ -1272,15 +1264,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1371,
+						"buffer_size": 2648,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								839,
-								839
+								1095,
+								1095
 							]
 						],
 						"settings":
@@ -1293,7 +1285,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -1322,11 +1314,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6747,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								937
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
 					"file": "js/chosen.js",
 					"semi_transient": false,
 					"settings":
@@ -1353,11 +1375,11 @@
 						"translation.y": 19169.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -1383,36 +1405,6 @@
 						"translation.y": 737.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "css/source/includes/chosen.css",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 13358,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 15,
 					"type": "text"
 				},
@@ -1422,51 +1414,46 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7193,
+						"buffer_size": 9769,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2954,
-								2954
+								4221,
+								4220
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4824.0,
+						"translation.y": 2370.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 7,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 8,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 181,
+						"buffer_size": 220,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								181,
-								181
+								220,
+								220
 							]
 						],
 						"settings":
@@ -1478,7 +1465,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
@@ -1487,15 +1474,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7193,
+						"buffer_size": 9769,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7000,
-								7000
+								9672,
+								9672
 							]
 						],
 						"settings":
@@ -1504,14 +1491,14 @@
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2088.0,
+						"translation.y": 2232.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -1537,7 +1524,7 @@
 						"translation.y": 2129.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
@@ -1566,24 +1553,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 4,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4697,
+						"buffer_size": 6747,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								337,
-								337
+								6248,
+								6248
 							]
 						],
 						"settings":
@@ -1593,10 +1580,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 360.0,
+						"translation.y": 8832.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1605,15 +1592,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1371,
+						"buffer_size": 2648,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1114,
-								1114
+								155,
+								155
 							]
 						],
 						"settings":
@@ -1626,7 +1613,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1657,7 +1644,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
@@ -1666,15 +1653,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1371,
+						"buffer_size": 2648,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								491,
-								491
+								910,
+								910
 							]
 						],
 						"settings":
@@ -1685,11 +1672,11 @@
 						"translation.y": 216.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 9,
 					"file": "css/source/fonts/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1707,17 +1694,18 @@
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 10,
 					"file": "css/source/includes/mixins.less",
 					"semi_transient": false,
 					"settings":
@@ -1744,11 +1732,11 @@
 						"translation.y": 23317.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "css/source/fonts/icons.less",
 					"semi_transient": false,
 					"settings":
@@ -1772,7 +1760,7 @@
 						"translation.y": 5585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
@@ -1781,15 +1769,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 181,
+						"buffer_size": 220,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								181,
-								181
+								220,
+								220
 							]
 						],
 						"settings":
@@ -1800,24 +1788,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 4,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4697,
+						"buffer_size": 6747,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								465,
-								465
+								1108,
+								1108
 							]
 						],
 						"settings":
@@ -1827,33 +1815,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
+						"translation.y": 1872.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 13,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
-					"buffer": 13,
+					"buffer": 12,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 341,
+						"buffer_size": 483,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								113,
-								113
+								143,
+								143
 							]
 						],
 						"settings":
@@ -1865,7 +1847,160 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 12,
+					"file": "testproject.mpf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 483,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16,
+								16
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "css/source/master.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 178,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								178,
+								178
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6747,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								393,
+								393
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/source/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2648,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								34,
+								34
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "css/source/includes/variables.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								220,
+								220
+							]
+						],
+						"settings":
+						{
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1894,19 +2029,12 @@
 				0,
 				2,
 				1
-			],
-			[
-				2,
-				0,
-				3,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.33,
-			0.66,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -1934,24 +2062,36 @@
 		"selected_items":
 		[
 			[
-				"test",
-				"testproject.mpf"
+				"app",
+				"js\\App.js"
 			],
 			[
-				"index",
-				"views\\source\\index.jade"
+				"read",
+				"README.md"
+			],
+			[
+				"var",
+				"css\\source\\includes\\variables.less"
+			],
+			[
+				"gl",
+				"css\\source\\widgets\\global.less"
 			],
 			[
 				"global",
 				"css\\source\\widgets\\global.less"
 			],
 			[
-				"app",
+				"",
 				"js\\App.js"
 			],
 			[
-				"",
+				"globl",
 				"css\\source\\widgets\\global.less"
+			],
+			[
+				"va",
+				"css\\source\\includes\\variables.less"
 			],
 			[
 				"inde",
@@ -1962,20 +2102,28 @@
 				"css\\source\\master.less"
 			],
 			[
+				"tes",
+				"testproject.mpf"
+			],
+			[
+				"index",
+				"views\\source\\index.jade"
+			],
+			[
+				"test",
+				"testproject.mpf"
+			],
+			[
+				"glo",
+				"css\\source\\widgets\\global.less"
+			],
+			[
 				"chosen",
 				"css\\source\\includes\\chosen.less"
 			],
 			[
 				"main",
 				"main.js"
-			],
-			[
-				"var",
-				"css\\source\\includes\\variables.less"
-			],
-			[
-				"glo",
-				"css\\source\\widgets\\global.less"
 			],
 			[
 				"chos",
@@ -2424,26 +2572,6 @@
 			[
 				"testimo",
 				"Multi-Prets\\media\\skin\\css\\source\\widgets\\careers\\careers-testimonials.less"
-			],
-			[
-				"testimonials",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\testimonials.less"
-			],
-			[
-				"careers-te",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\careers\\careers-testimonials.less"
-			],
-			[
-				"testim",
-				"views\\widgets\\careers\\careers-testimonials.jade"
-			],
-			[
-				"fe",
-				"views\\widgets\\blog\\featured-articles.jade"
-			],
-			[
-				"acc",
-				"views\\widgets\\rates\\rates-accordions.jade"
 			]
 		],
 		"width": 0.0
@@ -2490,7 +2618,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 2,
+	"selected_group": 0,
 	"settings":
 	{
 	},

@@ -18,17 +18,19 @@
 			App.Events.BindNodeEvents();
 
 			$("select", "#tool-bar").chosen();
-			requestAnimationFrame(App.Draw.Loop);
-
 			App.File.OpenProject("testproject.mpf");
+
+			requestAnimationFrame(App.Draw.Loop);
 		},
 		Events : {
 			BindWindowControlEvents : function () {
-				$("span.close").on('click', function () {
+				var scope = "nav#menu-bar";
+
+				$("span.close", scope).on('click', function () {
 					App.BrowserWindow.close();
 				});
 
-				$("span.maximize").on('click', function () {
+				$("span.maximize", scope).on('click', function () {
 					if (App.BrowserWindow.isMaximized()) {
 						App.BrowserWindow.unmaximize();
 						$(this).removeClass("maximized");
@@ -38,7 +40,7 @@
 					}
 				});
 
-				$("span.minimize").on('click', function () {
+				$("span.minimize", scope).on('click', function () {
 					App.BrowserWindow.minimize();
 				});
 			},
@@ -126,7 +128,7 @@
 				$(".menu", scope).on('click', function () {
 					$(this).toggleClass("open");
 					App.View.DisplayAnimate($(".dropdown"), "shown", "open");
-				})
+				});
 
 				$(".node-menu", scope).on('click', function () {
 					$(this).toggleClass("open");
