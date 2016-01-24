@@ -3264,8 +3264,8 @@ textarea {
   left: 15px;
   color: #ecf0f1;
   font-size: 14px;
-  -webkit-transition: all 750ms ease-out;
-  transition: all 750ms ease-out;
+  -webkit-transition: all 500ms ease-out;
+  transition: all 500ms ease-out;
   opacity: 1;
 }
 #status-bar.hidden {

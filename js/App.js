@@ -17,7 +17,7 @@
 			App.Events.BindMenuControlEvents();
 			App.Events.BindSplashEvents();
 			App.Events.BindNodeEvents();
-			App.File.StartAutosaveLoop();
+			// App.File.StartAutosaveLoop();
 
 			$("select", "#tool-bar").chosen();
 			App.File.OpenProject("testproject.mpf");
@@ -165,17 +165,17 @@
 				});
 			},
 			BindNodeEvents : function () {
-				$(".controls select").on('change blur', function () {
+				$("section#nodes").on('change blur', '.controls select', function () {
 					if ($(this).find(":selected").val() === "placeholder") {
 						$(this).addClass("placeholder");
 					}
 				});
 
-				$(".controls select").on('click', function () {
+				$("section#nodes").on('click', '.controls select', function () {
 					$(this).removeClass("placeholder");
 				});
 
-				$("select.nodetype").change(function () {
+				$('section#nodes').on('change', "select.nodetype", function () {
 					var newType = $(this).find(":selected").val();
 					var parent = $(this).closest(".node");
 
@@ -192,7 +192,7 @@
 					App.Draw.ScrollElements();
 				}
 
-				// App.Draw.DrawLines();
+				App.Draw.DrawLinks();
 				requestAnimationFrame(App.Draw.Loop);
 			},
 			ScrollElements : function () {
@@ -209,42 +209,43 @@
 
 				App.State.Dirty = false;
 			},
-			DrawLines : function () {
-				/*
-				App.Canvas.Context.beginPath();
-				App.Canvas.Context.moveTo(0, 0);
-				App.Canvas.Context.lineTo(App.WindowSize.Width, App.WindowSize.Height);
-				App.Canvas.Context.lineWidth = 3;
-				App.Canvas.Context.stroke();
-				App.Canvas.Context.beginPath();
-				App.Canvas.Context.moveTo(0, App.WindowSize.Height);
-				App.Canvas.Context.quadraticCurveTo(0, App.WindowSize.Width / 2, App.WindowSize.Width, 0);
-				App.Canvas.Context.lineWidth = 3;
-				App.Canvas.Context.stroke();
-				*/
+			DrawLinks : function () {
+				$.each($("section#nodes .node:not(.template)"), function () {
+					var id = $(this).data('id');
+					if (App.Data.Trees[App.State.CurrentTree].nodes[id].links.length > 0) {
+						var fromX, fromY, toX, toY, cp1X, cp1Y, cp2X, cp2Y,
+							currentNode = $(this);
 
-				var node = $("#nodes .node:first-child");
-				var x = node.offset().left + node.outerWidth();
-				var y = node.offset().top + (node.outerHeight() / 2) - 35;
+						App.Data.Trees[App.State.CurrentTree].nodes[id].links.forEach(function (link, i) {
+							//TODO(romeo): support multiple links
+							var fromElem = currentNode.find(".links span.connectTo:eq(" + (i - 1) + ")"),
+								fromPos = fromElem.offset();
 
-				var node2 = $("#nodes .node:not(:first-child)");
-				var toX = node2.offset().left;
-				var toY = node2.offset().top + (node2.outerHeight() / 2) - 35;
+							fromX = fromPos.left;
+							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
 
-				//var toX = 200 + App.State.Position.X;
-				//var toY = 200 + App.State.Position.Y;
+							var toElem = $("section#nodes .node:not(.template)").filter(function () {
+									return $(this).data('id') === link;
+								}).find("span.connectFrom"),
+								toPos = toElem.offset();
 
-				var cp1X = x + (toX - x) / 3;
-				var cp2X = x + ((toX - x) / 3) * 2;
-				var cp1Y = y;
-				var cp2Y = toY;
+							toX = toPos.left;
+							toY = toPos.top + (toElem.outerHeight() / 2) - 35;
 
-				App.Canvas.Context.beginPath();
-				App.Canvas.Context.moveTo(x, y);
-				App.Canvas.Context.bezierCurveTo(cp1X, y, cp2X, toY, toX, toY);
-				App.Canvas.Context.lineWidth = 3;
-				App.Canvas.Context.strokeStyle = "#ECF0F1";
-				App.Canvas.Context.stroke();
+							cp1X = fromX + (toX - fromX) / 3;
+							cp2X = fromX + ((toX - fromX) / 3) * 2;
+							cp1Y = fromY;
+							cp2Y = toY;
+
+							App.Canvas.Context.beginPath();
+							App.Canvas.Context.moveTo(fromX, fromY);
+							App.Canvas.Context.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, toX, toY);
+							App.Canvas.Context.lineWidth = 3 * App.State.Zoom;
+							App.Canvas.Context.strokeStyle = "#ECF0F1";
+							App.Canvas.Context.stroke();
+						});
+					}
+				});
 			},
 			Resize : function () {
 				var windowSize = App.BrowserWindow.getContentSize();
@@ -258,6 +259,8 @@
 				App.View.AnimateWithCallback($("#splash .content"), "shown", function () {
 					App.View.AnimateWithCallback($("#splash .icon"), "shown", function () {
 						$("h1").text("Monologue - " + App.Data.Project.name);
+						App.View.GenerateTrees();
+						App.View.GenerateNodes();
 						App.State.Dirty = true;
 
 						App.View.AnimateWithCallback($("#splash"), "shown", function () {
@@ -289,7 +292,30 @@
 					}, 1000)
 				}, true);
 			},
-			NodeTemplate : $(".node.template")
+			GenerateNodes : function () {
+				$.each($("section#nodes .tree"), function () {
+					var tree = $(this);
+					console.log(tree.data('id'));
+					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {
+						var node = $(".node.template").clone().removeClass('template');
+						node.data('id', e.id);
+						node.find("select.nodetype option[value=" + e.type + "]").attr("selected", "selected");
+						node.find(".controls[data-type=" + e.type + "]").removeClass("hidden");
+
+						if (e.type === "text") {
+							node.find("input[data-name]").val(e.name);
+							node.find("textarea[data-message]").val(e.message);
+						}
+
+						node.appendTo(tree);
+					});
+				});
+			},
+			GenerateTrees : function () {
+				App.Data.Trees.forEach(function (tree, index) {
+					$("section#nodes").append("<section class='tree' data-id='" + tree.id + "'></section>");
+				});
+			}
 		},
 		Canvas : {
 			Element : null,
@@ -301,8 +327,8 @@
 		},
 		State : {
 			Position : {
-				X : 150,
-				Y : 150
+				X : 0,
+				Y : 0
 			},
 			LastMousePosition : {
 				X : 0,
