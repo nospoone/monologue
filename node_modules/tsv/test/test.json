@@ -1,0 +1,30 @@
+[{
+    "id": 0,
+    "food": "bacon",
+    "type": "good",
+    "source": "pig"
+},
+{
+    "id": 1,
+    "food": "milk",
+    "type": "good",
+    "source": "cow"
+},
+{
+    "id": 55,
+    "food": "eggs",
+    "type": "good",
+    "source": "chicken"
+},
+{
+    "id": 70,
+    "food": "turnip",
+    "type": "bad",
+    "source": "earth"
+},
+{
+    "id": 90,
+    "food": "raw meat",
+    "type": "noquotes",
+    "source": "  spaces "
+}]
