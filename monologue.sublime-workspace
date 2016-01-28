@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"lang",
+				"language"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"current",
+				"CurrentLanguage"
+			],
+			[
+				"append",
+				"appendTo"
+			],
+			[
+				"Link",
+				"LinkingFrom"
+			],
+			[
+				"Linking",
+				"LinkingFrom"
+			],
+			[
+				"appen",
+				"appendTo"
+			],
+			[
+				"Current",
+				"CurrentTree"
+			],
+			[
+				"pro",
+				"project"
+			],
+			[
+				"Sav",
+				"SaveProject"
+			],
+			[
 				"padding",
 				"padding-bottom"
 			],
@@ -102,10 +142,6 @@
 			[
 				"margi",
 				"margin-bottom"
-			],
-			[
-				"for",
-				"for	for (…) {…}"
 			],
 			[
 				"fon",
@@ -478,55 +514,11 @@
 			[
 				"data-",
 				"data-tabId"
-			],
-			[
-				"tran",
-				"transition"
-			],
-			[
-				"bor",
-				"border-bottom"
-			],
-			[
-				"en",
-				"enfants"
-			],
-			[
-				"Ac",
-				"Activité"
-			],
-			[
-				"activi",
-				"activity"
-			],
-			[
-				"act",
-				"activity"
-			],
-			[
-				"cle",
-				"clearfix"
-			],
-			[
-				"border-b",
-				"border-bottom"
-			],
-			[
-				"pa",
-				"padding"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 102,
-				"line_ending": "Windows"
-			}
-		},
 		{
 			"file": "main.js",
 			"settings":
@@ -536,13 +528,58 @@
 			}
 		},
 		{
-			"contents": "doctype html\nhtml(lang='en')\n	head\n		meta(charset='utf-8')\n		title Monologue - Branching Dialogue Editor\n		link(rel='stylesheet', href='../css/master.css')\n		script(src='../js/greetings.js')\n		script(src='../js/chosen.js')\n		script(src='../js/App.js')\n	body\n		.overlay.hidden.invisible\n			.modal.project-settings\n				h2 Project Settings\n				label(for)\n				input(type=\"text\", data-project-title)\n				footer\n					span.close\n		#splash.shown\n			.content.shown\n				h2 \n				.buttons\n					span.new New Project\n					span.open Open Project\n			.icon\n				i.fa.fa-refresh.fa-spin\n		nav#menu-bar\n			h1 Monologue - Branching Dialogue Editor\n			.controls\n				span.close\n					i.fa.fa-times\n				span.maximize\n					i.fa.fa-clone\n					i.fa.fa-square-o\n				span.minimize\n					i.fa.fa-minus\n		nav#tool-bar\n			span.menu\n				i.fa.fa-bars\n				i.fa.fa-times\n			.dropdown\n				span.save-project \n					i.fa.fa-floppy-o\n					| Save Project\n				span.close-project \n					i.fa.fa-times-circle\n					| Close Project\n				span.line\n				span.settings\n					i.fa.fa-cog\n					| Project Settings\n				span.languages\n					i.fa.fa-language\n					| Project Languages\n			span.node-menu\n				i.fa.fa-plus\n				i.fa.fa-times\n			.node-dropdown\n				span.add-node\n					i.fa.fa-plus-circle\n					| Add Node\n			select.trees\n				option(data-tree=\"0\") Tree 1\n			select.languages\n				option English (enUS)\n				option French (frCA)\n				option Brazilian Portuguese (ptBR)\n		section#nodes\n			.tree(data-id=\"0\")\n				.node(data-id=\"0\")\n					header\n						span.remove-node\n							i.fa.fa-close\n					.select\n						i.fa.fa-angle-double-down\n						select.nodetype\n							option(disabled, selected, default) Node Type\n							option(value=\"text\") Text\n							//- option(value=\"choice\") Choice\n							option(value=\"set\") Set\n							option(value=\"branch\") Branch\n							//- option(value=\"node\") Node\n					.controls(data-type=\"text\").hidden\n						input(type=\"text\", data-type=\"text\", data-name, placeholder=\"Name\")\n						textarea(data-type=\"text\", data-message, placeholder=\"Message\")\n					.controls(data-type=\"set\").hidden\n						select(data-type=\"set\", data-variable).placeholder\n							option(disabled, selected, default, value=\"placeholder\") Variable\n							option(value=\"var\") Variable 1\n						input(type=\"text\", data-type=\"set\", data-value, placeholder=\"Value\")\n					.controls(data-type=\"branch\").hidden\n						select(data-type=\"set\", data-variable).placeholder\n							option(disabled, selected, default, value=\"placeholder\") Variable\n							option(value=\"var\") Variable 1\n						input(type=\"text\", data-type=\"set\", data-value, placeholder=\"Value\")\n					.links\n						span.connectFrom\n						span.connectTo\n		canvas#canvas",
 			"file": "views/source/index.jade",
-			"file_size": 2700,
-			"file_write_time": 130980603381968409,
 			"settings":
 			{
-				"buffer_size": 2648,
+				"buffer_size": 410,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/nodes.jade",
+			"settings":
+			{
+				"buffer_size": 1099,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars/tool-bar.jade",
+			"settings":
+			{
+				"buffer_size": 97,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars/tool-bar/node-menu.jade",
+			"settings":
+			{
+				"buffer_size": 229,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars/tool-bar/trees-languages.jade",
+			"settings":
+			{
+				"buffer_size": 29,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars/tool-bar/menu.jade",
+			"settings":
+			{
+				"buffer_size": 284,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars/menu-bar.jade",
+			"settings":
+			{
+				"buffer_size": 181,
 				"line_ending": "Windows"
 			}
 		},
@@ -558,7 +595,7 @@
 			"file": "css/source/widgets/global.less",
 			"settings":
 			{
-				"buffer_size": 6747,
+				"buffer_size": 7121,
 				"line_ending": "Windows"
 			}
 		},
@@ -579,13 +616,50 @@
 			}
 		},
 		{
-			"contents": "(function ($) {\n	'use strict';\n\n	var App = {\n		Bootstrap : function () {\n			App.Remote = require('remote');\n			App.Dialog = App.Remote.require(\"dialog\");\n			App.BrowserWindow = App.Remote.require(\"browser-window\").getFocusedWindow();\n			App.Canvas.Element = $(\"#canvas\")[0];\n			App.Canvas.Context = App.Canvas.Element.getContext(\"2d\");\n\n			$(\"#splash h2\").text(greetings[Math.floor(Math.random() * greetings.length)]);\n\n			App.Events.BindWindowControlEvents();\n			App.Events.BindScrollControlEvents();\n			App.Events.BindMenuControlEvents();\n			App.Events.BindSplashEvents();\n			App.Events.BindNodeEvents();\n\n			$(\"select\", \"#tool-bar\").chosen();\n			App.File.OpenProject(\"testproject.mpf\");\n\n			requestAnimationFrame(App.Draw.Loop);\n		},\n		Events : {\n			BindWindowControlEvents : function () {\n				var scope = \"nav#menu-bar\";\n\n				$(\"span.close\", scope).on('click', function () {\n					App.BrowserWindow.close();\n				});\n\n				$(\"span.maximize\", scope).on('click', function () {\n					if (App.BrowserWindow.isMaximized()) {\n						App.BrowserWindow.unmaximize();\n						$(this).removeClass(\"maximized\");\n					} else {\n						App.BrowserWindow.maximize();\n						$(this).addClass(\"maximized\");\n					}\n				});\n\n				$(\"span.minimize\", scope).on('click', function () {\n					App.BrowserWindow.minimize();\n				});\n			},\n			BindScrollControlEvents : function () {\n				$(\"canvas, section#nodes, .node header\").on('mousedown', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						App.State.Dragging = true;\n						$(\"body\").addClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\")) {\n						App.State.Dragging = true;\n						App.State.DraggedNode = $(e.target).closest(\".node\").data(\"id\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n\n				});\n\n				$(\"canvas, section#nodes\").on('mousemove', function (e) {\n					if (($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") && App.State.DraggedNode === null) {\n						if (App.State.Dragging) {\n							App.State.Position.X -= App.State.LastMousePosition.X - e.clientX;\n							App.State.Position.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n						\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\") || App.State.DraggedNode !== null) {\n						if (App.State.Dragging) {\n							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.X -= App.State.LastMousePosition.X - e.clientX;\n							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n						App.State.Dirty = true;\n						\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n				});\n\n				$(\"canvas, section#nodes\").on('mouseup', function (e) {\n						App.State.Dragging = false;\n						App.State.DraggedNode = null;\n						$(\"body\").removeClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n				});\n\n				$(\"canvas, section#nodes, .node header\").on('dblclick', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						//TODO(romeo): add nodes from here\n					}\n				});\n\n				$(window).on('mousewheel', function (e) {\n					if (e.originalEvent.wheelDelta < 0) {\n						App.State.Zoom -= App.State.Zoom * 0.05;\n					} else {\n						App.State.Zoom += App.State.Zoom * 0.05;\n					}\n\n					App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;\n					$(\"section#nodes .tree\").css({ transform : \"scale(\" + App.State.Zoom + \")\" });\n				});\n			},\n			BindMenuControlEvents : function () {\n				var scope = \"nav#tool-bar\";\n\n				$(\".menu\", scope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".dropdown\"), \"shown\", \"open\");\n				});\n\n				$(\".dropdown\")\n\n				$(\".node-menu\", scope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".node-dropdown\"), \"shown\", \"open\");\n				});\n			},\n			BindSplashEvents : function () {\n				var scope = \"div#splash\";\n				$(\"span.open\", scope).on('click', function (e) {\n					var file = App.Dialog.showOpenDialog(App.BrowserWindow, { \n						title : \"Open Project...\",  \n						properties: [ 'openFile' ],\n						filters : [\n							{ name : 'Monologue Project File', extensions: ['mpf', 'json'] }\n						]\n					});\n\n					if (file !== undefined) {\n						App.File.OpenProject(file[0]);\n					}\n\n					e.preventDefault();\n					e.stopPropagation();\n					return false;\n				});\n			},\n			BindNodeEvents : function () {\n				$(\".controls select\").on('change blur', function () {\n					if ($(this).find(\":selected\").val() === \"placeholder\") {\n						$(this).addClass(\"placeholder\");\n					}\n				});\n\n				$(\".controls select\").on('click', function () {\n					$(this).removeClass(\"placeholder\");\n				});\n\n				$(\"select.nodetype\").change(function () {\n					var newType = $(this).find(\":selected\").val();\n					var parent = $(this).closest(\".node\");\n\n					parent.find(\".controls:not(.hidden)\").addClass(\"hidden\");\n					parent.find(\".controls[data-type=\" + newType + \"]\").removeClass(\"hidden\");\n\n				});\n			}\n		},\n		Draw : {\n			Loop : function () {\n				App.Draw.Resize();\n\n				if (App.State.Dirty) {\n					App.Draw.ScrollElements();\n				}\n\n				// App.Draw.DrawLines();\n				requestAnimationFrame(App.Draw.Loop);\n			},\n			ScrollElements : function () {\n				$(\"body\").css({ backgroundPosition : App.State.Position.X + \"px \" + App.State.Position.Y + \"px\" });\n				$(\"section#nodes\").css({ transform : \"translate(\" + App.State.Position.X + \"px, \" + App.State.Position.Y + \"px)\" });\n\n				if (App.Data.Trees) {\n					$.each($(\"section#nodes .node:not(.template)\"), function () {\n						var coords = App.Data.GetNodeCoordinates(App.State.CurrentTree, $(this).data(\"id\"));\n						$(this).css({ transform : \"translate(\" + coords.X + \"px, \" + coords.Y + \"px)\" });\n					});\n				}\n\n				App.State.Dirty = false;\n			},\n			DrawLines : function () {\n				/*\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(0, 0);\n				App.Canvas.Context.lineTo(App.WindowSize.Width, App.WindowSize.Height);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.stroke();\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(0, App.WindowSize.Height);\n				App.Canvas.Context.quadraticCurveTo(0, App.WindowSize.Width / 2, App.WindowSize.Width, 0);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.stroke();\n				*/\n\n				var node = $(\"#nodes .node:first-child\");\n				var x = node.offset().left + node.outerWidth();\n				var y = node.offset().top + (node.outerHeight() / 2) - 35;\n\n				var node2 = $(\"#nodes .node:not(:first-child)\");\n				var toX = node2.offset().left;\n				var toY = node2.offset().top + (node2.outerHeight() / 2) - 35;\n\n				//var toX = 200 + App.State.Position.X;\n				//var toY = 200 + App.State.Position.Y;\n\n				var cp1X = x + (toX - x) / 3;\n				var cp2X = x + ((toX - x) / 3) * 2;\n				var cp1Y = y;\n				var cp2Y = toY;\n\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(x, y);\n				App.Canvas.Context.bezierCurveTo(cp1X, y, cp2X, toY, toX, toY);\n				App.Canvas.Context.lineWidth = 3;\n				App.Canvas.Context.strokeStyle = \"#ECF0F1\";\n				App.Canvas.Context.stroke();\n			},\n			Resize : function () {\n				var windowSize = App.BrowserWindow.getContentSize();\n\n				App.Canvas.Element.width = App.WindowSize.Width = windowSize[0];\n				App.Canvas.Element.height = App.WindowSize.Height = windowSize[1] - 35;\n			}\n		},\n		View : {\n			LoadProject : function () {\n				App.View.AnimateWithCallback($(\"#splash .content\"), \"shown\", function () {\n					App.View.AnimateWithCallback($(\"#splash .icon\"), \"shown\", function () {\n						$(\"h1\").text(\"Monologue - \" + App.Data.Project.name);\n						App.State.Dirty = true;\n\n						App.View.AnimateWithCallback($(\"#splash\"), \"shown\", function () {\n							$(\"#splash\").addClass(\"gone\");\n						});\n					})\n				}, true);\n			},\n			DisplayAnimate : function (element, blockClass, opacityClass) {\n				element.toggleClass(blockClass);\n				setTimeout(function () {\n					element.toggleClass(opacityClass);\n				}, 1);\n			},\n			AnimateWithCallback : function (element, cssClass, callback, remove) {\n				remove = remove || false;\n\n				if (remove) {\n					element.one(\"webkitTransitionEnd\", callback).removeClass(cssClass);\n				} else {\n					element.one(\"webkitTransitionEnd\", callback).addClass(cssClass);\n				}\n		},\n			NodeTemplate : $(\".node.template\")\n		},\n		Canvas : {\n			Element : null,\n			Context : null\n		},\n		WindowSize : {\n			Width : 0,\n			Height : 0\n		},\n		State : {\n			Position : {\n				X : 150,\n				Y : 150\n			},\n			LastMousePosition : {\n				X : 0,\n				Y : 0\n			},\n			Zoom : 1,\n			Dragging : false,\n			DraggedNode : null,\n			CurrentTree : 0\n		},\n		File : {\n			OpenProject : function (file) {\n				var fs = App.Remote.require('fs');\n				var d = JSON.parse(fs.readFileSync(file, { encoding : \"utf8\"}));\n				App.Data.Project = d.project;\n				App.Data.Trees = d.trees;\n				App.View.LoadProject();\n			}\n		},\n		Data : {\n			Project : null,\n			Trees : null,\n			GetNodeCoordinates : function (treeId, nodeId) {\n				return {\n					X : App.Data.Trees[treeId].nodes[nodeId].editor.X,\n					Y : App.Data.Trees[treeId].nodes[nodeId].editor.Y\n				}\n			}\n		},\n		Remote : null,\n		BrowserWindow : null,\n		Dialog : null,\n	};\n\n	$(function () {\n		App.Bootstrap();\n		window.App = App;\n	});\n})(require('../js/jquery.js'));",
 			"file": "js/App.js",
-			"file_size": 10076,
-			"file_write_time": 130980612462944617,
 			"settings":
 			{
-				"buffer_size": 9769,
+				"buffer_size": 18756,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/status.jade",
+			"settings":
+			{
+				"buffer_size": 42,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/bars.jade",
+			"settings":
+			{
+				"buffer_size": 43,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/splash.jade",
+			"settings":
+			{
+				"buffer_size": 129,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/modals.jade",
+			"settings":
+			{
+				"buffer_size": 58,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/modals/project-settings.jade",
+			"settings":
+			{
+				"buffer_size": 117,
 				"line_ending": "Windows"
 			}
 		},
@@ -625,7 +699,26 @@
 			"file": "testproject.mpf",
 			"settings":
 			{
-				"buffer_size": 483,
+				"buffer_size": 1782,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "{\n	\"project\" : {\n		\"name\" : \"Test Project\",\n		\"State\" : {\n			\"Position\" : {\n				\"X\" : 0,\n				\"Y\" : 0\n			}\n		}\n	},\n	\"vagin\" : 1,\n	\"trees\" : [\n		{\n			\"id\" : 0,\n			\"displayName\" : \"Test Tree\",\n			\"nodes\" : [\n				{\n					\"id\" : 0,\n					\"displayName\" : \"Test Node\",\n					\"type\" : \"Node\",\n					\"editor\" : {\n						\"X\" : 0,\n						\"Y\" : 0\n					}\n				}\n			]\n		}\n	]\n}",
+			"file": "/C/testproject.json",
+			"file_size": 368,
+			"file_write_time": 130977837356202100,
+			"settings":
+			{
+				"buffer_size": 355,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/index.html",
+			"settings":
+			{
+				"buffer_size": 3328,
 				"line_ending": "Windows"
 			}
 		}
@@ -876,16 +969,13 @@
 	"expanded_folders":
 	[
 		"/E/_dev/monologue",
-		"/E/_dev/monologue/css",
-		"/E/_dev/monologue/css/source",
-		"/E/_dev/monologue/css/source/includes",
-		"/E/_dev/monologue/img",
-		"/E/_dev/monologue/js",
-		"/E/_dev/monologue/views",
-		"/E/_dev/monologue/views/source"
+		"/E/_dev/monologue/node_modules",
+		"/E/_dev/monologue/node_modules/tsv"
 	],
 	"file_history":
 	[
+		"/E/_dev/monologue/package.json",
+		"/E/_dev/monologue/testproject.mpf",
 		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/testproject.json",
 		"/E/_dev/monologue/css/source/widgets/global.less",
@@ -1011,9 +1101,7 @@
 		"/D/github/atk5/media/css/HOME/TS-maintenance.less",
 		"/D/github/atk5/views/maintenance.jade",
 		"/D/github/frontend-guide/media/css/source/includes/fa/variables.less",
-		"/D/github/frontend-guide/media/css/source/includes/variables.less",
-		"/D/github/frontend-guide/media/css/source/breakpoints/global.less",
-		"/D/github/frontend-guide/media/css/master.less"
+		"/D/github/frontend-guide/media/css/source/includes/variables.less"
 	],
 	"find":
 	{
@@ -1049,6 +1137,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GetText",
+			"genera",
+			"loadpro",
+			"chosen",
+			"LoadProjec",
+			"linking",
+			"set",
+			":",
+			"add",
+			"tree",
+			" x",
+			"x",
+			"DrawLines",
+			"generaten",
+			"bindnode",
+			"node",
+			"loadproj",
+			"data",
+			"X",
+			"fs",
+			"||",
+			"File :",
+			"File",
+			"showstatus",
 			"BindMenuControlEvents",
 			".close",
 			";\n",
@@ -1152,31 +1264,7 @@
 			"bool",
 			"rotateY(@degrees)",
 			"preserve-3d",
-			"origin",
-			"transform",
-			".requ",
-			"input[type=tex",
-			"input[type",
-			"Soumettre",
-			"position",
-			".categories",
-			"submit",
-			"wrapper.find(\"a.btn\")",
-			"$(this).closest(\".wrapper\")",
-			"#xxx",
-			"tabid",
-			"big",
-			"bigtoggle",
-			"{\n",
-			"			.EditingFormControlNestedControl.editing-form-control-nested-control\n				input.form-control(type=\"text\", name=\"\")",
-			"#x",
-			"select",
-			"socialBtn",
-			"{\n",
-			"175",
-			"blogcategory",
-			"list",
-			" \n"
+			"origin"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1195,40 +1283,11 @@
 	"groups":
 	[
 		{
-			"selected": 7,
+			"selected": 12,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "package.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 102,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								100,
-								100
-							]
-						],
-						"settings":
-						{
-							"history_list_is_closing": true,
-							"syntax": "Packages/Material Theme/langs/npm JSON.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 26,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "main.js",
 					"semi_transient": false,
 					"settings":
@@ -1240,12 +1299,13 @@
 						"selection":
 						[
 							[
-								645,
-								645
+								649,
+								649
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
@@ -1255,28 +1315,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "views/source/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2648,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1095,
-								1095
+								155,
+								155
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1285,11 +1346,196 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 22,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/source/components/nodes.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13,
+								13
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+					"file": "views/source/components/bars/tool-bar.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 97,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								97,
+								97
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 24,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/source/components/bars/tool-bar/node-menu.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 229,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								28,
+								28
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 26,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 23,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "views/source/components/bars/tool-bar/menu.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 284,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23,
+								23
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 27,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "views/source/components/bars/menu-bar.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								181,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 25,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -1307,6 +1553,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -1314,28 +1561,29 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6747,
+						"buffer_size": 7121,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								937,
-								937
+								927,
+								927
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1344,11 +1592,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 10,
 					"file": "js/chosen.js",
 					"semi_transient": false,
 					"settings":
@@ -1366,20 +1614,21 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 19169.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 11,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -1397,6 +1646,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -1405,42 +1655,193 @@
 						"translation.y": 737.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 41,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 12,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9769,
+						"buffer_size": 18756,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4221,
-								4220
+								1443,
+								1443
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2370.0,
+						"translation.y": 1122.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 13,
+					"file": "views/source/components/status.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 18,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "views/source/components/bars.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 43,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 30,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "views/source/components/splash.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 129,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								70,
+								70
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 29,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "views/source/components/modals.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 58,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 31,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "views/source/components/modals/project-settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 117,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								117,
+								117
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 32,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1458,6 +1859,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -1465,40 +1867,41 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 49,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 12,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9769,
+						"buffer_size": 18756,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9672,
-								9672
+								12945,
+								12945
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"open_with_edit": true,
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2232.0,
+						"translation.y": 9042.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 11,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -1516,6 +1919,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -1524,11 +1928,11 @@
 						"translation.y": 2129.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 8,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -1546,6 +1950,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -1553,58 +1958,60 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 45,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6747,
+						"buffer_size": 7121,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6248,
-								6248
+								190,
+								190
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 8832.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "views/source/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2648,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								155,
-								155
+								285,
+								285
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1613,11 +2020,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 0,
 					"file": "main.js",
 					"semi_transient": false,
 					"settings":
@@ -1635,6 +2042,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
@@ -1644,39 +2052,40 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 42,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "views/source/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2648,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								910,
-								910
+								394,
+								394
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 216.0,
+						"translation.y": 24.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 19,
 					"file": "css/source/fonts/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1694,6 +2103,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -1701,11 +2111,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 46,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 20,
 					"file": "css/source/includes/mixins.less",
 					"semi_transient": false,
 					"settings":
@@ -1723,6 +2133,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage",
 							"tab_size": 2,
@@ -1732,11 +2143,11 @@
 						"translation.y": 23317.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 47,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 21,
 					"file": "css/source/fonts/icons.less",
 					"semi_transient": false,
 					"settings":
@@ -1754,17 +2165,18 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 5585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 48,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 18,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1782,34 +2194,36 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 43,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6747,
+						"buffer_size": 7121,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1108,
-								1108
+								1098,
+								1098
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1818,28 +2232,30 @@
 						"translation.y": 1872.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 40,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 22,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 483,
+						"buffer_size": 1782,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								143,
-								143
+								1782,
+								1782
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
@@ -1847,46 +2263,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 2,
-			"sheets":
-			[
-				{
-					"buffer": 12,
-					"file": "testproject.mpf",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 483,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16,
-								16
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 8,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -1904,6 +2285,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -1911,58 +2293,184 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "css/source/widgets/global.less",
+					"buffer": 22,
+					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6747,
+						"buffer_size": 1782,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								393,
-								393
+								1782,
+								1782
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
-							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "views/source/index.jade",
+					"file": "views/source/components/nodes.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2648,
+						"buffer_size": 1099,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								34,
-								34
+								86,
+								86
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "js/App.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11035,
+								11035
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5729.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7121,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7013,
+								7013
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 9685.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 23,
+					"file": "/C/testproject.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 355,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								109,
+								109
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/source/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								410,
+								410
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1971,11 +2479,70 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 13,
+					"file": "views/source/components/status.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 42,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 21,
+					"type": "text"
+				},
+				{
+					"buffer": 24,
+					"file": "views/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3328,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 20,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1993,6 +2560,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
 							"history_list_is_closing": true,
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
@@ -2000,7 +2568,259 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 35,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/source/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/source/components/nodes.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								402,
+								402
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7121,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5733,
+								5733
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 8633.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 22,
+					"file": "testproject.mpf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1782,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1376,
+								1376
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2304.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/source/index.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 410,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/source/components/nodes.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1099,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -2034,7 +2854,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.770703125,
 			1.0
 		],
 		"rows":
@@ -2062,8 +2882,52 @@
 		"selected_items":
 		[
 			[
+				"langu",
+				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
+			],
+			[
+				"",
+				"testproject.mpf"
+			],
+			[
 				"app",
 				"js\\App.js"
+			],
+			[
+				"global",
+				"css\\source\\widgets\\global.less"
+			],
+			[
+				"nodes",
+				"views\\source\\components\\nodes.jade"
+			],
+			[
+				"index",
+				"views\\source\\index.jade"
+			],
+			[
+				"test",
+				"testproject.mpf"
+			],
+			[
+				"node",
+				"views\\source\\components\\nodes.jade"
+			],
+			[
+				"trees",
+				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
+			],
+			[
+				"main",
+				"main.js"
+			],
+			[
+				"stat",
+				"views\\source\\components\\status.jade"
+			],
+			[
+				"globa",
+				"css\\source\\widgets\\global.less"
 			],
 			[
 				"read",
@@ -2076,14 +2940,6 @@
 			[
 				"gl",
 				"css\\source\\widgets\\global.less"
-			],
-			[
-				"global",
-				"css\\source\\widgets\\global.less"
-			],
-			[
-				"",
-				"js\\App.js"
 			],
 			[
 				"globl",
@@ -2106,24 +2962,12 @@
 				"testproject.mpf"
 			],
 			[
-				"index",
-				"views\\source\\index.jade"
-			],
-			[
-				"test",
-				"testproject.mpf"
-			],
-			[
 				"glo",
 				"css\\source\\widgets\\global.less"
 			],
 			[
 				"chosen",
 				"css\\source\\includes\\chosen.less"
-			],
-			[
-				"main",
-				"main.js"
 			],
 			[
 				"chos",
@@ -2548,30 +3392,6 @@
 			[
 				"blogcate",
 				"Multi-Prets\\media\\skin\\css\\source\\widgets\\blog\\blogcategory-list.less"
-			],
-			[
-				"blog",
-				"views\\blog-category-list.jade"
-			],
-			[
-				"testi",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\testimonials.less"
-			],
-			[
-				"forms",
-				"views\\forms.jade"
-			],
-			[
-				"mixins",
-				"Multi-Prets\\media\\skin\\css\\source\\includes\\mixins.less"
-			],
-			[
-				"atci",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\articles.less"
-			],
-			[
-				"testimo",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\careers\\careers-testimonials.less"
 			]
 		],
 		"width": 0.0

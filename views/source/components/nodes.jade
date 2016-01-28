@@ -6,7 +6,7 @@ section#nodes
 		.select
 			i.fa.fa-angle-double-down
 			select.nodetype
-				option(disabled, selected, default) Node Type
+				option(disabled, selected, default, value="default") Node Type
 				option(value="text") Text
 				//- option(value="choice") Choice
 				option(value="set") Set
@@ -16,15 +16,20 @@ section#nodes
 			input(type="text", data-type="text", data-name, placeholder="Name")
 			textarea(data-type="text", data-message, placeholder="Message")
 		.controls(data-type="set").hidden
-			select(data-type="set", data-variable).placeholder
+			select(data-variable).placeholder
 				option(disabled, selected, default, value="placeholder") Variable
-				option(value="var") Variable 1
 			input(type="text", data-type="set", data-value, placeholder="Value")
 		.controls(data-type="branch").hidden
+			span.add
+				i.fa.fa-plus
+			span.remove
+				i.fa.fa-times
+			span.remove
 			select(data-type="set", data-variable).placeholder
 				option(disabled, selected, default, value="placeholder") Variable
 				option(value="var") Variable 1
-			input(type="text", data-type="set", data-value, placeholder="Value")
+			input(type="text", data-type="set", data-value="0", placeholder="Value")
 		.links
+			span.connectFromTrigger
 			span.connectFrom
 			span.connectTo
