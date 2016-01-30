@@ -1,6 +1,8 @@
 .modal.project-settings
 	h2 Project Settings
-	label(for)
-	input(type="text", data-project-title)
+	label(for="title") Project Title
+	input(type="text", data-project-title, name="title")#title
 	footer
 		span.close
+			i.fa.fa-times
+			| Save &amp; Close

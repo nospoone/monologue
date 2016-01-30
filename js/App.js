@@ -115,7 +115,7 @@
 
 				$("canvas, section#nodes, .node header").on('dblclick', function (e) {
 					if ($(e.target).prop("id") === "nodes" || $(e.target).prop("id") === "canvas") {
-						App.View.AddNode();
+						App.View.AddNode(e.clientX - App.State.Position.X - 100, e.clientY - App.State.Position.Y - 45);
 					}
 				});
 
@@ -152,7 +152,7 @@
 
 				$("select.languages").chosen().change(function () {
 					App.View.ChangeLanguage($(this).find(":selected").val());
-				});
+			});
 			},
 			BindSplashEvents : function () {
 				var scope = "div#splash";
@@ -192,6 +192,14 @@
 					parent.find(".controls:not(.hidden)").addClass("hidden");
 					parent.find(".controls[data-type=" + newType + "]").removeClass("hidden");
 
+					if (newType == "branch" && parent.find('span.connectTo').length < 2) {
+						parent.find('.links').append("<span class='connectTo'></span>");
+						parent.addClass("branch");
+					} else if (newType != "branch" && parent.find('span.connectTo').length > 1) {
+						parent.find('.links span.connectTo').last().remove();
+						parent.removeClass("branch");
+					}
+
 					App.Data.UpdateNode(parent);
 				});
 
@@ -207,24 +215,32 @@
 					App.State.Link.Linking = true;
 					App.State.Link.LinkingFrom = $(this).closest(".node");
 
+					if (App.State.Link.LinkingFrom.hasClass("branch")) {
+						App.State.Link.IsTrueLink = $(e.target).index() === 2;
+					}
+
 					e.preventDefault();
 					e.stopPropagation();
 					return false;
 				});
 
-				$("section#nodes").on('mouseenter', '.links span.connectFromTrigger, .links span.connectFrom, .node', function () {
+				$("section#nodes").on('mouseenter', '.links span.connectFromTrigger, .links span.connectFrom', function () {
 					if (App.State.Link.Linking) {
 						App.State.Link.LinkTarget = $(this).closest(".node");
 					}
 				});
 
-				$("section#nodes").on('mouseleave', '.links span.connectFromTrigger, .links span.connectFrom, .node', function () {
+				$("section#nodes").on('mouseleave', '.links span.connectFromTrigger, .links span.connectFrom', function () {
 					App.State.Link.LinkTarget = null;
 				});
 
-				$("section#nodes").on('click', '.links span.connectFromTrigger, .links span.connectFrom, .node', function () {
+				$("section#nodes").on('click', '.links span.connectFromTrigger, .links span.connectFrom', function () {
 					if (App.State.Link.Linking) {
-						App.Data.AddLink(App.State.Link.LinkingFrom, App.State.Link.LinkTarget);
+						if (App.State.Link.LinkingFrom.hasClass("branch")) {
+							App.Data.Link(App.State.Link.LinkingFrom, App.State.Link.LinkTarget, App.State.Link.IsTrueLink);
+						} else {
+							App.Data.Link(App.State.Link.LinkingFrom, App.State.Link.LinkTarget);
+						}
 						App.State.Link.Linking = false;
 						App.State.Link.LinkingFrom = null;
 						App.State.Link.LinkTarget = null;
@@ -271,13 +287,13 @@
 			DrawLinks : function () {
 				$.each($("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)"), function () {
 					var id = $(this).data('id');
-					if (App.Data.Trees[App.State.CurrentTree].nodes[id].links.length > 0) {
-						var fromX, fromY, toX, toY, cp1X, cp1Y, cp2X, cp2Y,
-							currentNode = $(this);
+					if ($(this).hasClass("branch")) {
+						if (App.Data.Trees[App.State.CurrentTree].nodes[id].trueLink !== undefined) {
+							var cp1X, cp1Y, cp2X, cp2Y,
+								currentNode = $(this);
 
-						App.Data.Trees[App.State.CurrentTree].nodes[id].links.forEach(function (link, i) {
-							//TODO(romeo): support multiple links
-							var fromElem = currentNode.find(".links span.connectTo:eq(" + (i - 1) + ")"),
+							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].trueLink;
+							var fromElem = currentNode.find(".links span.connectTo:eq(0)"),
 								fromPos = fromElem.offset();
 
 							fromX = fromPos.left;
@@ -291,52 +307,85 @@
 							toX = toPos.left;
 							toY = toPos.top + (toElem.outerHeight() / 2) - 35;
 
-							cp1X = fromX + (toX - fromX) / 3;
-							cp2X = fromX + ((toX - fromX) / 3) * 2;
-							cp1Y = fromY;
-							cp2Y = toY;
+							App.Draw.DrawBezier(fromX, fromY, toX, toY);
+						} 
 
-							App.Canvas.Context.beginPath();
-							App.Canvas.Context.moveTo(fromX, fromY);
-							App.Canvas.Context.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, toX, toY);
-							App.Canvas.Context.lineWidth = 3 * App.State.Zoom;
-							App.Canvas.Context.strokeStyle = "#ECF0F1";
-							App.Canvas.Context.stroke();
-						});
-					}
-				});
+						if (App.Data.Trees[App.State.CurrentTree].nodes[id].falseLink !== undefined) {
+							var cp1X, cp1Y, cp2X, cp2Y,
+								currentNode = $(this);
 
-				if (App.State.Link.Linking) {
-						var fromX, fromY, toX, toY, cp1X, cp1Y, cp2X, cp2Y;
+							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].falseLink;
+							var fromElem = currentNode.find(".links span.connectTo:eq(1)"),
+								fromPos = fromElem.offset();
 
-						var fromElem = App.State.Link.LinkingFrom.find(".links span.connectTo"),
-							fromPos = fromElem.offset();
+							fromX = fromPos.left;
+							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
 
-						fromX = fromPos.left;
-						fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
-
-						if (App.State.Link.LinkTarget !== null) {
-							var toElem = App.State.Link.LinkTarget.find("span.connectFrom"),
+							var toElem = $("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)").filter(function () {
+									return $(this).data('id') === link;
+								}).find("span.connectFrom"),
 								toPos = toElem.offset();
 
 							toX = toPos.left;
 							toY = toPos.top + (toElem.outerHeight() / 2) - 35;
-						} else {
-							toX = App.State.LinkMousePosition.X;
-							toY = App.State.LinkMousePosition.Y - 35;
+
+							App.Draw.DrawBezier(fromX, fromY, toX, toY);
 						}
+					} else {
+						if (App.Data.Trees[App.State.CurrentTree].nodes[id].link != -1) {
+							var cp1X, cp1Y, cp2X, cp2Y,
+								currentNode = $(this);
 
-						cp1X = fromX + (toX - fromX) / 3;
-						cp2X = fromX + ((toX - fromX) / 3) * 2;
-						cp1Y = fromY;
-						cp2Y = toY;
+							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].link;
+							var fromElem = currentNode.find(".links span.connectTo:eq(0)"),
+								fromPos = fromElem.offset();
 
-						App.Canvas.Context.beginPath();
-						App.Canvas.Context.moveTo(fromX, fromY);
-						App.Canvas.Context.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, toX, toY);
-						App.Canvas.Context.lineWidth = 3 * App.State.Zoom;
-						App.Canvas.Context.strokeStyle = "#ECF0F1";
-						App.Canvas.Context.stroke();
+							fromX = fromPos.left;
+							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
+
+							var toElem = $("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)").filter(function () {
+									return $(this).data('id') === link;
+								}).find("span.connectFrom"),
+								toPos = toElem.offset();
+
+							toX = toPos.left;
+							toY = toPos.top + (toElem.outerHeight() / 2) - 35;
+
+							App.Draw.DrawBezier(fromX, fromY, toX, toY);
+						}
+					}
+				});
+
+				if (App.State.Link.Linking) {
+					var fromX, fromY, toX, toY, fromElem, fromPos, toElem, toPos;
+
+
+					if (App.State.Link.LinkingFrom.hasClass("branch")) {
+						if (App.State.Link.IsTrueLink) {
+							fromElem = App.State.Link.LinkingFrom.find(".links span.connectTo:eq(0)");
+						} else {
+							fromElem = App.State.Link.LinkingFrom.find(".links span.connectTo:eq(1)");
+						}
+					} else {
+						fromElem = App.State.Link.LinkingFrom.find(".links span.connectTo");
+					}
+
+					fromPos = fromElem.offset();
+					fromX = fromPos.left;
+					fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
+
+					if (App.State.Link.LinkTarget !== null) {
+						var toElem = App.State.Link.LinkTarget.find("span.connectFrom"),
+							toPos = toElem.offset();
+
+						toX = toPos.left;
+						toY = toPos.top + (toElem.outerHeight() / 2) - 35;
+					} else {
+						toX = App.State.LinkMousePosition.X;
+						toY = App.State.LinkMousePosition.Y - 35;
+					}
+
+					App.Draw.DrawBezier(fromX, fromY, toX, toY);
 				}
 			},
 			Resize : function () {
@@ -344,6 +393,19 @@
 
 				App.Canvas.Element.width = App.WindowSize.Width = windowSize[0];
 				App.Canvas.Element.height = App.WindowSize.Height = windowSize[1] - 35;
+			},
+			DrawBezier : function (fromX, fromY, toX, toY) {
+				var cp1X = fromX + (toX - fromX) / 3,
+					cp2X = fromX + ((toX - fromX) / 3) * 2,
+					cp1Y = fromY,
+					cp2Y = toY;
+
+				App.Canvas.Context.beginPath();
+				App.Canvas.Context.moveTo(fromX, fromY);
+				App.Canvas.Context.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, toX, toY);
+				App.Canvas.Context.lineWidth = 3 * App.State.Zoom;
+				App.Canvas.Context.strokeStyle = "#ECF0F1";
+				App.Canvas.Context.stroke();
 			}
 		},
 		View : {
@@ -351,9 +413,11 @@
 				App.View.AnimateWithCallback($("#splash .content"), "shown", function () {
 					App.View.AnimateWithCallback($("#splash .icon"), "shown", function () {
 						$("h1").text("Monologue - " + App.Data.Project.name);
+
 						App.View.GenerateTrees();
 						App.View.GenerateLanguages();
 						App.View.GenerateNodes();
+						App.View.GenerateModalInformations();
 						App.State.Dirty = true;
 
 						App.View.AnimateWithCallback($("#splash"), "shown", function () {
@@ -399,6 +463,14 @@
 							node.find("input[data-name]").val(e.name);
 							var message = App.Data.GetText(App.State.CurrentLanguage, "$T" + tree.data('id') + "N" + e.id);
 							node.find("textarea[data-message]").val(message);
+						} else if (e.type === "branch") {
+							node.addClass("branch");
+							node.find('.links').append("<span class='connectTo'></span>");
+						}
+
+						if (i === 0) {
+							node.find("span.remove-node").remove();
+							node.find("span.connectFrom, span.connectFromTrigger").remove();
 						}
 
 						node.appendTo(tree);
@@ -415,11 +487,12 @@
 
 				$("select.trees").trigger("chosen:updated");
 			},
-			AddNode : function () {
+			AddNode : function (x, y) {
 				var node = $(".node.template").clone().removeClass('template');
 				node = $(".node.template").clone().removeClass('template').data('id', App.Data.Trees[App.State.CurrentTree].nodes.length);
 				node.appendTo("section#nodes .tree[data-id=" + App.State.CurrentTree + "]");
-				App.Data.AddNode();
+				App.Data.AddNode(x, y);
+				App.State.Dirty = true;
 			},
 			GenerateLanguages : function () {
 				App.Data.Project.languages.forEach(function (language, index) {
@@ -434,6 +507,13 @@
 				});
 
 				App.State.CurrentLanguage = newLanguage;
+			},
+			GenerateModalInformations : function () {
+				$("input[data-project-title]").val(App.Data.Project.name);
+
+				App.Data.Project.variables.forEach(function (variable) {
+					$("select[data-project-variables").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+				});
 			}
 		},
 		Canvas : {
@@ -532,13 +612,13 @@
 					Y : App.Data.Trees[treeId].nodes[nodeId].editor.Y
 				}
 			},
-			AddNode : function () {
+			AddNode : function (x, y) {
 				App.Data.Trees[App.State.CurrentTree].nodes.push({
 					id : App.Data.Trees[App.State.CurrentTree].nodes.length,
-					links : [],
+					link : -1,
 					editor : {
-						X : 0,
-						Y : 0
+						X : x || 0,
+						Y : y || 0
 					}
 				});
 			},
@@ -556,8 +636,16 @@
 						break;
 				}
 			},
-			AddLink : function (elementFrom, elementTo) {
-				App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].links.push(elementTo.data('id'));
+			Link : function (elementFrom, elementTo, isTrueLink) {
+				if (isTrueLink === undefined) {
+					App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].link = elementTo.data('id');
+				} else {
+					if (isTrueLink) {
+						App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].trueLink = elementTo.data('id');
+					} else {
+						App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].falseLink = elementTo.data('id');
+					}
+				}
 			},
 			GetText : function (language, key) {
 				for (var i = 0; i < App.Data.Translations.length; i++) {
@@ -584,6 +672,7 @@
 									"flag" : key,
 									"content" : text
 								});
+								return;
 							}
 						}
 					}

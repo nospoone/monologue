@@ -2794,16 +2794,10 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.85);
   width: 100%;
   height: 100%;
   z-index: 6;
-}
-.overlay.hidden {
-  opacity: 0;
-}
-.overlay.invisible {
-  display: none;
 }
 .modal {
   position: fixed;
@@ -2825,6 +2819,40 @@ canvas {
 .modal h2 {
   margin-top: 0;
   text-align: center;
+}
+.modal h2 span.subtitle {
+  display: block;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
+}
+.modal label {
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.modal input,
+.modal input:not(:last-child),
+.modal select,
+.modal select:not(:last-child) {
+  margin-bottom: 25px;
+}
+.modal select {
+  height: auto;
+}
+.modal footer span {
+  cursor: default;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  background: #1abc9c;
+  color: #ecf0f1;
+  border-radius: 3px;
+}
+.modal footer span i {
+  margin-right: 10px;
 }
 #splash {
   position: fixed;
@@ -3165,7 +3193,7 @@ canvas {
 }
 #nodes .node .select i {
   position: absolute;
-  top: 3px;
+  top: 9px;
   right: 10px;
   pointer-events: none;
 }
@@ -3182,6 +3210,77 @@ canvas {
 }
 #nodes .node .controls.hidden {
   display: none;
+}
+#nodes .node .controls .branch-controls {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#nodes .node .controls .branch-controls:before,
+#nodes .node .controls .branch-controls:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+#nodes .node .controls .branch-controls:after {
+  clear: both;
+}
+#nodes .node .controls .branch-controls span {
+  display: block;
+  width: 50%;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+#nodes .node .controls .branch-controls span.add {
+  background: #1abc9c;
+  color: #ecf0f1;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+#nodes .node .controls .branch-controls span.remove {
+  background: #c0392b;
+  color: #ecf0f1;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#nodes .node .controls .value:before,
+#nodes .node .controls .value:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+#nodes .node .controls .value:after {
+  clear: both;
+}
+#nodes .node .controls .value select {
+  width: 18%;
+  border-right: none;
+}
+#nodes .node .controls .value input {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .controls .value select,
+#nodes .node .controls .value input {
+  float: left;
+}
+#nodes .node .controls span.else {
+  text-align: right;
+  display: block;
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  border-right: 2px #bdc3c7 solid;
+  padding-right: 5px;
+}
+#nodes .node.branch .links span.connectTo:nth-child(3) {
+  top: 113px;
+}
+#nodes .node.branch .links span.connectTo:nth-child(4) {
+  top: 153px;
 }
 #nodes .node .links span.connectFrom,
 #nodes .node .links span.connectTo,
@@ -3235,6 +3334,7 @@ select {
   border: 2px #bdc3c7 solid;
   padding: 5px 5px;
   font-size: 14px;
+  height: 35px;
 }
 input:not(:last-child),
 textarea:not(:last-child),

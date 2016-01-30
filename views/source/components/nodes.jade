@@ -20,15 +20,20 @@ section#nodes
 				option(disabled, selected, default, value="placeholder") Variable
 			input(type="text", data-type="set", data-value, placeholder="Value")
 		.controls(data-type="branch").hidden
-			span.add
-				i.fa.fa-plus
-			span.remove
-				i.fa.fa-times
-			span.remove
 			select(data-type="set", data-variable).placeholder
 				option(disabled, selected, default, value="placeholder") Variable
 				option(value="var") Variable 1
-			input(type="text", data-type="set", data-value="0", placeholder="Value")
+			.value
+				select(data-type="set", data-condition).placeholder
+					option(disabled, selected, default, value="placeholder") ?
+					option(value="==") ==
+					option(value="!=") !=
+					option(value=">=") &gt;=
+					option(value="<=") &lt;=
+					option(value=">") &gt;
+					option(value="<") &lt;
+				input(type="text", data-type="set", data-value, placeholder="Value")
+			span.else Else...
 		.links
 			span.connectFromTrigger
 			span.connectFrom

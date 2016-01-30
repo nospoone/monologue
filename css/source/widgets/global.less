@@ -42,15 +42,15 @@ canvas {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.85);
 	width: 100%;
 	height: 100%;
 	z-index: 6;
 	&.hidden {
-		opacity: 0;
+		//opacity: 0;
 	}
 	&.invisible {
-		display: none;
+		//display: none;
 	}
 }
 
@@ -71,6 +71,39 @@ canvas {
 	h2 {
 		margin-top: 0;
 		text-align: center;
+		span.subtitle {
+			display: block;
+			font-style: italic;
+			font-size: 14px;
+			font-weight: 300;
+		}
+	}
+	label {
+		display: block;
+		margin-bottom: 5px;
+		text-transform: uppercase;
+		font-size: 14px;
+	}
+	input, input:not(:last-child), select, select:not(:last-child) {
+		margin-bottom: 25px;
+	}
+	select {
+		height: auto;
+	}
+	footer {
+		span {
+			cursor: default;
+			display: inline-block;
+			height: 40px;
+			line-height: 40px;
+			padding: 0 10px;
+			background: @turquoise;
+			color: @white;
+			border-radius: 3px;
+			i {
+				margin-right: 10px;
+			}
+		}
 	}
 }
 
@@ -359,7 +392,7 @@ canvas {
 			}
 			i {
 				position: absolute;
-				top: 3px;
+				top: 9px;
 				right: 10px;
 				pointer-events: none;
 			}
@@ -376,6 +409,66 @@ canvas {
 			width: 100%;
 			&.hidden {
 				display: none;
+			}
+			.branch-controls {
+				width: 100%;
+				.clearfix();
+				margin-bottom: 10px;
+				span {
+					display: block;
+					width: 50%;
+					float: left;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+					&.add {
+						background: @turquoise;
+						color: @white;
+						border-top-left-radius: 3px;
+						border-bottom-left-radius: 3px;
+					}
+					&.remove {
+						background: @pomegranate;
+						color: @white;
+						border-top-right-radius: 3px;
+						border-bottom-right-radius: 3px;
+					}
+				}
+			}
+			.value {
+				.clearfix();
+				select {
+					width: 18%;
+					border-right: none;
+				}
+				input {
+					width: 82%;
+					border-left: none;
+				}
+				select, input {
+					float: left;
+				}
+			}
+			span.else {
+				text-align: right;
+				display: block;
+				font-size: 14px;
+				height: 35px;
+				line-height: 35px;
+				border-right: 2px @silver solid;
+				padding-right: 5px;
+			}
+		}
+		&.branch {
+			.links {
+				span.connectTo {
+					&:nth-child(3) {
+						top: 113px;
+					}
+					&:nth-child(4) {
+						top: 153px;
+					}
+				}
 			}
 		}
 		.links {
@@ -434,6 +527,7 @@ input, textarea, select {
 	border: 2px @silver solid;
 	padding: 5px 5px;
 	font-size: 14px;
+	height: 35px;
 	&::-webkit-input-placeholder, &.placeholder {
 		font-size: 14px;
 		color: @silver;
