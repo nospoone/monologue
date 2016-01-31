@@ -16,13 +16,18 @@ section#nodes
 			input(type="text", data-type="text", data-name, placeholder="Name")
 			textarea(data-type="text", data-message, placeholder="Message")
 		.controls(data-type="set").hidden
-			select(data-variable).placeholder
+			select(data-variable-set).placeholder
 				option(disabled, selected, default, value="placeholder") Variable
+				optgroup(data-game, label="Game/Progression Variables")
+				optgroup(data-attitude, label="Attitude Variables") 
+				optgroup(data-custom, label="Custom Variables") 
 			input(type="text", data-type="set", data-value, placeholder="Value")
 		.controls(data-type="branch").hidden
-			select(data-type="set", data-variable).placeholder
+			select(data-type="set", data-variable-get).placeholder
 				option(disabled, selected, default, value="placeholder") Variable
-				option(value="var") Variable 1
+				optgroup(data-game, label="Game/Progression Variables")
+				optgroup(data-attitude, label="Attitude Variables") 
+				optgroup(data-custom, label="Custom Variables") 
 			.value
 				select(data-type="set", data-condition).placeholder
 					option(disabled, selected, default, value="placeholder") ?

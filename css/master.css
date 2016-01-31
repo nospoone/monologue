@@ -2799,6 +2799,12 @@ canvas {
   height: 100%;
   z-index: 6;
 }
+.overlay.hidden {
+  opacity: 0;
+}
+.overlay.invisible {
+  display: none;
+}
 .modal {
   position: fixed;
   top: 50%;
@@ -2853,6 +2859,33 @@ canvas {
 }
 .modal footer span i {
   margin-right: 10px;
+}
+.modal .control:before,
+.modal .control:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal .control:after {
+  clear: both;
+}
+.modal .control input {
+  float: left;
+  width: 90%;
+}
+.modal .control input:focus + span {
+  background: #1abc9c;
+}
+.modal .control span {
+  float: left;
+  display: block;
+  width: 10%;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #bdc3c7;
+  color: #ecf0f1;
 }
 #splash {
   position: fixed;
@@ -3380,4 +3413,7 @@ textarea {
 }
 section.tree.hidden {
   display: none;
+}
+optgroup {
+  font-weight: 600;
 }

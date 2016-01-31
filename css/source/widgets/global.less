@@ -47,10 +47,10 @@ canvas {
 	height: 100%;
 	z-index: 6;
 	&.hidden {
-		//opacity: 0;
+		opacity: 0;
 	}
 	&.invisible {
-		//display: none;
+		display: none;
 	}
 }
 
@@ -103,6 +103,26 @@ canvas {
 			i {
 				margin-right: 10px;
 			}
+		}
+	}
+	.control {
+		.clearfix();
+		input {
+			float: left;
+			width: 90%;
+			&:focus + span {
+				background: @turquoise;
+			}
+		}
+		span {
+			float: left;
+			display: block;
+			width: 10%;
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			background: @silver;
+			color: @white;
 		}
 	}
 }
@@ -560,4 +580,8 @@ section.tree {
 	&.hidden {
 		display: none;
 	}
+}
+
+optgroup {
+	font-weight: 600;
 }

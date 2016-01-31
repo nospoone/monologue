@@ -3,7 +3,13 @@
 		span.subtitle A project reload is needed for any changes here to take effect.
 	label(for="title") Variables
 	select(multiple, data-project-variables)
-
+		optgroup(data-game, label="Game/Progression Variables")
+		optgroup(data-attitude, label="Attitude Variables") 
+		optgroup(data-custom, label="Custom Variables") 
+	.control
+		input(type="text", data-project-new-variable, placeholder="New Variable")
+		span.add-variable
+			i.fa.fa-plus
 	footer
 		span.close
 			i.fa.fa-times

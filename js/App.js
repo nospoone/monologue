@@ -83,8 +83,9 @@
 						return false;
 					} else if ($(e.target).is("header") || App.State.DraggedNode !== null) {
 						if (App.State.Dragging) {
-							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.X -= App.State.LastMousePosition.X - e.clientX;
-							App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode].editor.Y -= App.State.LastMousePosition.Y - e.clientY;
+							var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, App.State.DraggedNode);
+							currentDataNode.editor.X -= App.State.LastMousePosition.X - e.clientX;
+							currentDataNode.editor.Y -= App.State.LastMousePosition.Y - e.clientY;
 							App.State.Dirty = true;
 						}
 
@@ -224,6 +225,14 @@
 					return false;
 				});
 
+				$("section#nodes").on('click', 'span.remove-node', function (e) {
+					App.View.RemoveNode($(this).closest(".node"));
+
+					e.preventDefault();
+					e.stopPropagation();
+					return false;
+				});
+
 				$("section#nodes").on('mouseenter', '.links span.connectFromTrigger, .links span.connectFrom', function () {
 					if (App.State.Link.Linking) {
 						App.State.Link.LinkTarget = $(this).closest(".node");
@@ -287,12 +296,14 @@
 			DrawLinks : function () {
 				$.each($("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)"), function () {
 					var id = $(this).data('id');
+					var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, id);
+
 					if ($(this).hasClass("branch")) {
-						if (App.Data.Trees[App.State.CurrentTree].nodes[id].trueLink !== undefined) {
+						if (currentDataNode.trueLink !== undefined) {
 							var cp1X, cp1Y, cp2X, cp2Y,
 								currentNode = $(this);
 
-							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].trueLink;
+							var link = currentDataNode.trueLink;
 							var fromElem = currentNode.find(".links span.connectTo:eq(0)"),
 								fromPos = fromElem.offset();
 
@@ -310,11 +321,11 @@
 							App.Draw.DrawBezier(fromX, fromY, toX, toY);
 						} 
 
-						if (App.Data.Trees[App.State.CurrentTree].nodes[id].falseLink !== undefined) {
+						if (currentDataNode.falseLink !== undefined) {
 							var cp1X, cp1Y, cp2X, cp2Y,
 								currentNode = $(this);
 
-							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].falseLink;
+							var link = currentDataNode.falseLink;
 							var fromElem = currentNode.find(".links span.connectTo:eq(1)"),
 								fromPos = fromElem.offset();
 
@@ -332,11 +343,11 @@
 							App.Draw.DrawBezier(fromX, fromY, toX, toY);
 						}
 					} else {
-						if (App.Data.Trees[App.State.CurrentTree].nodes[id].link != -1) {
+						if (currentDataNode.link != -1) {
 							var cp1X, cp1Y, cp2X, cp2Y,
 								currentNode = $(this);
 
-							var link = App.Data.Trees[App.State.CurrentTree].nodes[id].link;
+							var link = currentDataNode.link;
 							var fromElem = currentNode.find(".links span.connectTo:eq(0)"),
 								fromPos = fromElem.offset();
 
@@ -450,6 +461,22 @@
 				}, true);
 			},
 			GenerateNodes : function () {
+				App.Data.Project.variables.forEach(function (variable) {
+					if (variable.set) {
+						$(".node.template select[data-variable-set] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+					}
+
+					if (variable.get) {
+						$(".node.template select[data-variable-get] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+					}
+				});
+
+				$.each($(".node.template optgroup"), function () {
+					if ($(this).children().length === 0) {
+						$(this).remove();
+					}
+				})
+
 				$.each($("section#nodes .tree"), function () {
 					var tree = $(this);
 					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {
@@ -488,10 +515,10 @@
 				$("select.trees").trigger("chosen:updated");
 			},
 			AddNode : function (x, y) {
+				var newId = App.Data.AddNode(x, y);
 				var node = $(".node.template").clone().removeClass('template');
-				node = $(".node.template").clone().removeClass('template').data('id', App.Data.Trees[App.State.CurrentTree].nodes.length);
+				node = $(".node.template").clone().removeClass('template').data('id', newId);
 				node.appendTo("section#nodes .tree[data-id=" + App.State.CurrentTree + "]");
-				App.Data.AddNode(x, y);
 				App.State.Dirty = true;
 			},
 			GenerateLanguages : function () {
@@ -512,8 +539,12 @@
 				$("input[data-project-title]").val(App.Data.Project.name);
 
 				App.Data.Project.variables.forEach(function (variable) {
-					$("select[data-project-variables").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+					$("select[data-project-variables] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
 				});
+			},
+			RemoveNode : function (nodeElement) {
+				App.Data.RemoveNode(nodeElement.data("id"));
+				nodeElement.remove();
 			}
 		},
 		Canvas : {
@@ -607,43 +638,81 @@
 			Trees : null,
 			Languages : null,
 			GetNodeCoordinates : function (treeId, nodeId) {
+				var node = App.Data.GetNodeByID(treeId, nodeId);
+
 				return {
-					X : App.Data.Trees[treeId].nodes[nodeId].editor.X,
-					Y : App.Data.Trees[treeId].nodes[nodeId].editor.Y
+					X : node.editor.X,
+					Y : node.editor.Y
 				}
 			},
 			AddNode : function (x, y) {
+				var newId = App.Data.Trees[App.State.CurrentTree].nodes[App.Data.Trees[App.State.CurrentTree].nodes.length - 1].id + 1;
 				App.Data.Trees[App.State.CurrentTree].nodes.push({
-					id : App.Data.Trees[App.State.CurrentTree].nodes.length,
+					id : newId,
 					link : -1,
 					editor : {
 						X : x || 0,
 						Y : y || 0
 					}
 				});
+
+				return newId;
 			},
 			UpdateNode : function (nodeElement) {
-				App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')].type = nodeElement.find('select.nodetype option:selected').val();
+				var dataNode = App.Data.GetNodeByID(App.State.CurrentTree, nodeElement.data('id'));
+				dataNode.type = nodeElement.find('select.nodetype option:selected').val();
 
-				switch (App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')].type) {
+				switch (dataNode.type) {
 					case "text":
-						App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')].name = nodeElement.find('[data-type="text"] input[data-name]').val();
+						dataNode.name = nodeElement.find('[data-type="text"] input[data-name]').val();
 						App.Data.SetText(App.State.CurrentLanguage, "$T" + App.State.CurrentTree + "N" + nodeElement.data('id'), nodeElement.find('[data-type="text"] textarea[data-message]').val());
 						break;
 					case "set":
-						App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')].variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
-						App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')].value = nodeElement.find('[data-type="set"] input[data-value]').val();
+						dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
+						dataNode.value = nodeElement.find('[data-type="set"] input[data-value]').val();
 						break;
 				}
 			},
+			RemoveNode : function (id) {
+				for (var i = 0; i < App.Data.Trees.length; i++) {
+					if (App.Data.Trees[i].id == App.State.CurrentTree) {
+						var tree = App.Data.Trees[i];
+						for (var j = 0; j < tree.nodes.length; j++) {
+							if (tree.nodes[j].id == id) {
+								tree.nodes[j] = undefined;
+							}
+						}
+					}
+				}
+
+				for (var i = 0; i < App.Data.Trees.length; i++) {
+					if (App.Data.Trees[i].id == App.State.CurrentTree) {
+						App.Data.Trees[i].nodes = App.Data.Trees[i].nodes.filter(Boolean);
+					}
+				}
+
+				App.Data.Trees[App.State.CurrentTree].nodes.forEach(function (node) {
+					if (node.link == id) {
+						node.link = -1;
+					}
+
+					if (node.trueLink !== undefined && node.trueLink == id) {
+						delete node.trueLink;
+					}
+
+					if (node.falseLink !== undefined && node.falseLink == id) {
+						delete node.falseLink;
+					}
+				});
+			},
 			Link : function (elementFrom, elementTo, isTrueLink) {
 				if (isTrueLink === undefined) {
-					App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].link = elementTo.data('id');
+					App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).link = elementTo.data('id');
 				} else {
 					if (isTrueLink) {
-						App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].trueLink = elementTo.data('id');
+						App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).trueLink = elementTo.data('id');
 					} else {
-						App.Data.Trees[App.State.CurrentTree].nodes[elementFrom.data('id')].falseLink = elementTo.data('id');
+						App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).falseLink = elementTo.data('id');
 					}
 				}
 			},
@@ -673,6 +742,18 @@
 									"content" : text
 								});
 								return;
+							}
+						}
+					}
+				}
+			},
+			GetNodeByID : function (treeId, nodeId) {
+				for (var i = 0; i < App.Data.Trees.length; i++) {
+					if (App.Data.Trees[i].id == treeId) {
+						var tree = App.Data.Trees[i];
+						for (var j = 0; j < tree.nodes.length; j++) {
+							if (tree.nodes[j] !== undefined && tree.nodes[j].id == nodeId) {
+								return tree.nodes[j];
 							}
 						}
 					}
