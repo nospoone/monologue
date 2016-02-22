@@ -4,16 +4,76 @@
 		"selected_items":
 		[
 			[
-				"lang",
-				"language"
+				"Drag",
+				"DraggedNode"
+			],
+			[
+				"node",
+				"nodeId"
+			],
+			[
+				"current",
+				"currentNode"
+			],
+			[
+				"Current",
+				"CurrentTree"
+			],
+			[
+				"GetNode",
+				"GetNodeByID"
 			],
 			[
 				"for",
 				"for	for (…) {…}"
 			],
 			[
-				"current",
-				"CurrentLanguage"
+				"app",
+				"append"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"Generate",
+				"GenerateModalInformations"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"connec",
+				"connectFromTrigger"
+			],
+			[
+				"connect",
+				"connectTo"
+			],
+			[
+				"paddin",
+				"padding-right"
+			],
+			[
+				"border-top-",
+				"border-top-left-radius"
+			],
+			[
+				"lan",
+				"lang"
+			],
+			[
+				"close",
+				"closest"
+			],
+			[
+				"lang",
+				"language"
 			],
 			[
 				"append",
@@ -30,10 +90,6 @@
 			[
 				"appen",
 				"appendTo"
-			],
-			[
-				"Current",
-				"CurrentTree"
 			],
 			[
 				"pro",
@@ -56,10 +112,6 @@
 				"border-radius"
 			],
 			[
-				"margin",
-				"margin"
-			],
-			[
 				"pr",
 				"project"
 			],
@@ -78,10 +130,6 @@
 			[
 				"Brw",
 				"BrowserWindow"
-			],
-			[
-				"text",
-				"text-align"
 			],
 			[
 				"ba",
@@ -174,14 +222,6 @@
 			[
 				"ma",
 				"main"
-			],
-			[
-				"font-",
-				"font-size"
-			],
-			[
-				"paddin",
-				"padding-left"
 			],
 			[
 				"bore",
@@ -474,46 +514,6 @@
 			[
 				"fo",
 				"float"
-			],
-			[
-				"box",
-				"box-shadow"
-			],
-			[
-				"font-s",
-				"font-size"
-			],
-			[
-				"pi",
-				"position"
-			],
-			[
-				"rg",
-				"rgba(r,g,b,a)"
-			],
-			[
-				"remov",
-				"removeClass"
-			],
-			[
-				"last-",
-				"last-child"
-			],
-			[
-				"clear",
-				"clearfix"
-			],
-			[
-				"pading",
-				"padding-right"
-			],
-			[
-				"tabG",
-				"tabGroup"
-			],
-			[
-				"data-",
-				"data-tabId"
 			]
 		]
 	},
@@ -539,7 +539,7 @@
 			"file": "views/source/components/nodes.jade",
 			"settings":
 			{
-				"buffer_size": 1099,
+				"buffer_size": 1734,
 				"line_ending": "Windows"
 			}
 		},
@@ -595,7 +595,7 @@
 			"file": "css/source/widgets/global.less",
 			"settings":
 			{
-				"buffer_size": 7121,
+				"buffer_size": 9087,
 				"line_ending": "Windows"
 			}
 		},
@@ -619,7 +619,7 @@
 			"file": "js/App.js",
 			"settings":
 			{
-				"buffer_size": 18756,
+				"buffer_size": 25541,
 				"line_ending": "Windows"
 			}
 		},
@@ -651,7 +651,7 @@
 			"file": "views/source/components/modals.jade",
 			"settings":
 			{
-				"buffer_size": 58,
+				"buffer_size": 92,
 				"line_ending": "Windows"
 			}
 		},
@@ -659,7 +659,7 @@
 			"file": "views/source/components/modals/project-settings.jade",
 			"settings":
 			{
-				"buffer_size": 117,
+				"buffer_size": 198,
 				"line_ending": "Windows"
 			}
 		},
@@ -696,10 +696,13 @@
 			}
 		},
 		{
+			"contents": "{\n	\"project\": {\n		\"name\": \"Test Project\",\n		\"state\": {\n			\"position\": {\n				\"X\": -3,\n				\"Y\": 498\n			},\n			\"zoom\": 1,\n			\"currentTree\": 1\n		},\n		\"variables\": [{\n			\"displayName\": \"Golden Carrots\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 0\n		}, {\n			\"displayName\": \"Health Upgrades\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}, {\n			\"displayName\": \"Jetpack Unlocked\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 2\n		}, {\n			\"displayName\": \"Current Soul Count\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 3\n		}, {\n			\"displayName\": \"Total Soul Count\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 4\n		}, {\n			\"displayName\": \"Total Deaths\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 5\n		}, {\n			\"displayName\": \"Ananaman Woken Up\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 6\n		}, {\n			\"displayName\": \"Nate Unlocked\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 7\n		}, {\n			\"displayName\": \"Current Character\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 8\n		}, {\n			\"displayName\": \"Attitude: Special Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 9\n		}, {\n			\"displayName\": \"Attitude: Serious Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 10\n		}, {\n			\"displayName\": \"Attitude: Sad Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 11\n		}, {\n			\"displayName\": \"Attitude: Happy Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 12\n		}, {\n			\"displayName\": \"Attitude: Angry Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 13\n		}, {\n			\"displayName\": \"Attitude: Surprised Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 14\n		}],\n		\"languages\": [{\n			\"displayName\": \"English (en-US)\",\n			\"code\": \"enUS\"\n		}, {\n			\"displayName\": \"Français (fr-CA)\",\n			\"code\": \"frCA\"\n		}]\n	},\n	\"trees\": [{\n		\"id\": 0,\n		\"displayName\": \"Test Tree\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 0,\n				\"Y\": 0\n			}\n		}, {\n			\"id\": 1,\n			\"type\": \"set\",\n			\"variable\": \"\",\n			\"value\": \"\",\n			\"link\": 3,\n			\"editor\": {\n				\"X\": 706,\n				\"Y\": -38\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 360,\n				\"Y\": 38\n			},\n			\"trueLink\": 1,\n			\"falseLink\": 4\n		}, {\n			\"id\": 3,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"message\": \"\",\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1109,\n				\"Y\": -91\n			}\n		}, {\n			\"id\": 4,\n			\"type\": \"set\",\n			\"name\": \"\",\n			\"message\": \"\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 719,\n				\"Y\": 266\n			}\n		}, {\n			\"id\": 5,\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1103,\n				\"Y\": 212\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1541,\n				\"Y\": 69\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}, {\n		\"id\": 1,\n		\"displayName\": \"Test Tree 2\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 10,\n				\"Y\": -40\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 651,\n				\"Y\": -230\n			}\n		}, {\n			\"id\": 3,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1104,\n				\"Y\": -156\n			},\n			\"type\": \"text\",\n			\"name\": \"Caca\"\n		}, {\n			\"id\": 5,\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 337,\n				\"Y\": -56\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}],\n	\"translations\": [{\n		\"enUS\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Eat my shit\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Shit\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N6\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"i would like you to suck my dihareea ou whatever\"\n		}, {\n			\"flag\": \"$T1N4\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N5\",\n			\"content\": \"\"\n		}]\n	}, {\n		\"frCA\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Mange mon caca\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Caca\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"suce ma marde\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"j'aimerais que tu me suces le flu\"\n		}]\n	}]\n}",
 			"file": "testproject.mpf",
+			"file_size": 4414,
+			"file_write_time": 130986593607442477,
 			"settings":
 			{
-				"buffer_size": 1782,
+				"buffer_size": 4152,
 				"line_ending": "Windows"
 			}
 		},
@@ -718,7 +721,15 @@
 			"file": "views/index.html",
 			"settings":
 			{
-				"buffer_size": 3328,
+				"buffer_size": 4824,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/modals/variable-settings.jade",
+			"settings":
+			{
+				"buffer_size": 536,
 				"line_ending": "Windows"
 			}
 		}
@@ -974,8 +985,9 @@
 	],
 	"file_history":
 	[
-		"/E/_dev/monologue/package.json",
 		"/E/_dev/monologue/testproject.mpf",
+		"/E/_dev/monologue/en-US.tsv",
+		"/E/_dev/monologue/package.json",
 		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/testproject.json",
 		"/E/_dev/monologue/css/source/widgets/global.less",
@@ -1100,8 +1112,7 @@
 		"/D/github/atk5/media/css/HOME/TS-home.less",
 		"/D/github/atk5/media/css/HOME/TS-maintenance.less",
 		"/D/github/atk5/views/maintenance.jade",
-		"/D/github/frontend-guide/media/css/source/includes/fa/variables.less",
-		"/D/github/frontend-guide/media/css/source/includes/variables.less"
+		"/D/github/frontend-guide/media/css/source/includes/fa/variables.less"
 	],
 	"find":
 	{
@@ -1137,6 +1148,61 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"console.log",
+			"update",
+			"removenode",
+			"App.Data.Trees[App.State.CurrentTree].nodes[nodeElement.data('id')]",
+			";\n",
+			"AddNode",
+			"App.State.DraggedNode",
+			"addNode",
+			"Link :",
+			"Link(",
+			"addlink",
+			"App.Data.Trees[App.State.CurrentTree].nodes[App.State.DraggedNode]",
+			"App.Data.Trees[App.State.CurrentTree].nodes[id]",
+			"pp.Data.Trees[treeId].nodes[nodeId]",
+			"i",
+			"GetNodeCoo",
+			"{\n",
+			"null",
+			"trueLink",
+			"removenode",
+			";\n",
+			"30",
+			"addnode",
+			"clientX",
+			"AddNode",
+			", .node",
+			"generate",
+			"dropdown",
+			";\n",
+			"AddNode",
+			"link :",
+			"link",
+			"Link :",
+			"Link",
+			"Link :",
+			"AddLink",
+			"App.Data.AddLink",
+			"\"link\"",
+			"\"links\"",
+			".links",
+			"link",
+			"select.node",
+			"generatenodes",
+			"App.State.Dirty",
+			"left",
+			".controls",
+			"App.State.CurrentLanguage",
+			"changelang",
+			"updateNode",
+			"Export",
+			"openfile",
+			"open",
+			"select.lang",
+			"language",
+			"i",
 			"GetText",
 			"genera",
 			"loadpro",
@@ -1209,62 +1275,7 @@
 			"176",
 			"175",
 			"/people",
-			"img",
-			"177",
-			"10px",
-			"border-rad",
-			";1",
-			"4m",
-			"1m",
-			"border-radius",
-			"header.bar",
-			"40",
-			"list",
-			".list",
-			".subtitle",
-			"35",
-			"accordion",
-			"ul",
-			"quote",
-			"p ",
-			"p",
-			"margin-bottom",
-			"BrokerSearch",
-			"bootstrap",
-			"length",
-			"row",
-			"EditingFormLabel",
-			"float: none",
-			"EditingFormControlNestedControl",
-			".required",
-			"height: auto",
-			"height",
-			"wrapper",
-			"ErrorLabel",
-			"icon-",
-			"link.prop",
-			"register clock",
-			"oZ",
-			"oZoom",
-			"ozoom",
-			"call_user_func",
-			"img",
-			".required",
-			"Error",
-			"error",
-			"double",
-			"\n",
-			"color: red",
-			"color: ",
-			" red",
-			"workshops",
-			"MultiStepFormButtonPanel",
-			"34px",
-			"error",
-			"bool",
-			"rotateY(@degrees)",
-			"preserve-3d",
-			"origin"
+			"img"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1315,7 +1326,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -1346,7 +1357,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
@@ -1355,7 +1366,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 1734,
 						"regions":
 						{
 						},
@@ -1377,7 +1388,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
@@ -1408,7 +1419,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
@@ -1431,6 +1442,7 @@
 						"settings":
 						{
 							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
 							"translate_tabs_to_spaces": false
@@ -1439,7 +1451,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 32,
 					"type": "text"
 				},
 				{
@@ -1469,7 +1481,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
@@ -1500,7 +1512,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 27,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
@@ -1531,7 +1543,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
@@ -1561,7 +1573,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 39,
+					"stack_index": 45,
 					"type": "text"
 				},
 				{
@@ -1570,15 +1582,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7121,
+						"buffer_size": 9087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								927,
-								927
+								1784,
+								1784
 							]
 						],
 						"settings":
@@ -1592,7 +1604,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 38,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
@@ -1624,7 +1636,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 33,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
@@ -1655,7 +1667,7 @@
 						"translation.y": 737.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 41,
+					"stack_index": 47,
 					"type": "text"
 				},
 				{
@@ -1664,15 +1676,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18756,
+						"buffer_size": 25541,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1443,
-								1443
+								17530,
+								17530
 							]
 						],
 						"settings":
@@ -1684,7 +1696,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1122.0,
+						"translation.y": 11826.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -1717,7 +1729,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
@@ -1740,6 +1752,7 @@
 						"settings":
 						{
 							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
@@ -1747,7 +1760,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 30,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
@@ -1777,7 +1790,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 29,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
@@ -1786,15 +1799,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 58,
+						"buffer_size": 92,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58,
-								58
+								92,
+								92
 							]
 						],
 						"settings":
@@ -1807,7 +1820,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 31,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
@@ -1816,20 +1829,21 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 117,
+						"buffer_size": 198,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								117,
-								117
+								198,
+								198
 							]
 						],
 						"settings":
 						{
 							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
@@ -1837,7 +1851,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 32,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
@@ -1867,7 +1881,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 49,
+					"stack_index": 55,
 					"type": "text"
 				},
 				{
@@ -1876,15 +1890,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18756,
+						"buffer_size": 25541,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								12945,
-								12945
+								16289,
+								16289
 							]
 						],
 						"settings":
@@ -1894,10 +1908,10 @@
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 9042.0,
+						"translation.y": 11706.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
@@ -1928,7 +1942,7 @@
 						"translation.y": 2129.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 44,
+					"stack_index": 50,
 					"type": "text"
 				},
 				{
@@ -1958,7 +1972,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 45,
+					"stack_index": 51,
 					"type": "text"
 				},
 				{
@@ -1967,7 +1981,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7121,
+						"buffer_size": 9087,
 						"regions":
 						{
 						},
@@ -1989,7 +2003,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
@@ -2020,7 +2034,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 34,
+					"stack_index": 40,
 					"type": "text"
 				},
 				{
@@ -2052,7 +2066,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 42,
+					"stack_index": 48,
 					"type": "text"
 				},
 				{
@@ -2081,7 +2095,7 @@
 						"translation.y": 24.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 36,
+					"stack_index": 42,
 					"type": "text"
 				},
 				{
@@ -2111,7 +2125,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 46,
+					"stack_index": 52,
 					"type": "text"
 				},
 				{
@@ -2143,7 +2157,7 @@
 						"translation.y": 23317.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 47,
+					"stack_index": 53,
 					"type": "text"
 				},
 				{
@@ -2172,7 +2186,7 @@
 						"translation.y": 5585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 48,
+					"stack_index": 54,
 					"type": "text"
 				},
 				{
@@ -2201,7 +2215,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 43,
+					"stack_index": 49,
 					"type": "text"
 				},
 				{
@@ -2210,15 +2224,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7121,
+						"buffer_size": 9087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1098,
-								1098
+								1955,
+								1955
 							]
 						],
 						"settings":
@@ -2229,10 +2243,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1872.0,
+						"translation.y": 3144.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 40,
+					"stack_index": 46,
 					"type": "text"
 				},
 				{
@@ -2241,15 +2255,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1782,
+						"buffer_size": 4152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1782,
-								1782
+								4152,
+								4152
 							]
 						],
 						"settings":
@@ -2263,7 +2277,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 37,
+					"stack_index": 43,
 					"type": "text"
 				},
 				{
@@ -2293,7 +2307,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -2302,15 +2316,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1782,
+						"buffer_size": 4152,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1782,
-								1782
+								4152,
+								4152
 							]
 						],
 						"settings":
@@ -2324,7 +2338,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
@@ -2333,7 +2347,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 1734,
 						"regions":
 						{
 						},
@@ -2355,7 +2369,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
@@ -2364,15 +2378,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18756,
+						"buffer_size": 25541,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11035,
-								11035
+								13242,
+								13242
 							]
 						],
 						"settings":
@@ -2384,10 +2398,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5729.0,
+						"translation.y": 6329.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
@@ -2396,15 +2410,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7121,
+						"buffer_size": 9087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								7013,
-								7013
+								8946,
+								8946
 							]
 						],
 						"settings":
@@ -2415,10 +2429,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 9685.0,
+						"translation.y": 12469.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
@@ -2448,7 +2462,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
@@ -2479,7 +2493,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
@@ -2509,7 +2523,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
@@ -2518,7 +2532,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3328,
+						"buffer_size": 4824,
 						"regions":
 						{
 						},
@@ -2538,7 +2552,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -2568,7 +2582,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 35,
+					"stack_index": 41,
 					"type": "text"
 				},
 				{
@@ -2584,8 +2598,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								313,
+								313
 							]
 						],
 						"settings":
@@ -2608,7 +2622,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 1734,
 						"regions":
 						{
 						},
@@ -2630,7 +2644,7 @@
 						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
@@ -2660,7 +2674,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
@@ -2669,15 +2683,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7121,
+						"buffer_size": 9087,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5733,
-								5733
+								9002,
+								9002
 							]
 						],
 						"settings":
@@ -2688,49 +2702,18 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 8633.0,
+						"translation.y": 13471.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 6,
 			"sheets":
 			[
-				{
-					"buffer": 22,
-					"file": "testproject.mpf",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1782,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1376,
-								1376
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
-							"history_list_is_closing": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2304.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
 				{
 					"buffer": 5,
 					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
@@ -2758,7 +2741,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
@@ -2774,8 +2757,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								210,
+								210
 							]
 						],
 						"settings":
@@ -2789,7 +2772,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -2798,15 +2781,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1099,
+						"buffer_size": 1734,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								58,
-								58
+								412,
+								412
 							]
 						],
 						"settings":
@@ -2820,7 +2803,221 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "css/source/includes/variables.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								220,
+								220
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "js/App.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25541,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6020,
+								6020
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"open_with_edit": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 4073.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 22,
+					"file": "testproject.mpf",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4152,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2645,
+								2645
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JSON (JavaScriptNext).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3474.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9087,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								670,
+								670
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 905.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "views/source/components/modals.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 92,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								92,
+								92
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "views/source/components/modals/project-settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 198,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								159,
+								159
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 25,
+					"file": "views/source/components/modals/variable-settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 536,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								354,
+								191
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -2854,7 +3051,7 @@
 		"cols":
 		[
 			0.0,
-			0.770703125,
+			0.65067918402,
 			1.0
 		],
 		"rows":
@@ -2882,11 +3079,11 @@
 		"selected_items":
 		[
 			[
-				"langu",
-				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
+				"global",
+				"css\\source\\widgets\\global.less"
 			],
 			[
-				"",
+				"test",
 				"testproject.mpf"
 			],
 			[
@@ -2894,24 +3091,64 @@
 				"js\\App.js"
 			],
 			[
-				"global",
-				"css\\source\\widgets\\global.less"
-			],
-			[
 				"nodes",
 				"views\\source\\components\\nodes.jade"
 			],
 			[
-				"index",
-				"views\\source\\index.jade"
-			],
-			[
-				"test",
-				"testproject.mpf"
+				"",
+				"views\\source\\components\\modals\\variable-settings.jade"
 			],
 			[
 				"node",
 				"views\\source\\components\\nodes.jade"
+			],
+			[
+				"vari",
+				"views\\source\\components\\modals\\variable-settings.jade"
+			],
+			[
+				"variable",
+				"views\\source\\components\\modals\\variable-settings.jade"
+			],
+			[
+				"var",
+				"css\\source\\includes\\variables.less"
+			],
+			[
+				"inde",
+				"views\\source\\index.jade"
+			],
+			[
+				"modal",
+				"views\\source\\components\\modals.jade"
+			],
+			[
+				"testp",
+				"testproject.mpf"
+			],
+			[
+				"projec",
+				"views\\source\\components\\modals\\project-settings.jade"
+			],
+			[
+				"mas",
+				"css\\source\\master.less"
+			],
+			[
+				"project",
+				"views\\source\\components\\modals\\project-settings.jade"
+			],
+			[
+				"modals",
+				"views\\source\\components\\modals.jade"
+			],
+			[
+				"langu",
+				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
+			],
+			[
+				"index",
+				"views\\source\\index.jade"
 			],
 			[
 				"trees",
@@ -2934,10 +3171,6 @@
 				"README.md"
 			],
 			[
-				"var",
-				"css\\source\\includes\\variables.less"
-			],
-			[
 				"gl",
 				"css\\source\\widgets\\global.less"
 			],
@@ -2948,14 +3181,6 @@
 			[
 				"va",
 				"css\\source\\includes\\variables.less"
-			],
-			[
-				"inde",
-				"views\\source\\index.jade"
-			],
-			[
-				"mas",
-				"css\\source\\master.less"
 			],
 			[
 				"tes",
@@ -3364,34 +3589,6 @@
 			[
 				"carr",
 				"views\\widgets\\careers\\careers-form.jade"
-			],
-			[
-				"careers-acc",
-				"views\\widgets\\careers\\careers-accordions.jade"
-			],
-			[
-				"form-co",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\forms\\form-controls.less"
-			],
-			[
-				"rate",
-				"views\\widgets\\rates\\rates-accordions.jade"
-			],
-			[
-				"blogpos",
-				"views\\blog-post.jade"
-			],
-			[
-				"blogpo",
-				"views\\widgets\\blog\\blogpost-post.jade"
-			],
-			[
-				"blogca",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\blog\\blogcategory-list.less"
-			],
-			[
-				"blogcate",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\blog\\blogcategory-list.less"
 			]
 		],
 		"width": 0.0

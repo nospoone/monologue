@@ -427,6 +427,35 @@ canvas {
 		.controls {
 			padding: 10px 10px 0;
 			width: 100%;
+			.chosen-container:not(:last-child) {
+				margin-bottom: 5px;
+			}
+			.chosen-container-single {
+				font-size: 14px;
+				.chosen-single, .chosen-drop {
+					background: #FFF;
+					box-shadow: none;
+					border: 2px @silver solid;
+				}
+				.chosen-search input[type="text"] {
+					height: auto;
+				}
+				.chosen-single {
+					height: 34px;
+				}
+				.chosen-drop {
+					width: 150%;
+					top: calc(~"100% - 2px");
+				}
+				.chosen-results li {
+					line-height: 20px;
+				}
+			}
+			.chosen-container-active {
+				.chosen-single {
+					border-bottom-color: #FFF;
+				}
+			}
 			&.hidden {
 				display: none;
 			}

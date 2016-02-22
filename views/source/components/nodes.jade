@@ -17,14 +17,12 @@ section#nodes
 			textarea(data-type="text", data-message, placeholder="Message")
 		.controls(data-type="set").hidden
 			select(data-variable-set).placeholder
-				option(disabled, selected, default, value="placeholder") Variable
 				optgroup(data-game, label="Game/Progression Variables")
 				optgroup(data-attitude, label="Attitude Variables") 
 				optgroup(data-custom, label="Custom Variables") 
 			input(type="text", data-type="set", data-value, placeholder="Value")
 		.controls(data-type="branch").hidden
 			select(data-type="set", data-variable-get).placeholder
-				option(disabled, selected, default, value="placeholder") Variable
 				optgroup(data-game, label="Game/Progression Variables")
 				optgroup(data-attitude, label="Attitude Variables") 
 				optgroup(data-custom, label="Custom Variables") 

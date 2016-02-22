@@ -20,7 +20,8 @@
 			App.Events.BindTreeChangeEvents();
 			// App.File.StartAutosaveLoop();
 
-			$("select", "#tool-bar").chosen();
+			$("#tool-bar select").chosen();
+
 			App.File.OpenProject("E:\\_dev\\monologue\\testproject.mpf");
 
 			requestAnimationFrame(App.Draw.Loop);
@@ -463,11 +464,11 @@
 			GenerateNodes : function () {
 				App.Data.Project.variables.forEach(function (variable) {
 					if (variable.set) {
-						$(".node.template select[data-variable-set] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+						$(".node.template select[data-variable-set] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
 					}
 
 					if (variable.get) {
-						$(".node.template select[data-variable-get] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+						$(".node.template select[data-variable-get] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
 					}
 				});
 
@@ -501,6 +502,9 @@
 						}
 
 						node.appendTo(tree);
+
+						node.find("select[data-variable-get]").chosen({ width: "100%" });
+						node.find("select[data-variable-set]").chosen({ width: "100%" });
 					});
 				});
 			},
