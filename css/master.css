@@ -2798,6 +2798,8 @@ canvas {
   width: 100%;
   height: 100%;
   z-index: 6;
+  -webkit-transition: opacity 250ms;
+  transition: opacity 250ms;
 }
 .overlay.hidden {
   opacity: 0;
@@ -2812,12 +2814,20 @@ canvas {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 500px;
+  width: 750px;
   background: #ECF0F1;
   border-radius: 3px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   padding: 10px;
   z-index: 7;
+  -webkit-transition: opacity 250ms;
+  transition: opacity 250ms;
+}
+.modal.hidden {
+  opacity: 0;
+}
+.modal.invisible {
+  display: none;
 }
 .modal p {
   margin: 0;
@@ -2846,6 +2856,9 @@ canvas {
 }
 .modal select {
   height: auto;
+}
+.modal select[data-project-variables] {
+  height: 250px;
 }
 .modal footer span {
   cursor: default;

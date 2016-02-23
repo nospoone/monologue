@@ -46,6 +46,7 @@ canvas {
 	width: 100%;
 	height: 100%;
 	z-index: 6;
+	.transition(opacity 250ms);
 	&.hidden {
 		opacity: 0;
 	}
@@ -59,12 +60,19 @@ canvas {
 	top: 50%;
 	left: 50%;
 	.translate(-50%, -50%);
-	width: 500px;
+	width: 750px;
 	background: @white;
 	border-radius: 3px;
 	.BoxShadowHelper(2);
 	padding: 10px;
 	z-index: 7;
+	.transition(opacity 250ms);
+	&.hidden {
+		opacity: 0;
+	}
+	&.invisible {
+		display: none;
+	}
 	p {
 		margin: 0;
 	}
@@ -89,6 +97,9 @@ canvas {
 	}
 	select {
 		height: auto;
+		&[data-project-variables] {
+			height: 250px;
+		}
 	}
 	footer {
 		span {

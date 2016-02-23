@@ -18,6 +18,7 @@
 			App.Events.BindSplashEvents();
 			App.Events.BindNodeEvents();
 			App.Events.BindTreeChangeEvents();
+			App.Events.BindModalEvents();
 			// App.File.StartAutosaveLoop();
 
 			$("#tool-bar select").chosen();
@@ -122,14 +123,16 @@
 				});
 
 				$(window).on('mousewheel', function (e) {
-					if (e.originalEvent.wheelDelta < 0) {
-						App.State.Zoom -= App.State.Zoom * 0.05;
-					} else {
-						App.State.Zoom += App.State.Zoom * 0.05;
-					}
+					if ($(e.target).prop("id") === "nodes" || $(e.target).prop("id") === "canvas") {
+						if (e.originalEvent.wheelDelta < 0) {
+							App.State.Zoom -= App.State.Zoom * 0.05;
+						} else {
+							App.State.Zoom += App.State.Zoom * 0.05;
+						}
 
-					App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;
-					App.State.Dirty = true;
+						App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;
+						App.State.Dirty = true;
+					}
 				});
 			},
 			BindMenuControlEvents : function () {
@@ -152,9 +155,14 @@
 					$("nav#tool-bar .menu").click();
 				});
 
+				$(".variables", scope + subscope).on('click', function () {
+					App.View.ShowModal(".variable-settings");
+					$("nav#tool-bar .menu").click();
+				});
+
 				$("select.languages").chosen().change(function () {
 					App.View.ChangeLanguage($(this).find(":selected").val());
-			});
+				});
 			},
 			BindSplashEvents : function () {
 				var scope = "div#splash";
@@ -266,6 +274,11 @@
 					$('section#nodes .tree[data-id=' + treeId + ']').removeClass('hidden');
 					
 					App.State.Dirty = true;
+				});
+			},
+			BindModalEvents : function () {
+				$(".variable-settings span.close").on("click", function closeVariableModals() {
+					App.View.HideModal();
 				});
 			}
 		},
@@ -549,6 +562,20 @@
 			RemoveNode : function (nodeElement) {
 				App.Data.RemoveNode(nodeElement.data("id"));
 				nodeElement.remove();
+			},
+			ShowModal : function (modalClass) {
+				$(".overlay").removeClass("invisible");
+				setTimeout(function () {
+					App.View.AnimateWithCallback($(".overlay"), "hidden", function () {
+						App.View.DisplayAnimate($(modalClass), "invisible", "hidden");
+					}, true);
+				}, 1);
+			},
+			HideModal : function () {
+				App.View.AnimateWithCallback($(".overlay"), "hidden", function () {
+					$(".overlay").addClass("invisible");
+					$(".overlay .modal").addClass("invisible hidden");
+				});
 			}
 		},
 		Canvas : {
