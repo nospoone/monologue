@@ -2,10 +2,15 @@
 	h2 Variables
 		span.subtitle A project reload is needed for any changes here to take effect.
 	label(for="title") Variables
-	select(multiple, data-project-variables)
-		optgroup(data-game, label="Game/Progression Variables")
-		optgroup(data-attitude, label="Attitude Variables") 
-		optgroup(data-custom, label="Custom Variables") 
+	select(size="10", data-project-variables)
+	.side-controls
+		span.remove-variable.disabled
+			i.fa.fa-times
+		span.move-up.disabled
+			i.fa.fa-arrow-up
+		span.move-down.disabled
+			i.fa.fa-arrow-down
+	label(for="title") Add new variable
 	.control
 		input(type="text", data-project-new-variable, placeholder="New Variable")
 		span.add-variable
@@ -13,4 +18,4 @@
 	footer
 		span.close
 			i.fa.fa-times
-			| Save &amp; Close
+			| Close

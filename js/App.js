@@ -277,8 +277,38 @@
 				});
 			},
 			BindModalEvents : function () {
-				$(".variable-settings span.close").on("click", function closeVariableModals() {
+				// VARIABLE SETTINGS
+				var variableSettings = ".variable-settings";
+				$("select[data-project-variables]", variableSettings).on("change", function onProjectVariableChange() {
+					if ($("select[data-project-variables] option:selected", variableSettings).length > 0) {
+						$("span.remove-variable", variableSettings).removeClass("disabled");
+					} else {
+						$("span.remove-variable", variableSettings).addClass("disabled");
+					}
+				});
+
+				$("span.add-variable", variableSettings).on("click", function onAddCustomVariableClick() {
+					if ($("input[data-project-new-variable]", variableSettings).val().length > 0) {
+						var newId = App.Data.AddCustomVariable($("input[data-project-new-variable]", variableSettings).val());
+						$("select[data-project-variables]").append("<option value='" + newId + "'>" + $("input[data-project-new-variable]", variableSettings).val() + "</option>");
+						$("input[data-project-new-variable]", variableSettings).val("").trigger("blur");
+					}
+				});
+
+				$("span.remove-variable", variableSettings).on("click", function onRemoveCustomVariableClick() {
+					if ($("select[data-project-variables] option:selected", variableSettings).length > 0) {
+						App.Data.RemoveCustomVariable($("select[data-project-variables] option:selected", variableSettings).val());
+						$("select[data-project-variables] option:selected", variableSettings).remove();
+						$("select[data-project-variables]", variableSettings).trigger("change");
+					}
+				});
+
+				$("span.close", variableSettings).on("click", function closeVariableModals() {
 					App.View.HideModal();
+					if ($("select[data-project-variables]", variableSettings).find("option:selected").length > 0) {
+						$("select[data-project-variables]", variableSettings).find("option:selected").prop("selected", false);
+						$("select[data-project-variables]", variableSettings).trigger("change");
+					}
 				});
 			}
 		},
@@ -475,7 +505,7 @@
 				}, true);
 			},
 			GenerateNodes : function () {
-				App.Data.Project.variables.forEach(function (variable) {
+				App.Data.Variables.forEach(function (variable) {
 					if (variable.set) {
 						$(".node.template select[data-variable-set] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
 					}
@@ -555,8 +585,9 @@
 			GenerateModalInformations : function () {
 				$("input[data-project-title]").val(App.Data.Project.name);
 
-				App.Data.Project.variables.forEach(function (variable) {
-					$("select[data-project-variables] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+				App.Data.CustomVariables.forEach(function (variable) {
+					console.log(variable);
+					$("select[data-project-variables]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
 				});
 			},
 			RemoveNode : function (nodeElement) {
@@ -612,8 +643,10 @@
 		},
 		File : {
 			OpenProject : function (file) {
-				var d = JSON.parse(App.File.FS.readFileSync(file, { encoding : "utf8"}));
+				var d = JSON.parse(App.File.FS.readFileSync(file, { encoding : "utf8" }));
 				App.Data.Project = d.project;
+				App.Data.Variables = d.project.variables;
+				App.Data.CustomVariables = d.project.customVariables;
 				App.Data.Trees = d.trees;
 				App.Data.Translations = d.translations;
 				App.File.CurrentProjectFile = file;
@@ -633,6 +666,8 @@
 					$(".node input.dirty, .node textarea.dirty").trigger('change').removeClass('dirty');
 
 					var data = { project : App.Data.Project, trees : App.Data.Trees, translations : App.Data.Translations };
+					data.project.variables = App.Data.Variables;
+					data.project.customVariables = App.Data.CustomVariables;
 					data.project.state.position.X = App.State.Position.X;
 					data.project.state.position.Y = App.State.Position.Y;
 					data.project.state.zoom = App.State.Zoom;
@@ -668,6 +703,8 @@
 			Project : null,
 			Trees : null,
 			Languages : null,
+			Variables : null,
+			CustomVariables : null,
 			GetNodeCoordinates : function (treeId, nodeId) {
 				var node = App.Data.GetNodeByID(treeId, nodeId);
 
@@ -716,6 +753,7 @@
 					}
 				}
 
+				// this removes the undefined nodes
 				for (var i = 0; i < App.Data.Trees.length; i++) {
 					if (App.Data.Trees[i].id == App.State.CurrentTree) {
 						App.Data.Trees[i].nodes = App.Data.Trees[i].nodes.filter(Boolean);
@@ -789,6 +827,39 @@
 						}
 					}
 				}
+			},
+			GetCustomVariableByID : function (variableId) {
+				for (var i = 0; i < App.Data.CustomVariables.length; i++) {
+					if (App.Data.CustomVariables[i].id == variableId) {
+						return App.Data.CustomVariables[i];
+					}
+				}
+			},
+			AddCustomVariable : function (name) {
+				var newId = 0;
+				if (App.Data.CustomVariables.length > 0) {
+					newId = App.Data.CustomVariables[App.Data.CustomVariables.length - 1].id + 1;
+				}
+
+				App.Data.CustomVariables.push({
+					"displayName": name,
+					"type": "custom",
+					"set": true,
+					"get": true,
+					"id": newId
+				});
+
+				return newId;
+			},
+			RemoveCustomVariable : function (variableId) {
+				for (var i = 0; i < App.Data.CustomVariables.length; i++) {
+					if (App.Data.CustomVariables[i].id == variableId) {
+						App.Data.CustomVariables[i] = undefined;
+					}
+				}
+
+				// filters out the undefined variables
+				App.Data.CustomVariables = App.Data.CustomVariables.filter(Boolean);
 			}
 		},
 		Remote : null,

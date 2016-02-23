@@ -98,11 +98,15 @@ canvas {
 	select {
 		height: auto;
 		&[data-project-variables] {
-			height: 250px;
+			width: calc(~"100% - 40px");
 		}
 	}
 	footer {
+		.clearfix();
 		span {
+			&.close {
+				float: right;
+			}
 			cursor: default;
 			display: inline-block;
 			height: 40px;
@@ -116,11 +120,31 @@ canvas {
 			}
 		}
 	}
+	.side-controls {
+		position: absolute;
+		top: 112px;
+		right: 10px;		
+		width: 30px;
+		span {
+			display: block;
+			line-height: 28px;
+			margin-bottom: 5px;
+			height: 30px;
+			text-align: center;
+			background: @pomegranate;
+			color: @white;
+			border-radius: 3px;
+			&.disabled {
+				background: @silver;
+				color: @white;
+			}
+		}
+	}
 	.control {
 		.clearfix();
 		input {
 			float: left;
-			width: 90%;
+			width: 93%;
 			&:focus + span {
 				background: @turquoise;
 			}
@@ -128,7 +152,7 @@ canvas {
 		span {
 			float: left;
 			display: block;
-			width: 10%;
+			width: 7%;
 			height: 35px;
 			line-height: 35px;
 			text-align: center;
@@ -462,7 +486,7 @@ canvas {
 					line-height: 20px;
 				}
 			}
-			.chosen-container-active {
+			.chosen-with-drop {
 				.chosen-single {
 					border-bottom-color: #FFF;
 				}

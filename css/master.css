@@ -2858,7 +2858,17 @@ canvas {
   height: auto;
 }
 .modal select[data-project-variables] {
-  height: 250px;
+  width: calc(100% - 40px);
+}
+.modal footer:before,
+.modal footer:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal footer:after {
+  clear: both;
 }
 .modal footer span {
   cursor: default;
@@ -2870,8 +2880,31 @@ canvas {
   color: #ECF0F1;
   border-radius: 3px;
 }
+.modal footer span.close {
+  float: right;
+}
 .modal footer span i {
   margin-right: 10px;
+}
+.modal .side-controls {
+  position: absolute;
+  top: 112px;
+  right: 10px;
+  width: 30px;
+}
+.modal .side-controls span {
+  display: block;
+  line-height: 28px;
+  margin-bottom: 5px;
+  height: 30px;
+  text-align: center;
+  background: #C0392B;
+  color: #ECF0F1;
+  border-radius: 3px;
+}
+.modal .side-controls span.disabled {
+  background: #BDC3C7;
+  color: #ECF0F1;
 }
 .modal .control:before,
 .modal .control:after {
@@ -2885,7 +2918,7 @@ canvas {
 }
 .modal .control input {
   float: left;
-  width: 90%;
+  width: 93%;
 }
 .modal .control input:focus + span {
   background: #1ABC9C;
@@ -2893,7 +2926,7 @@ canvas {
 .modal .control span {
   float: left;
   display: block;
-  width: 10%;
+  width: 7%;
   height: 35px;
   line-height: 35px;
   text-align: center;
@@ -3279,7 +3312,7 @@ canvas {
 #nodes .node .controls .chosen-container-single .chosen-results li {
   line-height: 20px;
 }
-#nodes .node .controls .chosen-container-active .chosen-single {
+#nodes .node .controls .chosen-with-drop .chosen-single {
   border-bottom-color: #FFF;
 }
 #nodes .node .controls.hidden {
