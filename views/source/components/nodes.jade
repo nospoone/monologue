@@ -8,12 +8,13 @@ section#nodes
 			select.nodetype
 				option(disabled, selected, default, value="default") Node Type
 				option(value="text") Text
-				//- option(value="choice") Choice
 				option(value="set") Set
 				option(value="branch") Branch
+				//- option(value="choice") Choice
 				//- option(value="node") Node
 		.controls(data-type="text").hidden
 			input(type="text", data-type="text", data-name, placeholder="Name")
+			select(data-type="voice", data-voice).placeholder
 			textarea(data-type="text", data-message, placeholder="Message")
 		.controls(data-type="set").hidden
 			select(data-variable-set).placeholder
@@ -29,12 +30,12 @@ section#nodes
 			.value
 				select(data-type="set", data-condition).placeholder
 					option(disabled, selected, default, value="placeholder") ?
-					option(value="==") ==
-					option(value="!=") !=
-					option(value=">=") &gt;=
-					option(value="<=") &lt;=
-					option(value=">") &gt;
-					option(value="<") &lt;
+					option(value="==", data-valid-int, data-valid-string, data-valid-bool) ==
+					option(value="!=", data-valid-int, data-valid-string, data-valid-bool) !=
+					option(value=">=", data-valid-int) &gt;=
+					option(value="<=", data-valid-int) &lt;=
+					option(value=">", data-valid-int) &gt;
+					option(value="<", data-valid-int) &lt;
 				input(type="text", data-type="set", data-value, placeholder="Value")
 			span.else Else...
 		.links

@@ -339,7 +339,6 @@
 
 				if (App.State.Dirty) {
 					App.Draw.ScrollElements();
-					App.Draw.CurrentDisplayedNodes = $("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)");
 				}
 
 				App.Draw.DrawLinks();
@@ -360,7 +359,7 @@
 				App.State.Dirty = false;
 			},
 			DrawLinks : function () {
-				$.each(App.Draw.CurrentDisplayedNodes, function () {
+				$.each($("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)"), function () {
 					var id = $(this).data('id');
 					var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, id);
 
@@ -435,7 +434,6 @@
 
 				if (App.State.Link.Linking) {
 					var fromX, fromY, toX, toY, fromElem, fromPos, toElem, toPos;
-
 
 					if (App.State.Link.LinkingFrom.hasClass("branch")) {
 						if (App.State.Link.IsTrueLink) {
@@ -544,6 +542,10 @@
 					}
 				})
 
+				App.Data.Voices.forEach(function (voice) {
+					$(".node.template select[data-voice]").append("<option value='" + voice.displayName + "'>" + voice.displayName + "</option>");
+				});
+
 				$.each($("section#nodes .tree"), function () {
 					var tree = $(this);
 					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {
@@ -555,8 +557,8 @@
 
 						if (e.type === "text") {
 							node.find("input[data-name]").val(e.name);
-							var message = App.Data.GetText(App.State.CurrentLanguage, "$T" + tree.data('id') + "N" + e.id);
-							node.find("textarea[data-message]").val(message);
+							node.find("select[data-voice] option[value='" + e.voice + "']").prop("selected", "selected");
+							node.find("textarea[data-message]").val(App.Data.GetText(App.State.CurrentLanguage, "$T" + tree.data('id') + "N" + e.id));
 						} else if (e.type === "branch") {
 							node.addClass("branch");
 							node.find('.links').append("<span class='connectTo'></span>");
@@ -571,6 +573,7 @@
 
 						node.find("select[data-variable-get]").chosen({ width: "100%" });
 						node.find("select[data-variable-set]").chosen({ width: "100%" });
+						node.find("select[data-voice]").chosen({ width: "100%" });
 					});
 				});
 			},
@@ -589,6 +592,9 @@
 				var node = $(".node.template").clone().removeClass('template');
 				node = $(".node.template").clone().removeClass('template').data('id', newId);
 				node.appendTo("section#nodes .tree[data-id=" + App.State.CurrentTree + "]");
+				node.find("select[data-variable-get]").chosen({ width: "100%" });
+				node.find("select[data-variable-set]").chosen({ width: "100%" });
+				node.find("select[data-voice]").chosen({ width: "100%" });
 				App.State.Dirty = true;
 			},
 			GenerateLanguages : function () {
@@ -609,7 +615,6 @@
 				$("input[data-project-title]").val(App.Data.Project.name);
 
 				App.Data.CustomVariables.forEach(function (variable) {
-					console.log(variable);
 					$("select[data-project-variables]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
 				});
 			},
@@ -670,6 +675,7 @@
 				App.Data.Project = d.project;
 				App.Data.Variables = d.project.variables;
 				App.Data.CustomVariables = d.project.customVariables;
+				App.Data.Voices = d.project.voices;
 				App.Data.Trees = d.trees;
 				App.Data.Translations = d.translations;
 				App.File.CurrentProjectFile = file;
@@ -728,6 +734,7 @@
 			Languages : null,
 			Variables : null,
 			CustomVariables : null,
+			Voices : null,
 			GetNodeCoordinates : function (treeId, nodeId) {
 				var node = App.Data.GetNodeByID(treeId, nodeId);
 
@@ -756,6 +763,7 @@
 				switch (dataNode.type) {
 					case "text":
 						dataNode.name = nodeElement.find('[data-type="text"] input[data-name]').val();
+						dataNode.voice = nodeElement.find('[data-type="text"] select[data-voice] option:selected').val();
 						App.Data.SetText(App.State.CurrentLanguage, "$T" + App.State.CurrentTree + "N" + nodeElement.data('id'), nodeElement.find('[data-type="text"] textarea[data-message]').val());
 						break;
 					case "set":
