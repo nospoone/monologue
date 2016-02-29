@@ -2906,6 +2906,9 @@ canvas {
   background: #BDC3C7;
   color: #ECF0F1;
 }
+.modal .control {
+  position: relative;
+}
 .modal .control:before,
 .modal .control:after {
   content: " ";
@@ -2918,12 +2921,22 @@ canvas {
 }
 .modal .control input {
   float: left;
-  width: 93%;
+  width: 84%;
+  border-right: none;
 }
-.modal .control input:focus + span {
+.modal .control input:focus + select {
+  border-color: #1ABC9C;
+}
+.modal .control input:focus + select + span {
   background: #1ABC9C;
 }
-.modal .control span {
+.modal .control input.error + select {
+  border-color: #C0392B;
+}
+.modal .control input.error + select + span {
+  background: #C0392B;
+}
+.modal .control span:not(.error) {
   float: left;
   display: block;
   width: 7%;
@@ -2932,6 +2945,24 @@ canvas {
   text-align: center;
   background: #BDC3C7;
   color: #ECF0F1;
+}
+.modal .control span.error {
+  color: #C0392B;
+  font-size: 12px;
+  position: absolute;
+  top: -20px;
+  right: 0;
+  opacity: 1;
+}
+.modal .control span.error.hidden {
+  opacity: 0;
+}
+.modal .control select {
+  float: left;
+  width: 9%;
+  display: block;
+  border-left: none;
+  border-right: none;
 }
 #splash {
   position: fixed;
@@ -3244,7 +3275,7 @@ canvas {
   position: absolute;
   border-radius: 3px;
   border: 1px #16A085 solid;
-  min-width: 200px;
+  width: 230px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   background: #ECF0F1;
 }
@@ -3383,10 +3414,10 @@ canvas {
   border-right: 2px #BDC3C7 solid;
   padding-right: 5px;
 }
-#nodes .node.branch .links span.connectTo:nth-child(3) {
+#nodes .node.branch .links span.connectTo:not(:last-child) {
   top: 113px;
 }
-#nodes .node.branch .links span.connectTo:nth-child(4) {
+#nodes .node.branch .links span.connectTo:last-child {
   top: 153px;
 }
 #nodes .node .links span.connectFrom,
@@ -3452,6 +3483,11 @@ input:focus,
 textarea:focus,
 select:focus {
   border-color: #1ABC9C;
+}
+input.error,
+textarea.error,
+select.error {
+  border-color: #C0392B;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,

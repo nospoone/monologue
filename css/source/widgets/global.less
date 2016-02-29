@@ -142,14 +142,27 @@ canvas {
 	}
 	.control {
 		.clearfix();
+		position: relative;
 		input {
 			float: left;
-			width: 93%;
-			&:focus + span {
-				background: @turquoise;
+			width: 84%;
+			border-right: none;
+			&:focus + select {
+				border-color: @turquoise;
+				+ span {
+					background: @turquoise;
+				}
+			}
+			&.error {
+				+ select {
+					border-color: @pomegranate;
+					+ span {
+						background: @pomegranate;
+					}
+				}
 			}
 		}
-		span {
+		span:not(.error) {
 			float: left;
 			display: block;
 			width: 7%;
@@ -158,6 +171,24 @@ canvas {
 			text-align: center;
 			background: @silver;
 			color: @white;
+		}
+		span.error {
+			color: @pomegranate;
+			font-size: 12px;
+			position: absolute;
+			top: -20px;
+			right: 0;
+			opacity: 1;
+			&.hidden {
+				opacity: 0;
+			}
+		}
+		select {
+			float: left;
+			width: 9%;
+			display: block;
+			border-left: none;
+			border-right: none;
 		}
 	}
 }
@@ -424,7 +455,7 @@ canvas {
 		position: absolute;
 		border-radius: 3px;
 		border: 1px @greenSea solid;
-		min-width: 200px;
+		width: 230px;
 		.BoxShadowHelper();
 		background: @white;
 		header {
@@ -546,10 +577,10 @@ canvas {
 		&.branch {
 			.links {
 				span.connectTo {
-					&:nth-child(3) {
+					&:not(:last-child) {
 						top: 113px;
 					}
-					&:nth-child(4) {
+					&:last-child {
 						top: 153px;
 					}
 				}
@@ -604,6 +635,9 @@ input, textarea, select {
 	}
 	&:focus {
 		border-color: @turquoise;
+	}
+	&.error {
+		border-color: @pomegranate;
 	}
 	width: 100%;
 	display: block;

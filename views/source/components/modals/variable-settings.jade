@@ -12,7 +12,14 @@
 			i.fa.fa-arrow-down
 	label(for="title") Add new variable
 	.control
+		span.error.duplicate.hidden Variable name already exists.
+		span.error.invalid.hidden Invalid characters in variable name.
+		span.error.empty.hidden Variable name cannot be empty.
 		input(type="text", data-project-new-variable, placeholder="New Variable")
+		select(data-variable-type)
+			option(value="int") Int
+			option(value="string") String
+			option(value="bool") Bool
 		span.add-variable
 			i.fa.fa-plus
 	footer

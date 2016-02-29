@@ -226,7 +226,7 @@
 					App.State.Link.LinkingFrom = $(this).closest(".node");
 
 					if (App.State.Link.LinkingFrom.hasClass("branch")) {
-						App.State.Link.IsTrueLink = $(e.target).index() === 2;
+						App.State.Link.IsTrueLink = $(e.target).index() === 0 || $(e.target).index() === 2;
 					}
 
 					e.preventDefault();
@@ -278,7 +278,9 @@
 			},
 			BindModalEvents : function () {
 				// VARIABLE SETTINGS
-				var variableSettings = ".variable-settings";
+				var variableSettings = ".variable-settings",
+					validCharsRegex = new RegExp(/^[a-zA-ZÀ-ÿ0-9 ]+$/);
+
 				$("select[data-project-variables]", variableSettings).on("change", function onProjectVariableChange() {
 					if ($("select[data-project-variables] option:selected", variableSettings).length > 0) {
 						$("span.remove-variable", variableSettings).removeClass("disabled");
@@ -288,10 +290,29 @@
 				});
 
 				$("span.add-variable", variableSettings).on("click", function onAddCustomVariableClick() {
-					if ($("input[data-project-new-variable]", variableSettings).val().length > 0) {
-						var newId = App.Data.AddCustomVariable($("input[data-project-new-variable]", variableSettings).val());
-						$("select[data-project-variables]").append("<option value='" + newId + "'>" + $("input[data-project-new-variable]", variableSettings).val() + "</option>");
-						$("input[data-project-new-variable]", variableSettings).val("").trigger("blur");
+					var variableNameInput = $("input[data-project-new-variable]", variableSettings),
+						variableName = variableNameInput.val();
+
+					$("span.error", variableSettings).addClass("hidden");
+					variableNameInput.removeClass("error");
+
+					if (variableName.length > 0) {
+						if (validCharsRegex.test(variableName)) {
+							if (!App.Data.DuplicateCustomVariableExists(variableName)) {
+								var newId = App.Data.AddCustomVariable(variableName, $("select[data-project-new-variable-type]", variableSettings));
+								$("select[data-project-variables]").append("<option value='" + newId + "'>" + variableName + "</option>");
+								variableNameInput.val("").trigger("blur");
+							} else {
+								variableNameInput.addClass("error").focus();
+								$("span.error.duplicate", variableSettings).removeClass("hidden");
+							}
+						} else {
+							variableNameInput.addClass("error").focus();
+							$("span.error.invalid", variableSettings).removeClass("hidden");
+						}
+					} else {
+						variableNameInput.addClass("error").focus();
+						$("span.error.empty", variableSettings).removeClass("hidden");
 					}
 				});
 
@@ -318,6 +339,7 @@
 
 				if (App.State.Dirty) {
 					App.Draw.ScrollElements();
+					App.Draw.CurrentDisplayedNodes = $("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)");
 				}
 
 				App.Draw.DrawLinks();
@@ -338,7 +360,7 @@
 				App.State.Dirty = false;
 			},
 			DrawLinks : function () {
-				$.each($("section#nodes .tree[data-id=" + App.State.CurrentTree + "] .node:not(.template)"), function () {
+				$.each(App.Draw.CurrentDisplayedNodes, function () {
 					var id = $(this).data('id');
 					var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, id);
 
@@ -461,7 +483,8 @@
 				App.Canvas.Context.lineWidth = 3 * App.State.Zoom;
 				App.Canvas.Context.strokeStyle = "#ECF0F1";
 				App.Canvas.Context.stroke();
-			}
+			},
+			CurrentDisplayedNodes : null
 		},
 		View : {
 			LoadProject : function () {
@@ -739,6 +762,10 @@
 						dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
 						dataNode.value = nodeElement.find('[data-type="set"] input[data-value]').val();
 						break;
+					case "branch":
+						dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
+						dataNode.value = nodeElement.find('[data-type="set"] input[data-value]').val();
+						break;
 				}
 			},
 			RemoveNode : function (id) {
@@ -860,6 +887,15 @@
 
 				// filters out the undefined variables
 				App.Data.CustomVariables = App.Data.CustomVariables.filter(Boolean);
+			},
+			DuplicateCustomVariableExists : function (variableName) {
+				for (var i = 0; i < App.Data.CustomVariables.length; i++) {
+					if (App.Data.CustomVariables[i].displayName == variableName) {
+						return true;
+					}
+				}
+
+				return false;
 			}
 		},
 		Remote : null,
