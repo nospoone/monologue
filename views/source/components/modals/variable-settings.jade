@@ -16,10 +16,12 @@
 		span.error.invalid.hidden Invalid characters in variable name.
 		span.error.empty.hidden Variable name cannot be empty.
 		input(type="text", data-project-new-variable, placeholder="New Variable")
-		select(data-variable-type)
+		select(data-project-new-variable-type).placeholder
+			option(disabled, selected, default, value="placeholder") Type
 			option(value="int") Int
 			option(value="string") String
-			option(value="bool") Bool
+			option(value="bool") Boolean
+			option(value="character") Character
 		span.add-variable
 			i.fa.fa-plus
 	footer

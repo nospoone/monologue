@@ -97,8 +97,13 @@ canvas {
 	}
 	select {
 		height: auto;
-		&[data-project-variables] {
+		&[data-project-variables], &[data-project-trees] {
 			width: calc(~"100% - 40px");
+		}
+		&[data-project-trees] {
+			+ .side-controls {
+				top: 93px;
+			}
 		}
 	}
 	footer {
@@ -140,12 +145,17 @@ canvas {
 			}
 		}
 	}
+	&.trees .control {
+		input {
+			width: 77%;
+		}
+	}
 	.control {
 		.clearfix();
 		position: relative;
 		input {
 			float: left;
-			width: 84%;
+			width: 81%;
 			border-right: none;
 			&:focus + select {
 				border-color: @turquoise;
@@ -185,10 +195,13 @@ canvas {
 		}
 		select {
 			float: left;
-			width: 9%;
+			width: 12%;
 			display: block;
 			border-left: none;
 			border-right: none;
+			&[data-new-tree-category] {
+				width: 16%;
+			}
 		}
 	}
 }
@@ -553,8 +566,22 @@ canvas {
 			.value {
 				.clearfix();
 				select {
+					&.small {
+						select {
+							width: 13%;
+						}
+						input {
+							width: 87%;
+						}
+					}
 					width: 18%;
-					border-right: none;
+					&[data-bool], &[data-character] {
+						width: 82%;
+						border-left: none;
+					}
+					&:not([data-bool]):not([data-character]) {
+						border-right: none;
+					}
 				}
 				input {
 					width: 82%;
@@ -651,6 +678,9 @@ input, textarea, select {
 		color: @silver;
 	}
 	[default] { 
+		display: none;
+	}
+	option.hidden {
 		display: none;
 	}
 }

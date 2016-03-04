@@ -163,6 +163,12 @@
 				$("select.languages").chosen().change(function () {
 					App.View.ChangeLanguage($(this).find(":selected").val());
 				});
+
+				var subscope = ".node-dropdown";
+				$(".tree-settings", scope + subscope).on('click', function () {
+					App.View.ShowModal(".trees");
+					$("nav#tool-bar .node-menu").click();
+				});
 			},
 			BindSplashEvents : function () {
 				var scope = "div#splash";
@@ -185,13 +191,13 @@
 				});
 			},
 			BindNodeEvents : function () {
-				$("section#nodes").on('change blur', '.controls select', function () {
+				$("section#nodes, .modal").on('change blur', 'select', function () {
 					if ($(this).find(":selected").val() === "placeholder") {
 						$(this).addClass("placeholder");
 					}
 				});
 
-				$("section#nodes").on('click', '.controls select', function () {
+				$("section#nodes, .modal").on('click', 'select', function () {
 					$(this).removeClass("placeholder");
 				});
 
@@ -213,11 +219,11 @@
 					App.Data.UpdateNode(parent);
 				});
 
-				$('section#nodes').on('change', '.controls input, .controls textarea', function () {
+				$('section#nodes').on('change', '.controls input, .controls textarea, .controls select', function () {
 					App.Data.UpdateNode($(this).closest(".node"));
 				})
 
-				$('section#nodes').on('focus', '.controls input, .controls textarea', function () {
+				$('section#nodes').on('focus', '.controls input, .controls textarea, .controls select', function () {
 					$(this).addClass("dirty");
 				})
 
@@ -259,6 +265,7 @@
 						} else {
 							App.Data.Link(App.State.Link.LinkingFrom, App.State.Link.LinkTarget);
 						}
+
 						App.State.Link.Linking = false;
 						App.State.Link.LinkingFrom = null;
 						App.State.Link.LinkTarget = null;
@@ -299,7 +306,7 @@
 					if (variableName.length > 0) {
 						if (validCharsRegex.test(variableName)) {
 							if (!App.Data.DuplicateCustomVariableExists(variableName)) {
-								var newId = App.Data.AddCustomVariable(variableName, $("select[data-project-new-variable-type]", variableSettings));
+								var newId = App.Data.AddCustomVariable(variableName, $("select[data-variable-type] option:selected", variableSettings).val());
 								$("select[data-project-variables]").append("<option value='" + newId + "'>" + variableName + "</option>");
 								variableNameInput.val("").trigger("blur");
 							} else {
@@ -331,6 +338,46 @@
 						$("select[data-project-variables]", variableSettings).trigger("change");
 					}
 				});
+
+				// TREES
+				var trees = ".trees";
+				$("span.close", trees).on("click", function closeVariableModals() {
+					App.View.HideModal();
+					if ($("select[data-project-trees]", trees).find("option:selected").length > 0) {
+						$("select[data-project-trees]", trees).find("option:selected").prop("selected", false);
+						$("select[data-project-trees]", trees).trigger("change");
+					}
+				});
+
+				$("select[data-project-trees]", trees).on("change", function onProjectTreeChange() {
+					if ($("select[data-project-trees] option:selected", trees).length > 0) {
+						$("span.remove-tree", trees).removeClass("disabled");
+					} else {
+						$("span.remove-tree", trees).addClass("disabled");
+					}
+				});
+
+				$("span.remove-tree", trees).on("click", function onRemoveTreeClick() {
+					if ($("select[data-project-trees] option:selected", trees).length > 0) {
+						// App.Data.RemoveTree($("select[data-project-trees] option:selected", trees).val());
+						$("select[data-project-trees] option:selected", trees).remove();
+						$("select[data-project-trees]", trees).trigger("change");
+					}
+				});
+			},
+			NodeSelectChange : function (select, resetValues) {
+				var select = (select !== undefined && select.type !== "change") ? select : $(this),
+					validation = select.find("option:selected").data("validation"),
+					resetValues = (resetValues === undefined) ? true : resetValues;
+
+				select.parent().find("[data-validates]").hide();
+				select.parent().find("[data-" + validation + "]").show();
+
+				if (resetValues) {
+					select.parent().find("option[data-validates]").prop("selected", false);
+					select.parent().find("select[data-operation] option[default], select[data-character] option[default], select[data-condition] option[default], select[data-bool] option[default]").prop("selected", "selected").blur();
+					select.parent().find("input[type=text]").val("");
+				}
 			}
 		},
 		Draw : {
@@ -490,6 +537,7 @@
 					App.View.AnimateWithCallback($("#splash .icon"), "shown", function () {
 						$("h1").text("Monologue - " + App.Data.Project.name);
 
+						App.View.GenerateTreesCategories();
 						App.View.GenerateTrees();
 						App.View.GenerateLanguages();
 						App.View.GenerateNodes();
@@ -528,11 +576,11 @@
 			GenerateNodes : function () {
 				App.Data.Variables.forEach(function (variable) {
 					if (variable.set) {
-						$(".node.template select[data-variable-set] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
+						$(".node.template select[data-variable-set] optgroup[data-" + variable.origin + "]").append("<option data-validation='" + variable.validation + "' value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
 					}
 
 					if (variable.get) {
-						$(".node.template select[data-variable-get] optgroup[data-" + variable.type + "]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
+						$(".node.template select[data-variable-get] optgroup[data-" + variable.origin + "]").append("<option data-validation='" + variable.validation + "' value='" + variable.id + "'>" + variable.displayName + "</option>").trigger("chosen:updated");
 					}
 				});
 
@@ -546,6 +594,10 @@
 					$(".node.template select[data-voice]").append("<option value='" + voice.displayName + "'>" + voice.displayName + "</option>");
 				});
 
+				App.Data.Characters.forEach(function (character) {
+					$(".node.template select[data-character]").append("<option value='" + character.id + "'>" + character.displayName + "</option>");
+				});
+
 				$.each($("section#nodes .tree"), function () {
 					var tree = $(this);
 					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {
@@ -556,12 +608,62 @@
 						node.find(".controls[data-type=" + e.type + "]").removeClass("hidden");
 
 						if (e.type === "text") {
-							node.find("input[data-name]").val(e.name);
-							node.find("select[data-voice] option[value='" + e.voice + "']").prop("selected", "selected");
-							node.find("textarea[data-message]").val(App.Data.GetText(App.State.CurrentLanguage, "$T" + tree.data('id') + "N" + e.id));
+							node.find("[data-type='text'] input[data-name]").val(e.name);
+							node.find("[data-type='text'] select[data-voice] option[value='" + e.voice + "']").prop("selected", "selected");
+							node.find("[data-type='text'] textarea[data-message]").val(App.Data.GetText(App.State.CurrentLanguage, "$T" + tree.data('id') + "N" + e.id));
 						} else if (e.type === "branch") {
 							node.addClass("branch");
 							node.find('.links').append("<span class='connectTo'></span>");
+
+							if (e.variable !== undefined && e.variable !== "") {
+								node.find("[data-type='branch'] select[data-variable-get] option[value='" + e.variable + "']")
+								if (e.value !== undefined && node.find("[data-type='branch'] select[data-variable-get] option[value='" + e.variable + "']").length > 0) {
+									var variable = node.find("[data-type='branch'] select[data-variable-get] option[value='" + e.variable + "']");
+									switch (variable.data('validation')) {
+										case 'int':
+										case 'string':
+											node.find("[data-type='branch'] input[data-" + variable.data('validation') + "]").val(e.value);
+											break;
+										case 'bool':
+										case 'character':
+											node.find("[data-type='branch'] select[data-" + variable.data('validation') + "] option[value='" + e.value + "']").prop("selected", "selected");
+											node.find("[data-type='branch'] select[data-" + variable.data('validation') + "] option[value='" + e.value + "']").prop("selected", "selected").parent().removeClass("placeholder");
+											break;
+										default:
+											console.error("Invalid validation type.");
+											break;
+									}
+								}
+							}
+
+							if (e.condition !== undefined) {
+								node.find("[data-type='branch'] select[data-condition] option[value='" + e.condition + "']").prop("selected", "selected").parent().removeClass("placeholder");
+							}
+						} else if (e.type === "set") {
+							if (e.variable !== undefined && e.variable !== "") {
+								node.find("[data-type='set'] select[data-variable-set] option[value='" + e.variable + "']").prop("selected", "selected").parent().removeClass("placeholder");
+								if (e.value !== undefined && node.find("[data-type='set'] select[data-variable-set] option[value='" + e.variable + "']").length > 0) {
+									var variable = node.find("[data-type='set'] select[data-variable-set] option[value='" + e.variable + "']");
+									switch (variable.data('validation')) {
+										case 'int':
+										case 'string':
+											node.find("[data-type='set'] input[data-" + variable.data('validation') + "]").val(e.value);
+											break;
+										case 'bool':
+										case 'character':
+											node.find("[data-type='set'] select[data-" + variable.data('validation') + "] option[value='" + e.value + "']").prop("selected", "selected");
+											node.find("[data-type='set'] select[data-" + variable.data('validation') + "] option[value='" + e.value + "']").prop("selected", "selected").parent().removeClass("placeholder");
+											break;
+										default:
+											console.error("Invalid validation type.");
+											break;
+									}
+								}
+							}
+
+							if (e.operation !== undefined) {
+								node.find("[data-type='set'] select[data-operation] option[value='" + e.operation + "']").prop("selected", "selected").parent().removeClass("placeholder");
+							}
 						}
 
 						if (i === 0) {
@@ -569,11 +671,12 @@
 							node.find("span.connectFrom, span.connectFromTrigger").remove();
 						}
 
-						node.appendTo(tree);
 
-						node.find("select[data-variable-get]").chosen({ width: "100%" });
-						node.find("select[data-variable-set]").chosen({ width: "100%" });
+						App.Events.NodeSelectChange(node.find("select[data-variable-get]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange), false);
+						App.Events.NodeSelectChange(node.find("select[data-variable-set]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange), false);
 						node.find("select[data-voice]").chosen({ width: "100%" });
+
+						node.appendTo(tree);
 					});
 				});
 			},
@@ -581,8 +684,18 @@
 				App.Data.Trees.forEach(function (tree, index) {
 					var visibility = (App.State.CurrentTree == tree.id) ? "" : " hidden";
 					$("section#nodes").append("<section class='tree" + visibility + "' data-id='" + tree.id + "'></section>");
-					$("select.trees").append("<option data-tree='" + tree.id + "'>" + tree.displayName + "</option>");
 
+					if (App.State.CurrentTree == tree.id) {
+						$("select.trees").append("<option data-tree='" + tree.id + "' selected='selected'>" + tree.displayName + "</option>");
+					} else {
+						$("select.trees").append("<option data-tree='" + tree.id + "'>" + tree.displayName + "</option>");
+					}
+
+					$.each($("select[data-project-trees] optgroup"), function () {
+						if ($(this).data('tree-category-id') === tree.categoryId) {
+							$(this).append("<option data-tree='" + tree.id + "'>" + tree.displayName + "</option>");
+						}
+					});
 				});
 
 				$("select.trees").trigger("chosen:updated");
@@ -592,8 +705,8 @@
 				var node = $(".node.template").clone().removeClass('template');
 				node = $(".node.template").clone().removeClass('template').data('id', newId);
 				node.appendTo("section#nodes .tree[data-id=" + App.State.CurrentTree + "]");
-				node.find("select[data-variable-get]").chosen({ width: "100%" });
-				node.find("select[data-variable-set]").chosen({ width: "100%" });
+				App.Events.NodeSelectChange(node.find("select[data-variable-get]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange));
+				App.Events.NodeSelectChange(node.find("select[data-variable-set]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange));
 				node.find("select[data-voice]").chosen({ width: "100%" });
 				App.State.Dirty = true;
 			},
@@ -616,6 +729,12 @@
 
 				App.Data.CustomVariables.forEach(function (variable) {
 					$("select[data-project-variables]").append("<option value='" + variable.id + "'>" + variable.displayName + "</option>");
+				});
+			},
+			GenerateTreesCategories : function () {
+				App.Data.TreeCategories.forEach(function (tree) {
+					$("select[data-project-trees]").append('<optgroup label="' + tree.displayName + '" data-tree-category-id="' + tree.id + '"></optgroup>')
+					$("select[data-new-tree-category]").append('<option value="' + tree.id + '">' + tree.displayName + '</option>');
 				});
 			},
 			RemoveNode : function (nodeElement) {
@@ -675,7 +794,9 @@
 				App.Data.Project = d.project;
 				App.Data.Variables = d.project.variables;
 				App.Data.CustomVariables = d.project.customVariables;
+				App.Data.TreeCategories = d.project.treeCategories;
 				App.Data.Voices = d.project.voices;
+				App.Data.Characters = d.project.characters;
 				App.Data.Trees = d.trees;
 				App.Data.Translations = d.translations;
 				App.File.CurrentProjectFile = file;
@@ -735,6 +856,7 @@
 			Variables : null,
 			CustomVariables : null,
 			Voices : null,
+			Characters : null,
 			GetNodeCoordinates : function (treeId, nodeId) {
 				var node = App.Data.GetNodeByID(treeId, nodeId);
 
@@ -758,22 +880,40 @@
 			},
 			UpdateNode : function (nodeElement) {
 				var dataNode = App.Data.GetNodeByID(App.State.CurrentTree, nodeElement.data('id'));
-				dataNode.type = nodeElement.find('select.nodetype option:selected').val();
 
-				switch (dataNode.type) {
-					case "text":
-						dataNode.name = nodeElement.find('[data-type="text"] input[data-name]').val();
-						dataNode.voice = nodeElement.find('[data-type="text"] select[data-voice] option:selected').val();
-						App.Data.SetText(App.State.CurrentLanguage, "$T" + App.State.CurrentTree + "N" + nodeElement.data('id'), nodeElement.find('[data-type="text"] textarea[data-message]').val());
-						break;
-					case "set":
-						dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
-						dataNode.value = nodeElement.find('[data-type="set"] input[data-value]').val();
-						break;
-					case "branch":
-						dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable] option:selected').val();
-						dataNode.value = nodeElement.find('[data-type="set"] input[data-value]').val();
-						break;
+				if (typeof dataNode !== 'undefined') {
+					dataNode.type = nodeElement.find('select.nodetype option:selected').val();
+					switch (dataNode.type) {
+						case "text":
+							dataNode.name = nodeElement.find('[data-type="text"] input[data-name]').val();
+							dataNode.voice = nodeElement.find('[data-type="text"] select[data-voice] option:selected').val();
+							App.Data.SetText(App.State.CurrentLanguage, "$T" + App.State.CurrentTree + "N" + nodeElement.data('id'), nodeElement.find('[data-type="text"] textarea[data-message]').val());
+							break;
+						case "set":
+							dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable-set] option:selected').val();
+							dataNode.operation = nodeElement.find('[data-type="set"] select[data-operation] option:selected').val();
+
+							var validation = nodeElement.find('[data-type="set"] select[data-variable-set] option:selected').data('validation');
+							if (validation === "int" || validation === "string") {
+								dataNode.value = nodeElement.find('[data-type="set"] input[data-' + validation + ']').val();
+							} else if (validation === "bool" || validation === "character") {
+								dataNode.value = nodeElement.find('[data-type="set"] select[data-' + validation + '] option:selected').val();
+							}
+
+							break;
+						case "branch":
+							dataNode.variable = nodeElement.find('[data-type="branch"] select[data-variable-get] option:selected').val();
+							dataNode.condition = nodeElement.find('[data-type="branch"] select[data-condition] option:selected').val();
+
+							var validation = nodeElement.find('[data-type="branch"] select[data-variable-get] option:selected').data('validation');
+							if (validation === "int" || validation === "string") {
+								dataNode.value = nodeElement.find('[data-type="branch"] input[data-' + validation + ']').val();
+							} else if (validation === "bool" || validation === "character") {
+								dataNode.value = nodeElement.find('[data-type="branch"] select[data-' + validation + '] option:selected').val();
+							}
+
+							break;
+					}
 				}
 			},
 			RemoveNode : function (id) {
@@ -870,7 +1010,7 @@
 					}
 				}
 			},
-			AddCustomVariable : function (name) {
+			AddCustomVariable : function (name, validation) {
 				var newId = 0;
 				if (App.Data.CustomVariables.length > 0) {
 					newId = App.Data.CustomVariables[App.Data.CustomVariables.length - 1].id + 1;
@@ -879,6 +1019,7 @@
 				App.Data.CustomVariables.push({
 					"displayName": name,
 					"type": "custom",
+					"validation" : validation,
 					"set": true,
 					"get": true,
 					"id": newId

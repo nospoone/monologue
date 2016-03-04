@@ -1,0 +1,25 @@
+.modal.trees.hidden.invisible
+	h2 Trees
+	label(for="title") Trees
+	select(size="10", data-project-trees)
+	.side-controls
+		span.remove-tree.disabled
+			i.fa.fa-times
+		span.move-up.disabled
+			i.fa.fa-arrow-up
+		span.move-down.disabled
+			i.fa.fa-arrow-down
+	label(for="title") Add new tree
+	.control
+		span.error.duplicate.hidden Tree name already exists.
+		span.error.invalid.hidden Invalid characters in tree name.
+		span.error.empty.hidden Tree name cannot be empty.
+		input(type="text", data-project-new-variable, placeholder="New Tree")
+		select(data-new-tree-category).placeholder
+			option(disabled, selected, default, value="placeholder") Category
+		span.add-variable
+			i.fa.fa-plus
+	footer
+		span.close
+			i.fa.fa-times
+			| Close

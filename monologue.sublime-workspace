@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"reset",
+				"resetValues"
+			],
+			[
+				"data-",
+				"data-variable-set"
+			],
+			[
+				"sele",
+				"select"
+			],
+			[
+				"place",
+				"placeholder"
+			],
+			[
+				"val",
+				"validCharsRegex"
+			],
+			[
+				"Curre",
+				"CurrentDisplayedNode"
+			],
+			[
 				"varia",
 				"variableSettings"
 			],
@@ -490,30 +514,6 @@
 			[
 				"padding-",
 				"padding-bottom"
-			],
-			[
-				"inline",
-				"inline-block"
-			],
-			[
-				"lowe",
-				"lowestElem"
-			],
-			[
-				"Anima",
-				"AnimationStartDelay"
-			],
-			[
-				"B",
-				"BarGraphMinimumHeight"
-			],
-			[
-				"table",
-				"table-cell"
-			],
-			[
-				"data-depar",
-				"data-departure"
 			]
 		]
 	},
@@ -528,13 +528,10 @@
 			}
 		},
 		{
-			"contents": "doctype html\nhtml(lang='en')\n	head\n		meta(charset='utf-8')\n		title Monologue - Branching Dialogue Editor\n		link(rel='stylesheet', href='../css/master.css')\n		script(src='../js/greetings.js')\n	script(src='../js/chosen.js')\n		script(src='../js/App.js')\n	body\n		include components/splash\n		include components/modals\n		include components/bars\n		include components/nodes\n		include components/status\n		canvas#canvas",
 			"file": "views/source/index.jade",
-			"file_size": 425,
-			"file_write_time": 130985026671154695,
 			"settings":
 			{
-				"buffer_size": 409,
+				"buffer_size": 410,
 				"line_ending": "Windows"
 			}
 		},
@@ -542,7 +539,7 @@
 			"file": "views/source/components/nodes.jade",
 			"settings":
 			{
-				"buffer_size": 1594,
+				"buffer_size": 2675,
 				"line_ending": "Windows"
 			}
 		},
@@ -558,7 +555,7 @@
 			"file": "views/source/components/bars/tool-bar/node-menu.jade",
 			"settings":
 			{
-				"buffer_size": 229,
+				"buffer_size": 239,
 				"line_ending": "Windows"
 			}
 		},
@@ -598,7 +595,7 @@
 			"file": "css/source/widgets/global.less",
 			"settings":
 			{
-				"buffer_size": 10788,
+				"buffer_size": 11169,
 				"line_ending": "Windows"
 			}
 		},
@@ -619,24 +616,46 @@
 			}
 		},
 		{
-			"contents": "(function ($) {\n	'use strict';\n\n	var App = {\n		Bootstrap : function () {\n			App.Remote = require('remote');\n			App.Dialog = App.Remote.require(\"dialog\");\n			App.BrowserWindow = App.Remote.require(\"browser-window\").getFocusedWindow();\n			App.Canvas.Element = $(\"#canvas\")[0];\n			App.Canvas.Context = App.Canvas.Element.getContext(\"2d\");\n			App.File.FS = App.Remote.require('fs');\n\n			$(\"#splash h2\").text(greetings[Math.floor(Math.random() * greetings.length)]);\n\n			App.Events.BindWindowControlEvents();\n			App.Events.BindScrollControlEvents();\n			App.Events.BindMenuControlEvents();\n			App.Events.BindSplashEvents();\n			App.Events.BindNodeEvents();\n			App.Events.BindTreeChangeEvents();\n			App.Events.BindModalEvents();\n			// App.File.StartAutosaveLoop();\n\n			$(\"#tool-bar select\").chosen();\n\n			App.File.OpenProject(\"E:\\\\_dev\\\\monologue\\\\testproject.mpf\");\n\n			requestAnimationFrame(App.Draw.Loop);\n		},\n		Events : {\n			BindWindowControlEvents : function () {\n				var scope = \"nav#menu-bar\";\n\n				$(\"span.close\", scope).on('click', function () {\n					App.BrowserWindow.close();\n				});\n\n				$(\"span.maximize\", scope).on('click', function () {\n					if (App.BrowserWindow.isMaximized()) {\n						App.BrowserWindow.unmaximize();\n						$(this).removeClass(\"maximized\");\n					} else {\n						App.BrowserWindow.maximize();\n						$(this).addClass(\"maximized\");\n					}\n				});\n\n				$(\"span.minimize\", scope).on('click', function () {\n					App.BrowserWindow.minimize();\n				});\n			},\n			BindScrollControlEvents : function () {\n				$(\"canvas, section#nodes, .node header\").on('mousedown', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						App.State.Dragging = true;\n						$(\"body\").addClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\")) {\n						App.State.Dragging = true;\n						App.State.DraggedNode = $(e.target).closest(\".node\").data(\"id\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n\n				});\n\n				$(\"canvas, section#nodes\").on('mousemove', function (e) {\n					if (($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") && App.State.DraggedNode === null) {\n						if (App.State.Dragging) {\n							App.State.Position.X -= App.State.LastMousePosition.X - e.clientX;\n							App.State.Position.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n						\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					} else if ($(e.target).is(\"header\") || App.State.DraggedNode !== null) {\n						if (App.State.Dragging) {\n							var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, App.State.DraggedNode);\n							currentDataNode.editor.X -= App.State.LastMousePosition.X - e.clientX;\n							currentDataNode.editor.Y -= App.State.LastMousePosition.Y - e.clientY;\n							App.State.Dirty = true;\n						}\n\n						App.State.LastMousePosition.X = e.clientX;\n						App.State.LastMousePosition.Y = e.clientY;\n						App.State.Dirty = true;\n						\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n					}\n				});\n\n				$(\"canvas, section#nodes\").on('mousemove', function (e) {\n					App.State.LinkMousePosition.X = e.clientX;\n					App.State.LinkMousePosition.Y = e.clientY;\n				})\n\n				$(\"canvas, section#nodes\").on('mouseup', function (e) {\n						App.State.Dragging = false;\n						App.State.DraggedNode = null;\n						$(\"body\").removeClass(\"dragging\");\n\n						e.preventDefault();\n						e.stopPropagation();\n						return false;\n				});\n\n				$(\"canvas, section#nodes, .node header\").on('dblclick', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						App.View.AddNode(e.clientX - App.State.Position.X - 100, e.clientY - App.State.Position.Y - 45);\n					}\n				});\n\n				$(window).on('mousewheel', function (e) {\n					if ($(e.target).prop(\"id\") === \"nodes\" || $(e.target).prop(\"id\") === \"canvas\") {\n						if (e.originalEvent.wheelDelta < 0) {\n							App.State.Zoom -= App.State.Zoom * 0.05;\n						} else {\n							App.State.Zoom += App.State.Zoom * 0.05;\n						}\n\n						App.State.Zoom = App.State.Zoom < 0.5 ? 0.5 : App.State.Zoom > 1 ? 1 : App.State.Zoom;\n						App.State.Dirty = true;\n					}\n				});\n			},\n			BindMenuControlEvents : function () {\n				var scope = \"nav#tool-bar \";\n				var subscope = \"\";\n\n				$(\".menu\", scope + subscope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".dropdown\"), \"shown\", \"open\");\n				});\n\n				$(\".node-menu\", scope + subscope).on('click', function () {\n					$(this).toggleClass(\"open\");\n					App.View.DisplayAnimate($(\".node-dropdown\"), \"shown\", \"open\");\n				});\n\n				var subscope = \".dropdown\";\n				$(\".save-project\", scope + subscope).on('click', function () {\n					App.File.SaveProject();\n					$(\"nav#tool-bar .menu\").click();\n				});\n\n				$(\".variables\", scope + subscope).on('click', function () {\n					App.View.ShowModal(\".variable-settings\");\n					$(\"nav#tool-bar .menu\").click();\n				});\n\n				$(\"select.languages\").chosen().change(function () {\n					App.View.ChangeLanguage($(this).find(\":selected\").val());\n				});\n			},\n			BindSplashEvents : function () {\n				var scope = \"div#splash\";\n				$(\"span.open\", scope).on('click', function (e) {\n					var file = App.Dialog.showOpenDialog(App.BrowserWindow, { \n						title : \"Open Project...\",  \n						properties: [ 'openFile' ],\n						filters : [\n							{ name : 'Monologue Project File', extensions: ['mpf'] }\n						]\n					});\n\n					if (file !== undefined) {\n						App.File.OpenProject(file[0]);\n					}\n\n					e.preventDefault();\n					e.stopPropagation();\n					return false;\n				});\n			},\n			BindNodeEvents : function () {\n				$(\"section#nodes\").on('change blur', '.controls select', function () {\n					if ($(this).find(\":selected\").val() === \"placeholder\") {\n						$(this).addClass(\"placeholder\");\n					}\n				});\n\n				$(\"section#nodes\").on('click', '.controls select', function () {\n					$(this).removeClass(\"placeholder\");\n				});\n\n				$('section#nodes').on('change', \"select.nodetype\", function () {\n					var newType = $(this).find(\":selected\").val();\n					var parent = $(this).closest(\".node\");\n\n					parent.find(\".controls:not(.hidden)\").addClass(\"hidden\");\n					parent.find(\".controls[data-type=\" + newType + \"]\").removeClass(\"hidden\");\n\n					if (newType == \"branch\" && parent.find('span.connectTo').length < 2) {\n						parent.find('.links').append(\"<span class='connectTo'></span>\");\n						parent.addClass(\"branch\");\n					} else if (newType != \"branch\" && parent.find('span.connectTo').length > 1) {\n						parent.find('.links span.connectTo').last().remove();\n						parent.removeClass(\"branch\");\n					}\n\n					App.Data.UpdateNode(parent);\n				});\n\n				$('section#nodes').on('change', '.controls input, .controls textarea', function () {\n					App.Data.UpdateNode($(this).closest(\".node\"));\n				})\n\n				$('section#nodes').on('focus', '.controls input, .controls textarea', function () {\n					$(this).addClass(\"dirty\");\n				})\n\n				$(\"section#nodes\").on('click', '.links span.connectTo', function (e) {\n					App.State.Link.Linking = true;\n					App.State.Link.LinkingFrom = $(this).closest(\".node\");\n\n					if (App.State.Link.LinkingFrom.hasClass(\"branch\")) {\n						App.State.Link.IsTrueLink = $(e.target).index() === 2;\n					}\n\n					e.preventDefault();\n					e.stopPropagation();\n					return false;\n				});\n\n				$(\"section#nodes\").on('click', 'span.remove-node', function (e) {\n					App.View.RemoveNode($(this).closest(\".node\"));\n\n					e.preventDefault();\n					e.stopPropagation();\n					return false;\n				});\n\n				$(\"section#nodes\").on('mouseenter', '.links span.connectFromTrigger, .links span.connectFrom', function () {\n					if (App.State.Link.Linking) {\n						App.State.Link.LinkTarget = $(this).closest(\".node\");\n					}\n				});\n\n				$(\"section#nodes\").on('mouseleave', '.links span.connectFromTrigger, .links span.connectFrom', function () {\n					App.State.Link.LinkTarget = null;\n				});\n\n				$(\"section#nodes\").on('click', '.links span.connectFromTrigger, .links span.connectFrom', function () {\n					if (App.State.Link.Linking) {\n						if (App.State.Link.LinkingFrom.hasClass(\"branch\")) {\n							App.Data.Link(App.State.Link.LinkingFrom, App.State.Link.LinkTarget, App.State.Link.IsTrueLink);\n						} else {\n							App.Data.Link(App.State.Link.LinkingFrom, App.State.Link.LinkTarget);\n						}\n						App.State.Link.Linking = false;\n						App.State.Link.LinkingFrom = null;\n						App.State.Link.LinkTarget = null;\n					}\n				});\n			},\n			BindTreeChangeEvents : function () {\n				$(\"select.trees\").chosen().change(function () {\n					var treeId = $(this).find(\":selected\").data('tree');\n\n					App.State.CurrentTree = treeId;\n					$('section#nodes .tree').addClass('hidden');\n					$('section#nodes .tree[data-id=' + treeId + ']').removeClass('hidden');\n					\n					App.State.Dirty = true;\n				});\n			},\n			BindModalEvents : function () {\n				// VARIABLE SETTINGS\n				var variableSettings = \".variable-settings\",\n					validCharsRegex = new RegExp(/^[a-zA-ZÀ-ÿ0-9 ]+$/);\n\n				$(\"select[data-project-variables]\", variableSettings).on(\"change\", function onProjectVariableChange() {\n					if ($(\"select[data-project-variables] option:selected\", variableSettings).length > 0) {\n						$(\"span.remove-variable\", variableSettings).removeClass(\"disabled\");\n					} else {\n						$(\"span.remove-variable\", variableSettings).addClass(\"disabled\");\n					}\n				});\n\n				$(\"span.add-variable\", variableSettings).on(\"click\", function onAddCustomVariableClick() {\n					var variableNameInput = $(\"input[data-project-new-variable]\", variableSettings),\n						variableName = variableNameInput.val();\n\n					$(\"span.error\", variableSettings).addClass(\"hidden\");\n					variableNameInput.removeClass(\"error\");\n\n					if (variableName.length > 0) {\n						if (validCharsRegex.test(variableName)) {\n							if (!App.Data.DuplicateCustomVariableExists(variableName)) {\n								var newId = App.Data.AddCustomVariable(variableName, $(\"select[data-project-new-variable-type]\", variableSettings));\n								$(\"select[data-project-variables]\").append(\"<option value='\" + newId + \"'>\" + variableName + \"</option>\");\n								variableNameInput.val(\"\").trigger(\"blur\");\n							} else {\n								variableNameInput.addClass(\"error\").focus();\n								$(\"span.error.duplicate\", variableSettings).removeClass(\"hidden\");\n							}\n						} else {\n							variableNameInput.addClass(\"error\").focus();\n							$(\"span.error.invalid\", variableSettings).removeClass(\"hidden\");\n						}\n					} else {\n						variableNameInput.addClass(\"error\").focus();\n						$(\"span.error.empty\", variableSettings).removeClass(\"hidden\");\n					}\n				});\n\n				$(\"span.remove-variable\", variableSettings).on(\"click\", function onRemoveCustomVariableClick() {\n					if ($(\"select[data-project-variables] option:selected\", variableSettings).length > 0) {\n						App.Data.RemoveCustomVariable($(\"select[data-project-variables] option:selected\", variableSettings).val());\n						$(\"select[data-project-variables] option:selected\", variableSettings).remove();\n						$(\"select[data-project-variables]\", variableSettings).trigger(\"change\");\n					}\n				});\n\n				$(\"span.close\", variableSettings).on(\"click\", function closeVariableModals() {\n					App.View.HideModal();\n					if ($(\"select[data-project-variables]\", variableSettings).find(\"option:selected\").length > 0) {\n						$(\"select[data-project-variables]\", variableSettings).find(\"option:selected\").prop(\"selected\", false);\n						$(\"select[data-project-variables]\", variableSettings).trigger(\"change\");\n					}\n				});\n			}\n		},\n		Draw : {\n			Loop : function () {\n				App.Draw.Resize();\n\n				if (App.State.Dirty) {\n					App.Draw.ScrollElements();\n				}\n\n				App.Draw.DrawLinks();\n				requestAnimationFrame(App.Draw.Loop);\n			},\n			ScrollElements : function () {\n				$(\"body\").css({ backgroundPosition : App.State.Position.X + \"px \" + App.State.Position.Y + \"px\" });\n				$(\"section#nodes\").css({ transform : \"translate(\" + App.State.Position.X + \"px, \" + App.State.Position.Y + \"px)\" });\n				$(\"section#nodes .tree\").css({ transform : \"scale(\" + App.State.Zoom + \")\" });\n\n				if (App.Data.Trees) {\n					$.each($(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"] .node:not(.template)\"), function () {\n						var coords = App.Data.GetNodeCoordinates(App.State.CurrentTree, $(this).data(\"id\"));\n						$(this).css({ transform : \"translate(\" + coords.X + \"px, \" + coords.Y + \"px)\" });\n					});\n				}\n\n				App.State.Dirty = false;\n			},\n			DrawLinks : function () {\n				$.each($(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"] .node:not(.template)\"), function () {\n					var id = $(this).data('id');\n					var currentDataNode = App.Data.GetNodeByID(App.State.CurrentTree, id);\n\n					if ($(this).hasClass(\"branch\")) {\n						if (currentDataNode.trueLink !== undefined) {\n							var cp1X, cp1Y, cp2X, cp2Y,\n								currentNode = $(this);\n\n							var link = currentDataNode.trueLink;\n							var fromElem = currentNode.find(\".links span.connectTo:eq(0)\"),\n								fromPos = fromElem.offset();\n\n							fromX = fromPos.left;\n							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;\n\n							var toElem = $(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"] .node:not(.template)\").filter(function () {\n									return $(this).data('id') === link;\n								}).find(\"span.connectFrom\"),\n								toPos = toElem.offset();\n\n							toX = toPos.left;\n							toY = toPos.top + (toElem.outerHeight() / 2) - 35;\n\n							App.Draw.DrawBezier(fromX, fromY, toX, toY);\n						} \n\n						if (currentDataNode.falseLink !== undefined) {\n							var cp1X, cp1Y, cp2X, cp2Y,\n								currentNode = $(this);\n\n							var link = currentDataNode.falseLink;\n							var fromElem = currentNode.find(\".links span.connectTo:eq(1)\"),\n								fromPos = fromElem.offset();\n\n							fromX = fromPos.left;\n							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;\n\n							var toElem = $(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"] .node:not(.template)\").filter(function () {\n									return $(this).data('id') === link;\n								}).find(\"span.connectFrom\"),\n								toPos = toElem.offset();\n\n							toX = toPos.left;\n							toY = toPos.top + (toElem.outerHeight() / 2) - 35;\n\n							App.Draw.DrawBezier(fromX, fromY, toX, toY);\n						}\n					} else {\n						if (currentDataNode.link != -1) {\n							var cp1X, cp1Y, cp2X, cp2Y,\n								currentNode = $(this);\n\n							var link = currentDataNode.link;\n							var fromElem = currentNode.find(\".links span.connectTo:eq(0)\"),\n								fromPos = fromElem.offset();\n\n							fromX = fromPos.left;\n							fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;\n\n							var toElem = $(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"] .node:not(.template)\").filter(function () {\n									return $(this).data('id') === link;\n								}).find(\"span.connectFrom\"),\n								toPos = toElem.offset();\n\n							toX = toPos.left;\n							toY = toPos.top + (toElem.outerHeight() / 2) - 35;\n\n							App.Draw.DrawBezier(fromX, fromY, toX, toY);\n						}\n					}\n				});\n\n				if (App.State.Link.Linking) {\n					var fromX, fromY, toX, toY, fromElem, fromPos, toElem, toPos;\n\n\n					if (App.State.Link.LinkingFrom.hasClass(\"branch\")) {\n						if (App.State.Link.IsTrueLink) {\n							fromElem = App.State.Link.LinkingFrom.find(\".links span.connectTo:eq(0)\");\n						} else {\n							fromElem = App.State.Link.LinkingFrom.find(\".links span.connectTo:eq(1)\");\n						}\n					} else {\n						fromElem = App.State.Link.LinkingFrom.find(\".links span.connectTo\");\n					}\n\n					fromPos = fromElem.offset();\n					fromX = fromPos.left;\n					fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;\n\n					if (App.State.Link.LinkTarget !== null) {\n						var toElem = App.State.Link.LinkTarget.find(\"span.connectFrom\"),\n							toPos = toElem.offset();\n\n						toX = toPos.left;\n						toY = toPos.top + (toElem.outerHeight() / 2) - 35;\n					} else {\n						toX = App.State.LinkMousePosition.X;\n						toY = App.State.LinkMousePosition.Y - 35;\n					}\n\n					App.Draw.DrawBezier(fromX, fromY, toX, toY);\n				}\n			},\n			Resize : function () {\n				var windowSize = App.BrowserWindow.getContentSize();\n\n				App.Canvas.Element.width = App.WindowSize.Width = windowSize[0];\n				App.Canvas.Element.height = App.WindowSize.Height = windowSize[1] - 35;\n			},\n			DrawBezier : function (fromX, fromY, toX, toY) {\n				var cp1X = fromX + (toX - fromX) / 3,\n					cp2X = fromX + ((toX - fromX) / 3) * 2,\n					cp1Y = fromY,\n					cp2Y = toY;\n\n				App.Canvas.Context.beginPath();\n				App.Canvas.Context.moveTo(fromX, fromY);\n				App.Canvas.Context.bezierCurveTo(cp1X, cp1Y, cp2X, cp2Y, toX, toY);\n				App.Canvas.Context.lineWidth = 3 * App.State.Zoom;\n				App.Canvas.Context.strokeStyle = \"#ECF0F1\";\n				App.Canvas.Context.stroke();\n			}\n		},\n		View : {\n			LoadProject : function () {\n				App.View.AnimateWithCallback($(\"#splash .content\"), \"shown\", function () {\n					App.View.AnimateWithCallback($(\"#splash .icon\"), \"shown\", function () {\n						$(\"h1\").text(\"Monologue - \" + App.Data.Project.name);\n\n						App.View.GenerateTrees();\n						App.View.GenerateLanguages();\n						App.View.GenerateNodes();\n						App.View.GenerateModalInformations();\n						App.State.Dirty = true;\n\n						App.View.AnimateWithCallback($(\"#splash\"), \"shown\", function () {\n							$(\"#splash\").addClass(\"gone\");\n						});\n					})\n				}, true);\n			},\n			DisplayAnimate : function (element, blockClass, opacityClass) {\n				element.toggleClass(blockClass);\n				setTimeout(function () {\n					element.toggleClass(opacityClass);\n				}, 1);\n			},\n			AnimateWithCallback : function (element, cssClass, callback, remove) {\n				remove = remove || false;\n\n				if (remove) {\n					element.one(\"webkitTransitionEnd\", callback).removeClass(cssClass);\n				} else {\n					element.one(\"webkitTransitionEnd\", callback).addClass(cssClass);\n				}\n			},\n			ShowStatusMessage : function (message) {\n				$(\"#status-bar span.message\").text(message);\n				App.View.AnimateWithCallback($(\"#status-bar\"), \"hidden\", function () {\n					setTimeout(function () {\n						$(\"#status-bar\").addClass(\"hidden\");\n					}, 1000)\n				}, true);\n			},\n			GenerateNodes : function () {\n				App.Data.Variables.forEach(function (variable) {\n					if (variable.set) {\n						$(\".node.template select[data-variable-set] optgroup[data-\" + variable.type + \"]\").append(\"<option value='\" + variable.id + \"'>\" + variable.displayName + \"</option>\").trigger(\"chosen:updated\");\n					}\n\n					if (variable.get) {\n						$(\".node.template select[data-variable-get] optgroup[data-\" + variable.type + \"]\").append(\"<option value='\" + variable.id + \"'>\" + variable.displayName + \"</option>\").trigger(\"chosen:updated\");\n					}\n				});\n\n				$.each($(\".node.template optgroup\"), function () {\n					if ($(this).children().length === 0) {\n						$(this).remove();\n					}\n				})\n\n				$.each($(\"section#nodes .tree\"), function () {\n					var tree = $(this);\n					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {\n						var node = $(\".node.template\").clone().removeClass('template');\n						e.type = (e.type.length > 0) ? e.type : \"default\";\n						node.data('id', e.id);\n						node.find(\"select.nodetype option[value=\" + e.type + \"]\").attr(\"selected\", \"selected\");\n						node.find(\".controls[data-type=\" + e.type + \"]\").removeClass(\"hidden\");\n\n						if (e.type === \"text\") {\n							node.find(\"input[data-name]\").val(e.name);\n							var message = App.Data.GetText(App.State.CurrentLanguage, \"$T\" + tree.data('id') + \"N\" + e.id);\n							node.find(\"textarea[data-message]\").val(message);\n						} else if (e.type === \"branch\") {\n							node.addClass(\"branch\");\n							node.find('.links').append(\"<span class='connectTo'></span>\");\n						}\n\n						if (i === 0) {\n							node.find(\"span.remove-node\").remove();\n							node.find(\"span.connectFrom, span.connectFromTrigger\").remove();\n						}\n\n						node.appendTo(tree);\n\n						node.find(\"select[data-variable-get]\").chosen({ width: \"100%\" });\n						node.find(\"select[data-variable-set]\").chosen({ width: \"100%\" });\n					});\n				});\n			},\n			GenerateTrees : function () {\n				App.Data.Trees.forEach(function (tree, index) {\n					var visibility = (App.State.CurrentTree == tree.id) ? \"\" : \" hidden\";\n					$(\"section#nodes\").append(\"<section class='tree\" + visibility + \"' data-id='\" + tree.id + \"'></section>\");\n					$(\"select.trees\").append(\"<option data-tree='\" + tree.id + \"'>\" + tree.displayName + \"</option>\");\n\n				});\n\n				$(\"select.trees\").trigger(\"chosen:updated\");\n			},\n			AddNode : function (x, y) {\n				var newId = App.Data.AddNode(x, y);\n				var node = $(\".node.template\").clone().removeClass('template');\n				node = $(\".node.template\").clone().removeClass('template').data('id', newId);\n				node.appendTo(\"section#nodes .tree[data-id=\" + App.State.CurrentTree + \"]\");\n				App.State.Dirty = true;\n			},\n			GenerateLanguages : function () {\n				App.Data.Project.languages.forEach(function (language, index) {\n					$('<option value=\"' + language.code + '\">' + language.displayName + '</option>').appendTo('select.languages');\n				});\n				\n				$('select.languages').trigger(\"chosen:updated\");\n			},\n			ChangeLanguage : function (newLanguage) {\n				$.each($(\"section#nodes .tree .node select.nodetype option[value='text']:selected\"), function () {\n					$(this).closest('.node').find('textarea').val(App.Data.GetText(newLanguage, \"$T\" + $(this).closest('.tree').data('id') + \"N\" + $(this).closest('.node').data('id')));\n				});\n\n				App.State.CurrentLanguage = newLanguage;\n			},\n			GenerateModalInformations : function () {\n				$(\"input[data-project-title]\").val(App.Data.Project.name);\n\n				App.Data.CustomVariables.forEach(function (variable) {\n					console.log(variable);\n					$(\"select[data-project-variables]\").append(\"<option value='\" + variable.id + \"'>\" + variable.displayName + \"</option>\");\n				});\n			},\n			RemoveNode : function (nodeElement) {\n				App.Data.RemoveNode(nodeElement.data(\"id\"));\n				nodeElement.remove();\n			},\n			ShowModal : function (modalClass) {\n				$(\".overlay\").removeClass(\"invisible\");\n				setTimeout(function () {\n					App.View.AnimateWithCallback($(\".overlay\"), \"hidden\", function () {\n						App.View.DisplayAnimate($(modalClass), \"invisible\", \"hidden\");\n					}, true);\n				}, 1);\n			},\n			HideModal : function () {\n				App.View.AnimateWithCallback($(\".overlay\"), \"hidden\", function () {\n					$(\".overlay\").addClass(\"invisible\");\n					$(\".overlay .modal\").addClass(\"invisible hidden\");\n				});\n			}\n		},\n		Canvas : {\n			Element : null,\n			Context : null\n		},\n		WindowSize : {\n			Width : 0,\n			Height : 0\n		},\n		State : {\n			Position : {\n				X : 0,\n				Y : 0\n			},\n			LastMousePosition : {\n				X : 0,\n				Y : 0\n			},\n			LinkMousePosition : {\n				X : 0,\n				Y : 0\n			},\n			Link : {\n				Linking : false,\n				LinkingFrom : null,\n				LinkTarget : null\n			},\n			Zoom : 1,\n			Dragging : false,\n			DraggedNode : null,\n			CurrentTree : 0,\n			CurrentLanguage : \"enUS\"\n		},\n		File : {\n			OpenProject : function (file) {\n				var d = JSON.parse(App.File.FS.readFileSync(file, { encoding : \"utf8\" }));\n				App.Data.Project = d.project;\n				App.Data.Variables = d.project.variables;\n				App.Data.CustomVariables = d.project.customVariables;\n				App.Data.Trees = d.trees;\n				App.Data.Translations = d.translations;\n				App.File.CurrentProjectFile = file;\n				App.State.Position.X = App.Data.Project.state.position.X;\n				App.State.Position.Y = App.Data.Project.state.position.Y;\n				App.State.Zoom = App.Data.Project.state.zoom;\n				App.State.CurrentTree = App.Data.Project.state.currentTree;\n\n				App.View.LoadProject();\n			},\n			SaveProject : function (auto) {\n				auto = auto || false;\n				if (!App.File.Saving) {\n					App.File.Saving = true;\n					App.View.ShowStatusMessage((auto) ? \"Auto-saving...\" : \"Saving...\");\n\n					$(\".node input.dirty, .node textarea.dirty\").trigger('change').removeClass('dirty');\n\n					var data = { project : App.Data.Project, trees : App.Data.Trees, translations : App.Data.Translations };\n					data.project.variables = App.Data.Variables;\n					data.project.customVariables = App.Data.CustomVariables;\n					data.project.state.position.X = App.State.Position.X;\n					data.project.state.position.Y = App.State.Position.Y;\n					data.project.state.zoom = App.State.Zoom;\n					data.project.state.currentTree = App.State.CurrentTree;\n\n					App.File.FS.writeFileSync(App.File.CurrentProjectFile, JSON.stringify(data));\n					App.File.ExportTSVs();\n					\n					App.File.Saving = false;\n				}\n			},\n			StartAutosaveLoop : function () {\n				setInterval(function () {\n					App.File.SaveProject(true);\n				}, 60000)\n			},\n			ExportTSVs : function () {\n				var TSV = require('tsv'),\n					path = App.Remote.require('path');\n\n				App.Data.Translations.forEach(function (language) {\n					var lang = Object.keys(language)[0].substr(0, 2) + \"-\" + Object.keys(language)[0].substr(2, 2);\n\n					//TODO(romeo): export to the correct place (settings?)\n					App.File.FS.writeFileSync(path.dirname(App.File.CurrentProjectFile) + \"/\" + lang + \".tsv\", TSV.stringify(language[Object.keys(language)[0]]));\n				});\n			},\n			FS : null,\n			CurrentProjectFile : null,\n			Saving : false\n		},\n		Data : {\n			Project : null,\n			Trees : null,\n			Languages : null,\n			Variables : null,\n			CustomVariables : null,\n			GetNodeCoordinates : function (treeId, nodeId) {\n				var node = App.Data.GetNodeByID(treeId, nodeId);\n\n				return {\n					X : node.editor.X,\n					Y : node.editor.Y\n				}\n			},\n			AddNode : function (x, y) {\n				var newId = App.Data.Trees[App.State.CurrentTree].nodes[App.Data.Trees[App.State.CurrentTree].nodes.length - 1].id + 1;\n				App.Data.Trees[App.State.CurrentTree].nodes.push({\n					id : newId,\n					link : -1,\n					editor : {\n						X : x || 0,\n						Y : y || 0\n					}\n				});\n\n				return newId;\n			},\n			UpdateNode : function (nodeElement) {\n				var dataNode = App.Data.GetNodeByID(App.State.CurrentTree, nodeElement.data('id'));\n				dataNode.type = nodeElement.find('select.nodetype option:selected').val();\n\n				switch (dataNode.type) {\n					case \"text\":\n						dataNode.name = nodeElement.find('[data-type=\"text\"] input[data-name]').val();\n						App.Data.SetText(App.State.CurrentLanguage, \"$T\" + App.State.CurrentTree + \"N\" + nodeElement.data('id'), nodeElement.find('[data-type=\"text\"] textarea[data-message]').val());\n						break;\n					case \"set\":\n						dataNode.variable = nodeElement.find('[data-type=\"set\"] select[data-variable] option:selected').val();\n						dataNode.value = nodeElement.find('[data-type=\"set\"] input[data-value]').val();\n						break;\n					case \"branch\":\n						dataNode.variable = nodeElement.find('[data-type=\"set\"] select[data-variable] option:selected').val();\n						dataNode.value = nodeElement.find('[data-type=\"set\"] input[data-value]').val();\n						break;\n				}\n			},\n			RemoveNode : function (id) {\n				for (var i = 0; i < App.Data.Trees.length; i++) {\n					if (App.Data.Trees[i].id == App.State.CurrentTree) {\n						var tree = App.Data.Trees[i];\n						for (var j = 0; j < tree.nodes.length; j++) {\n							if (tree.nodes[j].id == id) {\n								tree.nodes[j] = undefined;\n							}\n						}\n					}\n				}\n\n				// this removes the undefined nodes\n				for (var i = 0; i < App.Data.Trees.length; i++) {\n					if (App.Data.Trees[i].id == App.State.CurrentTree) {\n						App.Data.Trees[i].nodes = App.Data.Trees[i].nodes.filter(Boolean);\n					}\n				}\n\n				App.Data.Trees[App.State.CurrentTree].nodes.forEach(function (node) {\n					if (node.link == id) {\n						node.link = -1;\n					}\n\n					if (node.trueLink !== undefined && node.trueLink == id) {\n						delete node.trueLink;\n					}\n\n					if (node.falseLink !== undefined && node.falseLink == id) {\n						delete node.falseLink;\n					}\n				});\n			},\n			Link : function (elementFrom, elementTo, isTrueLink) {\n				if (isTrueLink === undefined) {\n					App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).link = elementTo.data('id');\n				} else {\n					if (isTrueLink) {\n						App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).trueLink = elementTo.data('id');\n					} else {\n						App.Data.GetNodeByID(App.State.CurrentTree, elementFrom.data('id')).falseLink = elementTo.data('id');\n					}\n				}\n			},\n			GetText : function (language, key) {\n				for (var i = 0; i < App.Data.Translations.length; i++) {\n					if (App.Data.Translations[i][language] !== undefined) {\n						var lang = App.Data.Translations[i][language];\n						for (var j = 0; j < lang.length; j++) {\n							if (lang[j].flag == key) {\n								return lang[j].content;\n							}\n						}\n					}\n				}\n			},\n			SetText : function (language, key, text) {\n				for (var i = 0; i < App.Data.Translations.length; i++) {\n					if (App.Data.Translations[i][language] !== undefined) {\n						var lang = App.Data.Translations[i][language];\n						for (var j = 0; j < lang.length; j++) {\n							if (lang[j].flag == key) {\n								lang[j].content = text\n								return;\n							} else if (lang[j].flag != key && j == lang.length - 1) {\n								lang.push({\n									\"flag\" : key,\n									\"content\" : text\n								});\n								return;\n							}\n						}\n					}\n				}\n			},\n			GetNodeByID : function (treeId, nodeId) {\n				for (var i = 0; i < App.Data.Trees.length; i++) {\n					if (App.Data.Trees[i].id == treeId) {\n						var tree = App.Data.Trees[i];\n						for (var j = 0; j < tree.nodes.length; j++) {\n							if (tree.nodes[j] !== undefined && tree.nodes[j].id == nodeId) {\n								return tree.nodes[j];\n							}\n						}\n					}\n				}\n			},\n			GetCustomVariableByID : function (variableId) {\n				for (var i = 0; i < App.Data.CustomVariables.length; i++) {\n					if (App.Data.CustomVariables[i].id == variableId) {\n						return App.Data.CustomVariables[i];\n					}\n				}\n			},\n			AddCustomVariable : function (name) {\n				var newId = 0;\n				if (App.Data.CustomVariables.length > 0) {\n					newId = App.Data.CustomVariables[App.Data.CustomVariables.length - 1].id + 1;\n				}\n\n				App.Data.CustomVariables.push({\n					\"displayName\": name,\n					\"type\": \"custom\",\n					\"set\": true,\n					\"get\": true,\n					\"id\": newId\n				});\n\n				return newId;\n			},\n			RemoveCustomVariable : function (variableId) {\n				for (var i = 0; i < App.Data.CustomVariables.length; i++) {\n					if (App.Data.CustomVariables[i].id == variableId) {\n						App.Data.CustomVariables[i] = undefined;\n					}\n				}\n\n				// filters out the undefined variables\n				App.Data.CustomVariables = App.Data.CustomVariables.filter(Boolean);\n			},\n			DuplicateCustomVariableExists : function (variableName) {\n				for (var i = 0; i < App.Data.CustomVariables.length; i++) {\n					if (App.Data.CustomVariables[i].displayName == variableName) {\n						return true;\n					}\n				}\n\n				return false;\n			}\n		},\n		Remote : null,\n		BrowserWindow : null,\n		Dialog : null,\n	};\n\n	$(function () {\n		App.Bootstrap();\n		window.App = App;\n	});\n})(require('../js/jquery.js'));",
 			"file": "js/App.js",
-			"file_size": 31836,
-			"file_write_time": 131007424415011251,
 			"settings":
 			{
-				"buffer_size": 30926,
+				"buffer_size": 37818,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": ".modal.variable-settings.hidden.invisible\n	h2 Variables\n		span.subtitle A project reload is needed for any changes here to take effect.\n	label(for=\"title\") Variables\n	select(size=\"10\", data-project-variables)\n	.side-controls\n		span.remove-variable.disabled\n			i.fa.fa-times\n		span.move-up.disabled\n			i.fa.fa-arrow-up\n		span.move-down.disabled\n			i.fa.fa-arrow-down\n	label(for=\"title\") Add new variable\n	.control\n		span.error.duplicate.hidden Variable name already exists.\n		span.error.invalid.hidden Invalid characters in variable name.\n		span.error.empty.hidden Variable name cannot be empty.\n		input(type=\"text\", data-project-new-variable, placeholder=\"New Variable\")\n		select(data-project-new-variable-type)\n			option(value=\"int\") Int\n			option(value=\"string\") String\n			option(value=\"bool\") Bool\n		span.add-variable\n			i.fa.fa-plus\n	footer\n		span.close\n			i.fa.fa-times\n			| Close",
-			"file": "views/source/components/modals/variable-settings.jade",
-			"file_size": 900,
-			"file_write_time": 131007423635139287,
+			"contents": "# I Retain Flu (0.0.5)\n[patch description]\n\n### New Features\n- Flags now move when you pass close-by! Wee!\n- The Spaceship Weapon is now obtainable.\n\n### Changes\n- Item Get UI is now located at the top of the screen.Indie Game Developers\n- Nate's cage is now locked. Oops.\n- The Venue Manager now speaks.\n- Cogumamelo caves music changed.\n\n### Bug Fixes\n- Oluvis' painful death sound now plays.\n- Talking to a Servus won't kill them all anymore. \n- The Venue Manager and the Sweeper voices now play the full range of sounds (now 12, up from 5).\n- You can no longer play multiple shows in Grenden'g. Sorry.\n- Activating a checkpoint, leaving the planet, coming back, and dying does not respawn you at that checkpoint anymore.\n- Planet music doesn't play in space anymore.\n\n# Cogumamelo (0.0.4)\nWe've lost track of what changed - but we added a new world! Welcome to **Cogumamelo**, home of the mushroom people.\n\n### Bug Fixes\n- a lot!\n\n### New Features\n- a lot!",
+			"file": "/E/_dev/Machete2/CHANGELOG.md",
+			"file_size": 967,
+			"file_write_time": 131011831882196032,
 			"settings":
 			{
-				"buffer_size": 885,
+				"buffer_size": 960,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "This campfire is a ceremony. The Holobunnies Romeo, Mephisto, Avril, Leenox and Danielle are mourning the fatality of their home planet, Groz'g Rhen. The Holobunnies family came back to groz'g rhen to salvage something really important in their quest to find a new home. THEIR JETPACKS. They must go deep in the ruins of their planet to grab them and leave this wreckage to find a new place to call their home...",
+			"settings":
+			{
+				"buffer_size": 412,
+				"line_ending": "Windows",
+				"name": "This campfire is a ceremony. The Holobunnies Romeo"
+			}
+		},
+		{
+			"file": "views/source/components/modals/trees.jade",
+			"settings":
+			{
+				"buffer_size": 803,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/modals/variable-settings.jade",
+			"settings":
+			{
+				"buffer_size": 927,
 				"line_ending": "Windows"
 			}
 		},
@@ -668,7 +687,7 @@
 			"file": "views/source/components/modals.jade",
 			"settings":
 			{
-				"buffer_size": 92,
+				"buffer_size": 114,
 				"line_ending": "Windows"
 			}
 		},
@@ -713,13 +732,13 @@
 			}
 		},
 		{
-			"contents": "{\n	\"project\": {\n		\"name\": \"Test Project\",\n		\"state\": {\n			\"position\": {\n				\"X\": -643,\n				\"Y\": 615\n			},\n			\"zoom\": 1,\n			\"currentTree\": 1\n		},\n		\"variables\": [{\n			\"displayName\": \"Golden Carrots\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 0\n		}, {\n			\"displayName\": \"Health Upgrades\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}, {\n			\"displayName\": \"Jetpack Unlocked\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 2\n		}, {\n			\"displayName\": \"Current Soul Count\",\n			\"type\": \"game\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 3\n		}, {\n			\"displayName\": \"Total Soul Count\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 4\n		}, {\n			\"displayName\": \"Total Deaths\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 5\n		}, {\n			\"displayName\": \"Ananaman Woken Up\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 6\n		}, {\n			\"displayName\": \"Nate Unlocked\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 7\n		}, {\n			\"displayName\": \"Current Character\",\n			\"type\": \"game\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 8\n		}, {\n			\"displayName\": \"Special Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 9\n		}, {\n			\"displayName\": \"Serious Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 10\n		}, {\n			\"displayName\": \"Sad Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 11\n		}, {\n			\"displayName\": \"Happy Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 12\n		}, {\n			\"displayName\": \"Angry Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 13\n		}, {\n			\"displayName\": \"Surprised Unlocked\",\n			\"type\": \"attitude\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 14\n		}],\n		\"customVariables\": [{\n			\"displayName\": \"Custom Variable 1\",\n			\"type\": \"custom\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}],\n		\"languages\": [{\n			\"displayName\": \"English (en-US)\",\n			\"code\": \"enUS\"\n		}, {\n			\"displayName\": \"Français (fr-CA)\",\n			\"code\": \"frCA\"\n		}]\n	},\n	\"trees\": [{\n		\"id\": 0,\n		\"displayName\": \"Test Tree\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 0,\n				\"Y\": 0\n			}\n		}, {\n			\"id\": 1,\n			\"type\": \"set\",\n			\"variable\": \"\",\n			\"value\": \"\",\n			\"link\": 3,\n			\"editor\": {\n				\"X\": 706,\n				\"Y\": -38\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 360,\n				\"Y\": 38\n			},\n			\"trueLink\": 1,\n			\"falseLink\": 4\n		}, {\n			\"id\": 3,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"message\": \"\",\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1109,\n				\"Y\": -91\n			}\n		}, {\n			\"id\": 4,\n			\"type\": \"set\",\n			\"name\": \"\",\n			\"message\": \"\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 719,\n				\"Y\": 266\n			}\n		}, {\n			\"id\": 5,\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1103,\n				\"Y\": 212\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1541,\n				\"Y\": 69\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}, {\n		\"id\": 1,\n		\"displayName\": \"Test Tree 2\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 10,\n				\"Y\": -40\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 703,\n				\"Y\": -230\n			},\n			\"trueLink\": 3,\n			\"falseLink\": 6\n		}, {\n			\"id\": 3,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1132,\n				\"Y\": -383\n			},\n			\"type\": \"text\",\n			\"name\": \"Caca\"\n		}, {\n			\"id\": 5,\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 337,\n				\"Y\": -56\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1147,\n				\"Y\": 19\n			},\n			\"type\": \"set\",\n			\"value\": \"2\"\n		}, {\n			\"id\": 7,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1630,\n				\"Y\": -219\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}],\n	\"translations\": [{\n		\"enUS\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Eat my shit\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Shit\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N6\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"i would like you to suck my dihareea ou whatever\"\n		}, {\n			\"flag\": \"$T1N4\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N7\",\n			\"content\": \"\"\n		}]\n	}, {\n		\"frCA\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Mange mon caca\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Caca\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"suce ma marde\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"j'aimerais que tu me suces le flu\"\n		}]\n	}]\n}",
+			"contents": "{\n	\"project\": {\n		\"name\": \"Test Project\",\n		\"state\": {\n			\"position\": {\n				\"X\": -1032,\n				\"Y\": 598\n			},\n			\"zoom\": 1,\n			\"currentTree\": 1\n		},\n		\"characters\": [{\n			\"id\": 0,\n			\"displayName\": \"Leenox\"\n		}, {\n			\"id\": 1,\n			\"displayName\": \"Romeo\"\n		}, {\n			\"id\": 2,\n			\"displayName\": \"Danielle\"\n		}, {\n			\"id\": 3,\n			\"displayName\": \"Mephisto\"\n		}, {\n			\"id\": 4,\n			\"displayName\": \"Avril\"\n		}, {\n			\"id\": 5,\n			\"displayName\": \"Nate\"\n		}],\n		\"variables\": [{\n			\"displayName\": \"Golden Carrots\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 0\n		}, {\n			\"displayName\": \"Health Upgrades\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}, {\n			\"displayName\": \"Jetpack Unlocked\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 2\n		}, {\n			\"displayName\": \"Current Soul Count\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 3\n		}, {\n			\"displayName\": \"Total Soul Count\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 4\n		}, {\n			\"displayName\": \"Total Deaths\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 5\n		}, {\n			\"displayName\": \"Ananaman Woken Up\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 6\n		}, {\n			\"displayName\": \"Nate Unlocked\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 7\n		}, {\n			\"displayName\": \"Current Character\",\n			\"origin\": \"game\",\n			\"validation\": \"character\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 8\n		}, {\n			\"displayName\": \"Special Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 9\n		}, {\n			\"displayName\": \"Serious Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 10\n		}, {\n			\"displayName\": \"Sad Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 11\n		}, {\n			\"displayName\": \"Happy Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 12\n		}, {\n			\"displayName\": \"Angry Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 13\n		}, {\n			\"displayName\": \"Surprised Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 14\n		}],\n		\"customVariables\": [{\n			\"displayName\": \"Custom Variable 1\",\n			\"origin\": \"custom\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}],\n		\"voices\": [{\n			\"displayName\": \"None\"\n		}, {\n			\"displayName\": \"Current Character\"\n		}, {\n			\"displayName\": \"Leenox\"\n		}, {\n			\"displayName\": \"Romeo\"\n		}, {\n			\"displayName\": \"Mephisto\"\n		}, {\n			\"displayName\": \"Danielle\"\n		}, {\n			\"displayName\": \"Avril\"\n		}, {\n			\"displayName\": \"Old Leenox\"\n		}, {\n			\"displayName\": \"Mysterious\"\n		}, {\n			\"displayName\": \"Unknown\"\n		}, {\n			\"displayName\": \"Kittkat\"\n		}, {\n			\"displayName\": \"Computer\"\n		}, {\n			\"displayName\": \"Venue Manager\"\n		}, {\n			\"displayName\": \"Sweeper\"\n		}],\n		\"languages\": [{\n			\"displayName\": \"English (en-US)\",\n			\"code\": \"enUS\"\n		}, {\n			\"displayName\": \"Français (fr-CA)\",\n			\"code\": \"frCA\"\n		}]\n	},\n	\"trees\": [{\n		\"id\": 0,\n		\"displayName\": \"Test Tree\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 0,\n				\"Y\": 0\n			}\n		}, {\n			\"id\": 1,\n			\"type\": \"set\",\n			\"variable\": \"\",\n			\"value\": \"\",\n			\"link\": 3,\n			\"editor\": {\n				\"X\": 706,\n				\"Y\": -38\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 360,\n				\"Y\": 38\n			},\n			\"trueLink\": 1,\n			\"falseLink\": 4\n		}, {\n			\"id\": 3,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"message\": \"\",\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1109,\n				\"Y\": -91\n			}\n		}, {\n			\"id\": 4,\n			\"type\": \"set\",\n			\"name\": \"\",\n			\"message\": \"\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 719,\n				\"Y\": 266\n			}\n		}, {\n			\"id\": 5,\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1103,\n				\"Y\": 212\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1541,\n				\"Y\": 69\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}, {\n		\"id\": 1,\n		\"displayName\": \"Test Tree 2\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": -33,\n				\"Y\": -67\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 732,\n				\"Y\": -238\n			},\n			\"trueLink\": 3,\n			\"falseLink\": 6,\n			\"variable\": \"5\",\n			\"condition\": \">\",\n			\"value\": \"12\"\n		}, {\n			\"id\": 3,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1134,\n				\"Y\": -364\n			},\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"voice\": \"Danielle\"\n		}, {\n			\"id\": 5,\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 388,\n				\"Y\": -157\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1134,\n				\"Y\": -17\n			},\n			\"type\": \"set\",\n			\"variable\": \"10\",\n			\"operation\": \"=\",\n			\"value\": \"false\"\n		}, {\n			\"id\": 7,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1621,\n				\"Y\": -364\n			},\n			\"type\": \"text\",\n			\"name\": \"SuceCaca\",\n			\"voice\": \"Current Character\"\n		}]\n	}],\n	\"translations\": [{\n		\"enUS\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Eat my shit\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Shit\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N6\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"i would like you to suck my dihareea ou whatever\"\n		}, {\n			\"flag\": \"$T1N4\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N7\",\n			\"content\": \"SuckShit\"\n		}]\n	}, {\n		\"frCA\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Mange mon caca\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Caca\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"suce ma marde\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"j'aimerais que tu me suces le flu\"\n		}]\n	}]\n};",
 			"file": "testproject.mpf",
-			"file_size": 3160,
-			"file_write_time": 131007372896079609,
+			"file_size": 4257,
+			"file_write_time": 131013423209253480,
 			"settings":
 			{
-				"buffer_size": 4539,
+				"buffer_size": 5968,
 				"line_ending": "Windows"
 			}
 		},
@@ -738,7 +757,7 @@
 			"file": "views/index.html",
 			"settings":
 			{
-				"buffer_size": 5251,
+				"buffer_size": 7622,
 				"line_ending": "Windows"
 			}
 		}
@@ -750,10 +769,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 354.0,
-		"last_filter": "ssjs",
+		"height": 320.0,
+		"last_filter": "ssLESS",
 		"selected_items":
 		[
+			[
+				"ssLESS",
+				"Set Syntax: LESS"
+			],
 			[
 				"ssjs",
 				"Set Syntax: JSON (Javascript Next)"
@@ -983,21 +1006,23 @@
 		"show_minimap": true,
 		"show_open_files": false,
 		"show_tabs": false,
-		"side_bar_visible": false,
+		"side_bar_visible": true,
 		"status_bar_visible": true
 	},
 	"expanded_folders":
 	[
 		"/E/_dev/monologue",
-		"/E/_dev/monologue/node_modules",
-		"/E/_dev/monologue/node_modules/tsv"
+		"/E/_dev/monologue/views",
+		"/E/_dev/monologue/views/source",
+		"/E/_dev/monologue/views/source/components",
+		"/E/_dev/monologue/views/source/components/modals"
 	],
 	"file_history":
 	[
+		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/testproject.mpf",
 		"/E/_dev/monologue/en-US.tsv",
 		"/E/_dev/monologue/package.json",
-		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/testproject.json",
 		"/E/_dev/monologue/css/source/widgets/global.less",
 		"/E/_dev/monologue/css/source/includes/mixins.less",
@@ -1157,6 +1182,39 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"data-project-variables",
+			"set",
+			"console.log",
+			"{\n",
+			"placeholder",
+			"select",
+			"branch",
+			"branchs",
+			"branch",
+			"trigger(",
+			"trigger('change",
+			"$(this)",
+			"trigger(\"change\")",
+			"gettext",
+			"UpdateNode",
+			"updatenode",
+			"updateNode",
+			".value",
+			"Addcustom",
+			"type",
+			".type",
+			"hidden",
+			"valid",
+			"data-type=\"set\"",
+			"data-type=\"text\", ",
+			"generatenodes",
+			"removenode",
+			"chosen",
+			"loadproj",
+			"openproj",
+			"name",
+			"branch",
+			"node",
 			"$(\"input[data-project-new-variable]\", variableSettings)",
 			"$(\"input[data-project-new-variable]\", variableSettings).val()",
 			"input",
@@ -1251,40 +1309,7 @@
 			"fs",
 			"||",
 			"File :",
-			"File",
-			"showstatus",
-			"BindMenuControlEvents",
-			".close",
-			";\n",
-			") * App.State.Zoom",
-			" 0.1",
-			"b",
-			"a",
-			"x",
-			"1",
-			"data-type",
-			"Choice",
-			"25",
-			"50%",
-			"menu",
-			"trees",
-			"25px",
-			"z-index",
-			"203",
-			"'",
-			"\"",
-			"'",
-			"\"",
-			"App.Dragging",
-			"search",
-			"cursor",
-			"width",
-			"border-ra",
-			"results",
-			"chosen-drop",
-			"with-drop",
-			"active",
-			":a"
+			"File"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1303,7 +1328,7 @@
 	"groups":
 	[
 		{
-			"selected": 12,
+			"selected": 14,
 			"sheets":
 			[
 				{
@@ -1335,7 +1360,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
@@ -1344,7 +1369,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
@@ -1366,7 +1391,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 34,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
@@ -1375,7 +1400,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1594,
+						"buffer_size": 2675,
 						"regions":
 						{
 						},
@@ -1397,7 +1422,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 40,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
@@ -1429,7 +1454,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 36,
+					"stack_index": 40,
 					"type": "text"
 				},
 				{
@@ -1438,7 +1463,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 229,
+						"buffer_size": 239,
 						"regions":
 						{
 						},
@@ -1461,7 +1486,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 38,
+					"stack_index": 42,
 					"type": "text"
 				},
 				{
@@ -1491,7 +1516,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 35,
+					"stack_index": 39,
 					"type": "text"
 				},
 				{
@@ -1522,7 +1547,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 39,
+					"stack_index": 43,
 					"type": "text"
 				},
 				{
@@ -1553,7 +1578,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 37,
+					"stack_index": 41,
 					"type": "text"
 				},
 				{
@@ -1583,7 +1608,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 51,
+					"stack_index": 55,
 					"type": "text"
 				},
 				{
@@ -1592,15 +1617,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10788,
+						"buffer_size": 11169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2870,
-								2870
+								2966,
+								2966
 							]
 						],
 						"settings":
@@ -1614,7 +1639,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 50,
+					"stack_index": 54,
 					"type": "text"
 				},
 				{
@@ -1646,7 +1671,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 45,
+					"stack_index": 49,
 					"type": "text"
 				},
 				{
@@ -1674,10 +1699,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 641.0,
+						"translation.y": 497.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 53,
+					"stack_index": 57,
 					"type": "text"
 				},
 				{
@@ -1686,15 +1711,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30926,
+						"buffer_size": 37818,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								30076,
-								30076
+								1468,
+								1468
 							]
 						],
 						"settings":
@@ -1706,27 +1731,114 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 14369.0,
+						"translation.y": 648.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
 					"buffer": 13,
-					"file": "views/source/components/modals/variable-settings.jade",
+					"file": "/E/_dev/Machete2/CHANGELOG.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 885,
+						"buffer_size": 960,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								738,
-								738
+								960,
+								960
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 412,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								412
+							]
+						],
+						"settings":
+						{
+							"auto_name": "This campfire is a ceremony. The Holobunnies Romeo",
+							"default_dir": "E:\\_dev\\monologue",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 1989.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "views/source/components/modals/trees.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 803,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								474,
+								474
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "views/source/components/modals/variable-settings.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								927
 							]
 						],
 						"settings":
@@ -1740,11 +1852,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 17,
 					"file": "views/source/components/status.jade",
 					"semi_transient": false,
 					"settings":
@@ -1763,6 +1875,7 @@
 						"settings":
 						{
 							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
 							"open_with_edit": true,
 							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
 						},
@@ -1770,11 +1883,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 30,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 18,
 					"file": "views/source/components/bars.jade",
 					"semi_transient": false,
 					"settings":
@@ -1801,11 +1914,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 42,
+					"stack_index": 46,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 19,
 					"file": "views/source/components/splash.jade",
 					"semi_transient": false,
 					"settings":
@@ -1831,24 +1944,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 41,
+					"stack_index": 45,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 20,
 					"file": "views/source/components/modals.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 92,
+						"buffer_size": 114,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								92,
-								92
+								114,
+								114
 							]
 						],
 						"settings":
@@ -1861,11 +1974,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 43,
+					"stack_index": 47,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 21,
 					"file": "views/source/components/modals/project-settings.jade",
 					"semi_transient": false,
 					"settings":
@@ -1892,11 +2005,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 44,
+					"stack_index": 48,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -1922,7 +2035,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 61,
+					"stack_index": 65,
 					"type": "text"
 				},
 				{
@@ -1931,15 +2044,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30926,
+						"buffer_size": 37818,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19303,
-								19303
+								24969,
+								24969
 							]
 						],
 						"settings":
@@ -1948,11 +2061,11 @@
 							"open_with_edit": true,
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
 						},
-						"translation.x": 1818.0,
+						"translation.x": 2210.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -1980,10 +2093,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 761.0,
+						"translation.y": 617.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 56,
+					"stack_index": 60,
 					"type": "text"
 				},
 				{
@@ -2013,7 +2126,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 57,
+					"stack_index": 61,
 					"type": "text"
 				},
 				{
@@ -2022,7 +2135,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10788,
+						"buffer_size": 11169,
 						"regions":
 						{
 						},
@@ -2044,7 +2157,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
@@ -2053,15 +2166,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								284,
-								284
+								285,
+								285
 							]
 						],
 						"settings":
@@ -2075,7 +2188,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 46,
+					"stack_index": 50,
 					"type": "text"
 				},
 				{
@@ -2107,7 +2220,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 54,
+					"stack_index": 58,
 					"type": "text"
 				},
 				{
@@ -2116,15 +2229,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								393,
-								393
+								394,
+								394
 							]
 						],
 						"settings":
@@ -2136,11 +2249,11 @@
 						"translation.y": 24.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 48,
+					"stack_index": 52,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 23,
 					"file": "css/source/fonts/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2166,11 +2279,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 58,
+					"stack_index": 62,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 24,
 					"file": "css/source/includes/mixins.less",
 					"semi_transient": false,
 					"settings":
@@ -2198,11 +2311,11 @@
 						"translation.y": 23317.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 59,
+					"stack_index": 63,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 25,
 					"file": "css/source/fonts/icons.less",
 					"semi_transient": false,
 					"settings":
@@ -2227,11 +2340,11 @@
 						"translation.y": 5585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 60,
+					"stack_index": 64,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2256,7 +2369,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 55,
+					"stack_index": 59,
 					"type": "text"
 				},
 				{
@@ -2265,15 +2378,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10788,
+						"buffer_size": 11169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3041,
-								3041
+								3137,
+								3137
 							]
 						],
 						"settings":
@@ -2284,27 +2397,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4656.0,
+						"translation.y": 4776.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 52,
+					"stack_index": 56,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 26,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4539,
+						"buffer_size": 5968,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4539,
-								4539
+								5968,
+								5968
 							]
 						],
 						"settings":
@@ -2318,7 +2431,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 49,
+					"stack_index": 53,
 					"type": "text"
 				},
 				{
@@ -2348,24 +2461,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 26,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4539,
+						"buffer_size": 5968,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4539,
-								4539
+								5968,
+								5968
 							]
 						],
 						"settings":
@@ -2379,7 +2492,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
@@ -2388,7 +2501,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1594,
+						"buffer_size": 2675,
 						"regions":
 						{
 						},
@@ -2410,7 +2523,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 27,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
@@ -2419,15 +2532,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30926,
+						"buffer_size": 37818,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16212,
-								16212
+								17662,
+								17662
 							]
 						],
 						"settings":
@@ -2438,11 +2551,11 @@
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 1818.0,
+						"translation.x": 2210.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
@@ -2451,15 +2564,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10788,
+						"buffer_size": 11169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10647,
-								10647
+								11028,
+								11028
 							]
 						],
 						"settings":
@@ -2470,14 +2583,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 14677.0,
+						"translation.y": 15157.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 29,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 27,
 					"file": "/C/testproject.json",
 					"semi_transient": false,
 					"settings":
@@ -2503,7 +2616,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 32,
 					"type": "text"
 				},
 				{
@@ -2512,15 +2625,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								409,
-								409
+								410,
+								410
 							]
 						],
 						"settings":
@@ -2534,11 +2647,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 31,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 17,
 					"file": "views/source/components/status.jade",
 					"semi_transient": false,
 					"settings":
@@ -2564,16 +2677,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 33,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 28,
 					"file": "views/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5251,
+						"buffer_size": 7622,
 						"regions":
 						{
 						},
@@ -2593,11 +2706,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 32,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2623,7 +2736,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 47,
+					"stack_index": 51,
 					"type": "text"
 				},
 				{
@@ -2632,15 +2745,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								312,
-								312
+								251,
+								251
 							]
 						],
 						"settings":
@@ -2654,7 +2767,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
@@ -2663,15 +2776,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1594,
+						"buffer_size": 2675,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								402,
-								402
+								1023,
+								1023
 							]
 						],
 						"settings":
@@ -2682,12 +2795,79 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 90.0,
+						"translation.y": 155.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 12,
 					"type": "text"
 				},
+				{
+					"buffer": 5,
+					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 29,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 28,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "css/source/widgets/global.less",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11169,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8773,
+								8773
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+							"history_list_is_closing": true,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 12977.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 6,
+			"sheets":
+			[
 				{
 					"buffer": 5,
 					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
@@ -2719,87 +2899,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "css/source/widgets/global.less",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 10788,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1473,
-								1473
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
-							"history_list_is_closing": true,
-							"syntax": "Packages/LESS/LESS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 528.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 14,
-			"sheets":
-			[
-				{
-					"buffer": 5,
-					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 29,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								29,
-								29
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
-							"open_with_edit": true,
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
 					"buffer": 1,
 					"file": "views/source/index.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 409,
+						"buffer_size": 410,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								209,
-								209
+								210,
+								210
 							]
 						],
 						"settings":
@@ -2813,11 +2926,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 18,
 					"file": "views/source/components/bars.jade",
 					"semi_transient": false,
 					"settings":
@@ -2844,7 +2957,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
@@ -2853,15 +2966,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1594,
+						"buffer_size": 2675,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1227,
-								1227
+								1716,
+								1716
 							]
 						],
 						"settings":
@@ -2872,14 +2985,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 161.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 22,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2905,7 +3018,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
@@ -2914,15 +3027,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 30926,
+						"buffer_size": 37818,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6310,
-								6310
+								352,
+								352
 							]
 						],
 						"settings":
@@ -2933,7 +3046,7 @@
 							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 1818.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -2941,20 +3054,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 26,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4539,
+						"buffer_size": 5968,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								302
+								5294,
+								5294
 							]
 						],
 						"settings":
@@ -2965,10 +3078,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 7309.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -2977,15 +3090,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10788,
+						"buffer_size": 11169,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								229,
-								229
+								1455,
+								1455
 							]
 						],
 						"settings":
@@ -2996,27 +3109,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2081.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 20,
 					"file": "views/source/components/modals.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 92,
+						"buffer_size": 114,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								92,
-								92
+								114,
+								114
 							]
 						],
 						"settings":
@@ -3029,7 +3142,37 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "views/source/components/modals/trees.jade",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 803,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								517,
+								517
+							]
+						],
+						"settings":
+						{
+							"open_with_edit": true,
+							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -3060,7 +3203,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
@@ -3092,7 +3235,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
@@ -3101,15 +3244,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 229,
+						"buffer_size": 239,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								156,
-								156
+								43,
+								43
 							]
 						],
 						"settings":
@@ -3124,7 +3267,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -3155,11 +3298,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 21,
 					"file": "views/source/components/modals/project-settings.jade",
 					"semi_transient": false,
 					"settings":
@@ -3186,24 +3329,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 16,
 					"file": "views/source/components/modals/variable-settings.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 885,
+						"buffer_size": 927,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								365,
-								365
+								755,
+								755
 							]
 						],
 						"settings":
@@ -3217,7 +3360,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 15,
 					"type": "text"
 				}
 			]
@@ -3279,15 +3422,7 @@
 		"selected_items":
 		[
 			[
-				"va",
-				"views\\source\\components\\modals\\variable-settings.jade"
-			],
-			[
-				"",
-				"css\\source\\widgets\\global.less"
-			],
-			[
-				"tes",
+				"test",
 				"testproject.mpf"
 			],
 			[
@@ -3295,20 +3430,60 @@
 				"css\\source\\widgets\\global.less"
 			],
 			[
-				"varia",
-				"views\\source\\components\\modals\\variable-settings.jade"
+				"trees",
+				"views\\source\\components\\modals\\trees.jade"
 			],
 			[
-				"test",
-				"testproject.mpf"
+				"inde",
+				"views\\source\\index.jade"
 			],
 			[
-				"variable",
-				"views\\source\\components\\modals\\variable-settings.jade"
+				"modas",
+				"views\\source\\components\\modals.jade"
+			],
+			[
+				"node",
+				"views\\source\\components\\bars\\tool-bar\\node-menu.jade"
 			],
 			[
 				"app",
 				"js\\App.js"
+			],
+			[
+				"modal",
+				"views\\source\\components\\modals.jade"
+			],
+			[
+				"nodes",
+				"views\\source\\components\\nodes.jade"
+			],
+			[
+				"",
+				"js\\App.js"
+			],
+			[
+				"ind",
+				"views\\source\\index.jade"
+			],
+			[
+				"variables",
+				"views\\source\\components\\modals\\variable-settings.jade"
+			],
+			[
+				"va",
+				"views\\source\\components\\modals\\variable-settings.jade"
+			],
+			[
+				"tes",
+				"testproject.mpf"
+			],
+			[
+				"varia",
+				"views\\source\\components\\modals\\variable-settings.jade"
+			],
+			[
+				"variable",
+				"views\\source\\components\\modals\\variable-settings.jade"
 			],
 			[
 				"globa",
@@ -3329,10 +3504,6 @@
 			[
 				"to",
 				"views\\source\\components\\bars\\tool-bar.jade"
-			],
-			[
-				"node",
-				"views\\source\\components\\bars\\tool-bar\\node-menu.jade"
 			],
 			[
 				"tool",
@@ -3371,20 +3542,8 @@
 				"css\\source\\widgets\\global.less"
 			],
 			[
-				"nodes",
-				"views\\source\\components\\nodes.jade"
-			],
-			[
 				"vari",
 				"views\\source\\components\\modals\\variable-settings.jade"
-			],
-			[
-				"inde",
-				"views\\source\\index.jade"
-			],
-			[
-				"modal",
-				"views\\source\\components\\modals.jade"
 			],
 			[
 				"testp",
@@ -3405,10 +3564,6 @@
 			[
 				"index",
 				"views\\source\\index.jade"
-			],
-			[
-				"trees",
-				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
 			],
 			[
 				"main",
@@ -3777,18 +3932,6 @@
 			[
 				"search",
 				"Multi-Prets\\media\\skin\\js\\source\\search.js"
-			],
-			[
-				"lay",
-				"views\\layout\\layout.jade"
-			],
-			[
-				"form-",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\forms\\form-controls.less"
-			],
-			[
-				"rates-be",
-				"Multi-Prets\\media\\skin\\css\\source\\widgets\\rates\\rates-best.less"
 			]
 		],
 		"width": 0.0

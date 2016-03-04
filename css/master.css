@@ -2857,8 +2857,12 @@ canvas {
 .modal select {
   height: auto;
 }
-.modal select[data-project-variables] {
+.modal select[data-project-variables],
+.modal select[data-project-trees] {
   width: calc(100% - 40px);
+}
+.modal select[data-project-trees] + .side-controls {
+  top: 93px;
 }
 .modal footer:before,
 .modal footer:after {
@@ -2906,6 +2910,9 @@ canvas {
   background: #BDC3C7;
   color: #ECF0F1;
 }
+.modal.trees .control input {
+  width: 77%;
+}
 .modal .control {
   position: relative;
 }
@@ -2921,7 +2928,7 @@ canvas {
 }
 .modal .control input {
   float: left;
-  width: 84%;
+  width: 81%;
   border-right: none;
 }
 .modal .control input:focus + select {
@@ -2959,10 +2966,13 @@ canvas {
 }
 .modal .control select {
   float: left;
-  width: 9%;
+  width: 12%;
   display: block;
   border-left: none;
   border-right: none;
+}
+.modal .control select[data-new-tree-category] {
+  width: 16%;
 }
 #splash {
   position: fixed;
@@ -3395,6 +3405,19 @@ canvas {
 }
 #nodes .node .controls .value select {
   width: 18%;
+}
+#nodes .node .controls .value select.small select {
+  width: 13%;
+}
+#nodes .node .controls .value select.small input {
+  width: 87%;
+}
+#nodes .node .controls .value select[data-bool],
+#nodes .node .controls .value select[data-character] {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .controls .value select:not([data-bool]):not([data-character]) {
   border-right: none;
 }
 #nodes .node .controls .value input {
@@ -3501,6 +3524,11 @@ select.placeholder {
 input [default],
 textarea [default],
 select [default] {
+  display: none;
+}
+input option.hidden,
+textarea option.hidden,
+select option.hidden {
   display: none;
 }
 textarea {
