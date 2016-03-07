@@ -3350,9 +3350,6 @@ canvas {
   width: 150%;
   top: calc(100% - 2px);
 }
-#nodes .node .controls .chosen-container-single .chosen-results li {
-  line-height: 20px;
-}
 #nodes .node .controls .chosen-with-drop .chosen-single {
   border-bottom-color: #FFF;
 }
@@ -3553,5 +3550,12 @@ section.tree.hidden {
   display: none;
 }
 optgroup {
+  font-weight: 600;
+}
+.chosen-container-single .chosen-results li {
+  line-height: 18px;
+  font-size: 14px;
+}
+.chosen-container .chosen-results li.group-result {
   font-weight: 600;
 }

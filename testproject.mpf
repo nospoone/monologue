@@ -3,11 +3,11 @@
 		"name": "Holobunnies",
 		"state": {
 			"position": {
-				"X": -1032,
-				"Y": 598
+				"X": -1216,
+				"Y": 638
 			},
 			"zoom": 1,
-			"currentTree": 1
+			"currentTree": 2
 		},
 		"characters": [{
 			"id": 0,
@@ -197,13 +197,13 @@
 			"displayName": "Servus Planet",
 			"id": 5
 		}, {
-			"displayName": "Olson",
+			"displayName": "Olson", 
 			"id": 6
 		}]
 	},
 	"trees": [{
 		"id": 0,
-		"categoryId": 0,
+		"categoryId": 1,
 		"displayName": "Test Tree",
 		"nodes": [{
 			"id": 0,
@@ -339,6 +339,65 @@
 			"name": "SuceCaca",
 			"voice": "Current Character"
 		}]
+	}, {
+		"id": 2,
+		"categoryId": 0,
+		"displayName": "Added Tree",
+		"nodes": [{
+			"id": 0,
+			"link": -1,
+			"editor": {
+				"X": 1098,
+				"Y": -304
+			},
+			"type": "branch",
+			"variable": "0",
+			"condition": ">",
+			"value": "5",
+			"trueLink": 1,
+			"falseLink": 2
+		}, {
+			"id": 1,
+			"link": -1,
+			"editor": {
+				"X": 1566,
+				"Y": -455
+			},
+			"type": "branch",
+			"variable": "0",
+			"condition": ">",
+			"value": "10",
+			"falseLink": 4,
+			"trueLink": 3
+		}, {
+			"id": 2,
+			"link": -1,
+			"editor": {
+				"X": 1585,
+				"Y": -37
+			}
+		}, {
+			"id": 3,
+			"link": -1,
+			"editor": {
+				"X": 2052,
+				"Y": -431
+			},
+			"type": "set",
+			"variable": "1",
+			"operation": "+",
+			"value": "1"
+		}, {
+			"id": 4,
+			"link": -1,
+			"editor": {
+				"X": 2037,
+				"Y": -191
+			},
+			"type": "text",
+			"name": "",
+			"voice": "None"
+		}]
 	}],
 	"translations": [{
 		"enUS": [{
@@ -368,6 +427,9 @@
 		}, {
 			"flag": "$T1N7",
 			"content": "SuckShit"
+		}, {
+			"flag": "$T2N4",
+			"content": ""
 		}]
 	}, {
 		"frCA": [{

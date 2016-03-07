@@ -276,9 +276,14 @@
 				$("select.trees").chosen().change(function () {
 					var treeId = $(this).find(":selected").data('tree');
 
-					App.State.CurrentTree = treeId;
-					$('section#nodes .tree').addClass('hidden');
-					$('section#nodes .tree[data-id=' + treeId + ']').removeClass('hidden');
+					if (treeId !== undefined) {
+						App.State.CurrentTree = treeId;
+						$('section#nodes .tree').addClass('hidden');
+						$('section#nodes .tree[data-id=' + treeId + ']').removeClass('hidden');
+					} else {
+						$('section#nodes .tree').addClass('hidden');
+						App.State.CurrentTree = -1;
+					}
 					
 					App.State.Dirty = true;
 				});
@@ -340,7 +345,7 @@
 				});
 
 				// TREES
-				var trees = ".trees";
+				var trees = ".modal.trees";
 				$("span.close", trees).on("click", function closeVariableModals() {
 					App.View.HideModal();
 					if ($("select[data-project-trees]", trees).find("option:selected").length > 0) {
@@ -359,9 +364,37 @@
 
 				$("span.remove-tree", trees).on("click", function onRemoveTreeClick() {
 					if ($("select[data-project-trees] option:selected", trees).length > 0) {
-						// App.Data.RemoveTree($("select[data-project-trees] option:selected", trees).val());
+						App.Data.RemoveTree($("select[data-project-trees] option:selected", trees).data('tree'));
 						$("select[data-project-trees] option:selected", trees).remove();
 						$("select[data-project-trees]", trees).trigger("change");
+					}
+				});
+
+				$("span.add-tree", trees).on("click", function onAddTreeClick() {
+					var treeNameInput = $("input[data-project-new-tree]", trees),
+						treeCategory = $("select[data-new-tree-category] option:selected", trees).val(),
+						treeName = treeNameInput.val();
+
+					$("span.error", trees).addClass("hidden");
+					treeNameInput.removeClass("error");
+
+					if (treeName.length > 0) {
+						if (validCharsRegex.test(treeName)) {
+							if (!App.Data.DuplicateTreeExists(treeName, treeCategory)) {
+								var newId = App.Data.AddTree(treeName, treeCategory);
+								$("select[data-project-trees] optgroup[data-tree-category-id=" + treeCategory + "]", trees).append("<option data-tree='" + newId + "'>" + treeName + "</option>");
+								treeNameInput.val("").trigger("blur");
+							} else {
+								treeNameInput.addClass("error").focus();
+								$("span.error.duplicate", trees).removeClass("hidden");
+							}
+						} else {
+							treeNameInput.addClass("error").focus();
+							$("span.error.invalid", trees).removeClass("hidden");
+						}
+					} else {
+						treeNameInput.addClass("error").focus();
+						$("span.error.empty", trees).removeClass("hidden");
 					}
 				});
 			},
@@ -384,11 +417,14 @@
 			Loop : function () {
 				App.Draw.Resize();
 
-				if (App.State.Dirty) {
-					App.Draw.ScrollElements();
+				if (App.State.CurrentTree != -1) {
+					if (App.State.Dirty) {
+						App.Draw.ScrollElements();
+					}
+
+					App.Draw.DrawLinks();
 				}
 
-				App.Draw.DrawLinks();
 				requestAnimationFrame(App.Draw.Loop);
 			},
 			ScrollElements : function () {
@@ -602,7 +638,7 @@
 					var tree = $(this);
 					App.Data.Trees[tree.data('id')].nodes.forEach(function (e, i, a) {
 						var node = $(".node.template").clone().removeClass('template');
-						e.type = (e.type.length > 0) ? e.type : "default";
+						e.type = (e.type !== undefined) ? e.type : "default";
 						node.data('id', e.id);
 						node.find("select.nodetype option[value=" + e.type + "]").attr("selected", "selected");
 						node.find(".controls[data-type=" + e.type + "]").removeClass("hidden");
@@ -681,14 +717,18 @@
 				});
 			},
 			GenerateTrees : function () {
+				App.Data.TreeCategories.forEach(function (treeCategory) {
+					$("select.trees").append('<optgroup label="' + treeCategory.displayName + '" data-tree-category-id="' + treeCategory.id + '"></optgroup>');
+				});
+
 				App.Data.Trees.forEach(function (tree, index) {
 					var visibility = (App.State.CurrentTree == tree.id) ? "" : " hidden";
 					$("section#nodes").append("<section class='tree" + visibility + "' data-id='" + tree.id + "'></section>");
 
 					if (App.State.CurrentTree == tree.id) {
-						$("select.trees").append("<option data-tree='" + tree.id + "' selected='selected'>" + tree.displayName + "</option>");
+						$("select.trees optgroup[data-tree-category-id=" + tree.categoryId + "]").append("<option data-tree='" + tree.id + "' selected='selected'>" + tree.displayName + "</option>");
 					} else {
-						$("select.trees").append("<option data-tree='" + tree.id + "'>" + tree.displayName + "</option>");
+						$("select.trees optgroup[data-tree-category-id=" + tree.categoryId + "]").append("<option data-tree='" + tree.id + "'>" + tree.displayName + "</option>");
 					}
 
 					$.each($("select[data-project-trees] optgroup"), function () {
@@ -708,6 +748,10 @@
 				App.Events.NodeSelectChange(node.find("select[data-variable-get]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange));
 				App.Events.NodeSelectChange(node.find("select[data-variable-set]").chosen({ width: "100%" }).change(App.Events.NodeSelectChange));
 				node.find("select[data-voice]").chosen({ width: "100%" });
+				if (newId === 0) {
+					node.find("span.remove-node").remove();
+					node.find("span.connectFrom, span.connectFromTrigger").remove();
+				}
 				App.State.Dirty = true;
 			},
 			GenerateLanguages : function () {
@@ -852,6 +896,7 @@
 		Data : {
 			Project : null,
 			Trees : null,
+			TreeCategories : null,
 			Languages : null,
 			Variables : null,
 			CustomVariables : null,
@@ -866,7 +911,11 @@
 				}
 			},
 			AddNode : function (x, y) {
-				var newId = App.Data.Trees[App.State.CurrentTree].nodes[App.Data.Trees[App.State.CurrentTree].nodes.length - 1].id + 1;
+				var newId = 0;
+				if (App.Data.Trees[App.State.CurrentTree].nodes.length > 0) {
+					newId = App.Data.Trees[App.State.CurrentTree].nodes[App.Data.Trees[App.State.CurrentTree].nodes.length - 1].id + 1;
+				}
+
 				App.Data.Trees[App.State.CurrentTree].nodes.push({
 					id : newId,
 					link : -1,
@@ -1040,6 +1089,57 @@
 			DuplicateCustomVariableExists : function (variableName) {
 				for (var i = 0; i < App.Data.CustomVariables.length; i++) {
 					if (App.Data.CustomVariables[i].displayName == variableName) {
+						return true;
+					}
+				}
+
+				return false;
+			},
+			AddTree : function (treeName, categoryId) {
+				var newId = 0;
+
+				console.log(App.Data.Trees);
+				if (App.Data.Trees.length > 0) {
+					newId = App.Data.Trees[App.Data.Trees.length - 1].id + 1;
+				}
+
+				App.Data.Trees.push({
+					"id": newId,
+					"categoryId": categoryId,
+					"displayName": treeName,
+					"nodes" : []
+				});
+
+				$("section#nodes").append("<section class='tree' data-id='" + newId + "'></section>");
+				$("select.trees optgroup[data-tree-category-id=" + categoryId + "]").append("<option data-tree='" + newId + "'>" + treeName + "</option>");
+				$("select.trees").trigger("chosen:updated");
+
+				return newId;
+			},
+			RemoveTree : function (treeId) {
+				for (var i = 0; i < App.Data.Trees.length; i++) {
+					if (App.Data.Trees[i].id == treeId) {
+						App.Data.Trees[i] = undefined;
+					}
+				}
+
+				// filters out the undefined variables
+				App.Data.Trees = App.Data.Trees.filter(Boolean);
+
+				// remove tree refs
+				$("select.trees option[data-tree=" + treeId + "]").remove();
+				$("#nodes .tree[data-id=" + treeId + "]").remove();
+
+				// invalidate the current tree if we just deleted it
+				if (App.State.CurrentTree == treeId) {
+					$("select.trees").val('').trigger('change');
+				}
+
+				$("select.trees").trigger("chosen:updated");
+			},
+			DuplicateTreeExists : function (treeName, categoryId) {
+				for (var i = 0; i < App.Data.Trees.length; i++) {
+					if (App.Data.Trees[i].categoryId === parseInt(categoryId) && App.Data.Trees[i].displayName.toLowerCase() === treeName.toLowerCase()) {
 						return true;
 					}
 				}
