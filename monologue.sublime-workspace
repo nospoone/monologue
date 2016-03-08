@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"data-c",
+				"data-tree-category-id"
+			],
+			[
+				"tree",
+				"treeCategory"
+			],
+			[
+				"Dupli",
+				"DuplicateTreeExists"
+			],
+			[
+				"Tree",
+				"TreeCategories"
+			],
+			[
 				"reset",
 				"resetValues"
 			],
@@ -498,22 +514,6 @@
 			[
 				"boo",
 				"BookBoxTarget"
-			],
-			[
-				"Boo",
-				"BookBoxTarget"
-			],
-			[
-				"padi",
-				"padding-top"
-			],
-			[
-				"pad",
-				"padding"
-			],
-			[
-				"padding-",
-				"padding-bottom"
 			]
 		]
 	},
@@ -532,14 +532,6 @@
 			"settings":
 			{
 				"buffer_size": 410,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "views/source/components/nodes.jade",
-			"settings":
-			{
-				"buffer_size": 2675,
 				"line_ending": "Windows"
 			}
 		},
@@ -563,7 +555,7 @@
 			"file": "views/source/components/bars/tool-bar/trees-languages.jade",
 			"settings":
 			{
-				"buffer_size": 29,
+				"buffer_size": 66,
 				"line_ending": "Windows"
 			}
 		},
@@ -595,7 +587,7 @@
 			"file": "css/source/widgets/global.less",
 			"settings":
 			{
-				"buffer_size": 11169,
+				"buffer_size": 11387,
 				"line_ending": "Windows"
 			}
 		},
@@ -619,35 +611,15 @@
 			"file": "js/App.js",
 			"settings":
 			{
-				"buffer_size": 37818,
+				"buffer_size": 43005,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "# I Retain Flu (0.0.5)\n[patch description]\n\n### New Features\n- Flags now move when you pass close-by! Wee!\n- The Spaceship Weapon is now obtainable.\n\n### Changes\n- Item Get UI is now located at the top of the screen.Indie Game Developers\n- Nate's cage is now locked. Oops.\n- The Venue Manager now speaks.\n- Cogumamelo caves music changed.\n\n### Bug Fixes\n- Oluvis' painful death sound now plays.\n- Talking to a Servus won't kill them all anymore. \n- The Venue Manager and the Sweeper voices now play the full range of sounds (now 12, up from 5).\n- You can no longer play multiple shows in Grenden'g. Sorry.\n- Activating a checkpoint, leaving the planet, coming back, and dying does not respawn you at that checkpoint anymore.\n- Planet music doesn't play in space anymore.\n\n# Cogumamelo (0.0.4)\nWe've lost track of what changed - but we added a new world! Welcome to **Cogumamelo**, home of the mushroom people.\n\n### Bug Fixes\n- a lot!\n\n### New Features\n- a lot!",
-			"file": "/E/_dev/Machete2/CHANGELOG.md",
-			"file_size": 967,
-			"file_write_time": 131011831882196032,
-			"settings":
-			{
-				"buffer_size": 960,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "This campfire is a ceremony. The Holobunnies Romeo, Mephisto, Avril, Leenox and Danielle are mourning the fatality of their home planet, Groz'g Rhen. The Holobunnies family came back to groz'g rhen to salvage something really important in their quest to find a new home. THEIR JETPACKS. They must go deep in the ruins of their planet to grab them and leave this wreckage to find a new place to call their home...",
-			"settings":
-			{
-				"buffer_size": 412,
-				"line_ending": "Windows",
-				"name": "This campfire is a ceremony. The Holobunnies Romeo"
 			}
 		},
 		{
 			"file": "views/source/components/modals/trees.jade",
 			"settings":
 			{
-				"buffer_size": 803,
+				"buffer_size": 733,
 				"line_ending": "Windows"
 			}
 		},
@@ -655,7 +627,7 @@
 			"file": "views/source/components/modals/variable-settings.jade",
 			"settings":
 			{
-				"buffer_size": 927,
+				"buffer_size": 1004,
 				"line_ending": "Windows"
 			}
 		},
@@ -732,13 +704,18 @@
 			}
 		},
 		{
-			"contents": "{\n	\"project\": {\n		\"name\": \"Test Project\",\n		\"state\": {\n			\"position\": {\n				\"X\": -1032,\n				\"Y\": 598\n			},\n			\"zoom\": 1,\n			\"currentTree\": 1\n		},\n		\"characters\": [{\n			\"id\": 0,\n			\"displayName\": \"Leenox\"\n		}, {\n			\"id\": 1,\n			\"displayName\": \"Romeo\"\n		}, {\n			\"id\": 2,\n			\"displayName\": \"Danielle\"\n		}, {\n			\"id\": 3,\n			\"displayName\": \"Mephisto\"\n		}, {\n			\"id\": 4,\n			\"displayName\": \"Avril\"\n		}, {\n			\"id\": 5,\n			\"displayName\": \"Nate\"\n		}],\n		\"variables\": [{\n			\"displayName\": \"Golden Carrots\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 0\n		}, {\n			\"displayName\": \"Health Upgrades\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}, {\n			\"displayName\": \"Jetpack Unlocked\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 2\n		}, {\n			\"displayName\": \"Current Soul Count\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 3\n		}, {\n			\"displayName\": \"Total Soul Count\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 4\n		}, {\n			\"displayName\": \"Total Deaths\",\n			\"origin\": \"game\",\n			\"validation\": \"int\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 5\n		}, {\n			\"displayName\": \"Ananaman Woken Up\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 6\n		}, {\n			\"displayName\": \"Nate Unlocked\",\n			\"origin\": \"game\",\n			\"validation\": \"bool\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 7\n		}, {\n			\"displayName\": \"Current Character\",\n			\"origin\": \"game\",\n			\"validation\": \"character\",\n			\"set\": false,\n			\"get\": true,\n			\"id\": 8\n		}, {\n			\"displayName\": \"Special Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 9\n		}, {\n			\"displayName\": \"Serious Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 10\n		}, {\n			\"displayName\": \"Sad Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 11\n		}, {\n			\"displayName\": \"Happy Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 12\n		}, {\n			\"displayName\": \"Angry Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 13\n		}, {\n			\"displayName\": \"Surprised Unlocked\",\n			\"origin\": \"attitude\",\n			\"validation\": \"bool\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 14\n		}],\n		\"customVariables\": [{\n			\"displayName\": \"Custom Variable 1\",\n			\"origin\": \"custom\",\n			\"validation\": \"int\",\n			\"set\": true,\n			\"get\": true,\n			\"id\": 1\n		}],\n		\"voices\": [{\n			\"displayName\": \"None\"\n		}, {\n			\"displayName\": \"Current Character\"\n		}, {\n			\"displayName\": \"Leenox\"\n		}, {\n			\"displayName\": \"Romeo\"\n		}, {\n			\"displayName\": \"Mephisto\"\n		}, {\n			\"displayName\": \"Danielle\"\n		}, {\n			\"displayName\": \"Avril\"\n		}, {\n			\"displayName\": \"Old Leenox\"\n		}, {\n			\"displayName\": \"Mysterious\"\n		}, {\n			\"displayName\": \"Unknown\"\n		}, {\n			\"displayName\": \"Kittkat\"\n		}, {\n			\"displayName\": \"Computer\"\n		}, {\n			\"displayName\": \"Venue Manager\"\n		}, {\n			\"displayName\": \"Sweeper\"\n		}],\n		\"languages\": [{\n			\"displayName\": \"English (en-US)\",\n			\"code\": \"enUS\"\n		}, {\n			\"displayName\": \"Français (fr-CA)\",\n			\"code\": \"frCA\"\n		}]\n	},\n	\"trees\": [{\n		\"id\": 0,\n		\"displayName\": \"Test Tree\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 0,\n				\"Y\": 0\n			}\n		}, {\n			\"id\": 1,\n			\"type\": \"set\",\n			\"variable\": \"\",\n			\"value\": \"\",\n			\"link\": 3,\n			\"editor\": {\n				\"X\": 706,\n				\"Y\": -38\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 360,\n				\"Y\": 38\n			},\n			\"trueLink\": 1,\n			\"falseLink\": 4\n		}, {\n			\"id\": 3,\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"message\": \"\",\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1109,\n				\"Y\": -91\n			}\n		}, {\n			\"id\": 4,\n			\"type\": \"set\",\n			\"name\": \"\",\n			\"message\": \"\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": 719,\n				\"Y\": 266\n			}\n		}, {\n			\"id\": 5,\n			\"link\": 6,\n			\"editor\": {\n				\"X\": 1103,\n				\"Y\": 212\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1541,\n				\"Y\": 69\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}]\n	}, {\n		\"id\": 1,\n		\"displayName\": \"Test Tree 2\",\n		\"nodes\": [{\n			\"id\": 0,\n			\"type\": \"text\",\n			\"link\": 5,\n			\"editor\": {\n				\"X\": -33,\n				\"Y\": -67\n			}\n		}, {\n			\"id\": 2,\n			\"type\": \"branch\",\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 732,\n				\"Y\": -238\n			},\n			\"trueLink\": 3,\n			\"falseLink\": 6,\n			\"variable\": \"5\",\n			\"condition\": \">\",\n			\"value\": \"12\"\n		}, {\n			\"id\": 3,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1134,\n				\"Y\": -364\n			},\n			\"type\": \"text\",\n			\"name\": \"Caca\",\n			\"voice\": \"Danielle\"\n		}, {\n			\"id\": 5,\n			\"link\": 2,\n			\"editor\": {\n				\"X\": 388,\n				\"Y\": -157\n			},\n			\"type\": \"text\",\n			\"name\": \"\"\n		}, {\n			\"id\": 6,\n			\"link\": 7,\n			\"editor\": {\n				\"X\": 1134,\n				\"Y\": -17\n			},\n			\"type\": \"set\",\n			\"variable\": \"10\",\n			\"operation\": \"=\",\n			\"value\": \"false\"\n		}, {\n			\"id\": 7,\n			\"link\": -1,\n			\"editor\": {\n				\"X\": 1621,\n				\"Y\": -364\n			},\n			\"type\": \"text\",\n			\"name\": \"SuceCaca\",\n			\"voice\": \"Current Character\"\n		}]\n	}],\n	\"translations\": [{\n		\"enUS\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Eat my shit\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Shit\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T0N6\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"i would like you to suck my dihareea ou whatever\"\n		}, {\n			\"flag\": \"$T1N4\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N5\",\n			\"content\": \"\"\n		}, {\n			\"flag\": \"$T1N7\",\n			\"content\": \"SuckShit\"\n		}]\n	}, {\n		\"frCA\": [{\n			\"flag\": \"$T0N0\",\n			\"content\": \"Mange mon caca\"\n		}, {\n			\"flag\": \"$T1N0\",\n			\"content\": \"Caca\"\n		}, {\n			\"flag\": \"$T0N3\",\n			\"content\": \"suce ma marde\"\n		}, {\n			\"flag\": \"$T1N3\",\n			\"content\": \"j'aimerais que tu me suces le flu\"\n		}]\n	}]\n};",
 			"file": "testproject.mpf",
-			"file_size": 4257,
-			"file_write_time": 131013423209253480,
 			"settings":
 			{
-				"buffer_size": 5968,
+				"buffer_size": 7284,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/source/components/nodes.jade",
+			"settings":
+			{
+				"buffer_size": 2675,
 				"line_ending": "Windows"
 			}
 		},
@@ -757,7 +734,7 @@
 			"file": "views/index.html",
 			"settings":
 			{
-				"buffer_size": 7622,
+				"buffer_size": 7665,
 				"line_ending": "Windows"
 			}
 		}
@@ -1019,8 +996,10 @@
 	],
 	"file_history":
 	[
-		"/E/_dev/monologue/README.md",
+		"/E/_dev/monologue/views/source/components/nodes.jade",
+		"/E/_dev/Machete2/CHANGELOG.md",
 		"/E/_dev/monologue/testproject.mpf",
+		"/E/_dev/monologue/README.md",
 		"/E/_dev/monologue/en-US.tsv",
 		"/E/_dev/monologue/package.json",
 		"/E/_dev/monologue/testproject.json",
@@ -1144,9 +1123,7 @@
 		"/D/github/air-transat-descente-forfait/media/css/utils/reset.less",
 		"/D/github/lise-madore/media/js/source/masonry.pkgd.js",
 		"/D/github/atk5/media/css/HOME/TS-home.less",
-		"/D/github/atk5/media/css/HOME/TS-maintenance.less",
-		"/D/github/atk5/views/maintenance.jade",
-		"/D/github/frontend-guide/media/css/source/includes/fa/variables.less"
+		"/D/github/atk5/media/css/HOME/TS-maintenance.less"
 	],
 	"find":
 	{
@@ -1182,6 +1159,38 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"AddTree",
+			"variableSettings",
+			"DuplicateTreeExists",
+			"AddTree",
+			"addtree",
+			"AddTree",
+			"variableName",
+			"variableNameInput",
+			"Trees",
+			"chosen",
+			"optg",
+			"GenerateTrees",
+			"GenerateTree",
+			"loadpro",
+			"AddNode",
+			");\n",
+			"chan",
+			"tree.id",
+			"append",
+			"trees",
+			"\")",
+			"select.trees",
+			"selected",
+			"trees",
+			"CustomVariables",
+			"variableSettings",
+			"data-project-variables",
+			"variable",
+			"data-project-variables",
+			"placeholder",
+			"loadpro",
+			"Loadpro",
 			"data-project-variables",
 			"set",
 			"console.log",
@@ -1277,39 +1286,7 @@
 			"generatenodes",
 			"App.State.Dirty",
 			"left",
-			".controls",
-			"App.State.CurrentLanguage",
-			"changelang",
-			"updateNode",
-			"Export",
-			"openfile",
-			"open",
-			"select.lang",
-			"language",
-			"i",
-			"GetText",
-			"genera",
-			"loadpro",
-			"chosen",
-			"LoadProjec",
-			"linking",
-			"set",
-			":",
-			"add",
-			"tree",
-			" x",
-			"x",
-			"DrawLines",
-			"generaten",
-			"bindnode",
-			"node",
-			"loadproj",
-			"data",
-			"X",
-			"fs",
-			"||",
-			"File :",
-			"File"
+			".controls"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1328,7 +1305,7 @@
 	"groups":
 	[
 		{
-			"selected": 14,
+			"selected": 11,
 			"sheets":
 			[
 				{
@@ -1360,7 +1337,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 26,
 					"type": "text"
 				},
 				{
@@ -1376,8 +1353,8 @@
 						"selection":
 						[
 							[
-								155,
-								155
+								339,
+								339
 							]
 						],
 						"settings":
@@ -1391,42 +1368,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 38,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "views/source/components/nodes.jade",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2675,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13,
-								13
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
-							"open_with_edit": true,
-							"syntax": "Packages/Jade/Syntaxes/Jade.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 44,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "views/source/components/bars/tool-bar.jade",
 					"semi_transient": false,
 					"settings":
@@ -1458,7 +1404,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "views/source/components/bars/tool-bar/node-menu.jade",
 					"semi_transient": false,
 					"settings":
@@ -1490,20 +1436,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29,
+						"buffer_size": 66,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								66,
+								66
 							]
 						],
 						"settings":
@@ -1520,7 +1466,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "views/source/components/bars/tool-bar/menu.jade",
 					"semi_transient": false,
 					"settings":
@@ -1551,7 +1497,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "views/source/components/bars/menu-bar.jade",
 					"semi_transient": false,
 					"settings":
@@ -1582,7 +1528,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -1608,24 +1554,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 55,
+					"stack_index": 52,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2966,
-								2966
+								3070,
+								3070
 							]
 						],
 						"settings":
@@ -1639,11 +1585,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 54,
+					"stack_index": 51,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 9,
 					"file": "js/chosen.js",
 					"semi_transient": false,
 					"settings":
@@ -1671,11 +1617,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 49,
+					"stack_index": 46,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 10,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -1699,27 +1645,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 497.0,
+						"translation.y": 401.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 57,
+					"stack_index": 54,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37818,
+						"buffer_size": 43005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1468,
-								1468
+								33492,
+								33492
 							]
 						],
 						"settings":
@@ -1731,84 +1677,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 648.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "/E/_dev/Machete2/CHANGELOG.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 960,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								960,
-								960
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 412,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								412
-							]
-						],
-						"settings":
-						{
-							"auto_name": "This campfire is a ceremony. The Holobunnies Romeo",
-							"default_dir": "E:\\_dev\\monologue",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 1989.0,
-						"translation.y": 0.0,
+						"translation.y": 20129.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 12,
 					"file": "views/source/components/modals/trees.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 803,
+						"buffer_size": 733,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								474,
-								474
+								470,
+								470
 							]
 						],
 						"settings":
@@ -1821,16 +1710,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 13,
 					"file": "views/source/components/modals/variable-settings.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 927,
+						"buffer_size": 1004,
 						"regions":
 						{
 						},
@@ -1838,7 +1727,7 @@
 						[
 							[
 								0,
-								927
+								1004
 							]
 						],
 						"settings":
@@ -1852,11 +1741,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 14,
 					"file": "views/source/components/status.jade",
 					"semi_transient": false,
 					"settings":
@@ -1883,11 +1772,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 34,
+					"stack_index": 35,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 15,
 					"file": "views/source/components/bars.jade",
 					"semi_transient": false,
 					"settings":
@@ -1914,11 +1803,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 46,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 16,
 					"file": "views/source/components/splash.jade",
 					"semi_transient": false,
 					"settings":
@@ -1944,11 +1833,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 45,
+					"stack_index": 44,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 17,
 					"file": "views/source/components/modals.jade",
 					"semi_transient": false,
 					"settings":
@@ -1974,11 +1863,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 47,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 18,
 					"file": "views/source/components/modals/project-settings.jade",
 					"semi_transient": false,
 					"settings":
@@ -2005,11 +1894,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 48,
+					"stack_index": 45,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 19,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2035,24 +1924,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 65,
+					"stack_index": 62,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37818,
+						"buffer_size": 43005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								24969,
-								24969
+								27105,
+								27105
 							]
 						],
 						"settings":
@@ -2065,11 +1954,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 10,
 					"file": "css/source/includes/chosen.less",
 					"semi_transient": false,
 					"settings":
@@ -2093,14 +1982,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 617.0,
+						"translation.y": 521.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 60,
+					"stack_index": 57,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -2126,16 +2015,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 61,
+					"stack_index": 58,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
@@ -2157,7 +2046,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 29,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
@@ -2188,7 +2077,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 50,
+					"stack_index": 47,
 					"type": "text"
 				},
 				{
@@ -2220,7 +2109,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 58,
+					"stack_index": 55,
 					"type": "text"
 				},
 				{
@@ -2249,11 +2138,11 @@
 						"translation.y": 24.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 52,
+					"stack_index": 49,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 20,
 					"file": "css/source/fonts/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2279,11 +2168,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 62,
+					"stack_index": 59,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 21,
 					"file": "css/source/includes/mixins.less",
 					"semi_transient": false,
 					"settings":
@@ -2311,11 +2200,11 @@
 						"translation.y": 23317.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 63,
+					"stack_index": 60,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 22,
 					"file": "css/source/fonts/icons.less",
 					"semi_transient": false,
 					"settings":
@@ -2340,11 +2229,11 @@
 						"translation.y": 5585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 64,
+					"stack_index": 61,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 19,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2369,24 +2258,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 59,
+					"stack_index": 56,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3137,
-								3137
+								3241,
+								3241
 							]
 						],
 						"settings":
@@ -2397,27 +2286,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4776.0,
+						"translation.y": 4968.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 56,
+					"stack_index": 53,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 23,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5968,
+						"buffer_size": 7284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5968,
-								5968
+								7284,
+								7284
 							]
 						],
 						"settings":
@@ -2431,11 +2320,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 53,
+					"stack_index": 50,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 7,
 					"file": "css/source/master.less",
 					"semi_transient": false,
 					"settings":
@@ -2461,24 +2350,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 23,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5968,
+						"buffer_size": 7284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5968,
-								5968
+								7284,
+								7284
 							]
 						],
 						"settings":
@@ -2492,11 +2381,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 27,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 24,
 					"file": "views/source/components/nodes.jade",
 					"semi_transient": false,
 					"settings":
@@ -2523,24 +2412,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 31,
+					"stack_index": 32,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37818,
+						"buffer_size": 43005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								17662,
-								17662
+								19753,
+								19753
 							]
 						],
 						"settings":
@@ -2555,24 +2444,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 30,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11028,
-								11028
+								11077,
+								11077
 							]
 						],
 						"settings":
@@ -2583,14 +2472,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 15157.0,
+						"translation.y": 15277.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 33,
+					"stack_index": 34,
 					"type": "text"
 				},
 				{
-					"buffer": 27,
+					"buffer": 25,
 					"file": "/C/testproject.json",
 					"semi_transient": false,
 					"settings":
@@ -2616,7 +2505,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 32,
+					"stack_index": 33,
 					"type": "text"
 				},
 				{
@@ -2647,11 +2536,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 35,
+					"stack_index": 36,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 14,
 					"file": "views/source/components/status.jade",
 					"semi_transient": false,
 					"settings":
@@ -2677,16 +2566,16 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 37,
+					"stack_index": 38,
 					"type": "text"
 				},
 				{
-					"buffer": 28,
+					"buffer": 26,
 					"file": "views/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7622,
+						"buffer_size": 7665,
 						"regions":
 						{
 						},
@@ -2706,11 +2595,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 36,
+					"stack_index": 37,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 19,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -2736,7 +2625,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 51,
+					"stack_index": 48,
 					"type": "text"
 				},
 				{
@@ -2767,11 +2656,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 24,
 					"file": "views/source/components/nodes.jade",
 					"semi_transient": false,
 					"settings":
@@ -2798,24 +2687,24 @@
 						"translation.y": 155.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29,
+						"buffer_size": 66,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								66,
+								66
 							]
 						],
 						"settings":
@@ -2828,24 +2717,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 28,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8773,
-								8773
+								2378,
+								2378
 							]
 						],
 						"settings":
@@ -2856,33 +2745,33 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 12977.0,
+						"translation.y": 3161.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 9,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 6,
+			"selected": 9,
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 4,
 					"file": "views/source/components/bars/tool-bar/trees-languages.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29,
+						"buffer_size": 66,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								29,
-								29
+								24,
+								24
 							]
 						],
 						"settings":
@@ -2895,7 +2784,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -2926,11 +2815,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 15,
 					"file": "views/source/components/bars.jade",
 					"semi_transient": false,
 					"settings":
@@ -2957,11 +2846,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 24,
 					"file": "views/source/components/nodes.jade",
 					"semi_transient": false,
 					"settings":
@@ -2973,8 +2862,8 @@
 						"selection":
 						[
 							[
-								1716,
-								1716
+								1017,
+								1017
 							]
 						],
 						"settings":
@@ -2985,14 +2874,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 161.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 19,
 					"file": "css/source/includes/variables.less",
 					"semi_transient": false,
 					"settings":
@@ -3018,24 +2907,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "js/App.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 37818,
+						"buffer_size": 43005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								352,
-								352
+								70,
+								70
 							]
 						],
 						"settings":
@@ -3050,24 +2939,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 23,
 					"file": "testproject.mpf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5968,
+						"buffer_size": 7284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5294,
-								5294
+								3585,
+								3585
 							]
 						],
 						"settings":
@@ -3078,27 +2967,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7309.0,
+						"translation.y": 4320.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 8,
 					"file": "css/source/widgets/global.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11169,
+						"buffer_size": 11387,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1455,
-								1455
+								11153,
+								11153
 							]
 						],
 						"settings":
@@ -3109,14 +2998,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2081.0,
+						"translation.y": 16379.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 17,
 					"file": "views/source/components/modals.jade",
 					"semi_transient": false,
 					"settings":
@@ -3142,24 +3031,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 12,
 					"file": "views/source/components/modals/trees.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 803,
+						"buffer_size": 733,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								517,
-								517
+								165,
+								165
 							]
 						],
 						"settings":
@@ -3172,11 +3061,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 6,
 					"file": "views/source/components/bars/menu-bar.jade",
 					"semi_transient": false,
 					"settings":
@@ -3203,11 +3092,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 2,
 					"file": "views/source/components/bars/tool-bar.jade",
 					"semi_transient": false,
 					"settings":
@@ -3219,8 +3108,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								97,
+								97
 							]
 						],
 						"settings":
@@ -3235,11 +3124,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "views/source/components/bars/tool-bar/node-menu.jade",
 					"semi_transient": false,
 					"settings":
@@ -3267,11 +3156,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 5,
 					"file": "views/source/components/bars/tool-bar/menu.jade",
 					"semi_transient": false,
 					"settings":
@@ -3298,11 +3187,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 18,
 					"file": "views/source/components/modals/project-settings.jade",
 					"semi_transient": false,
 					"settings":
@@ -3329,24 +3218,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 13,
 					"file": "views/source/components/modals/variable-settings.jade",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 927,
+						"buffer_size": 1004,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								755,
-								755
+								412,
+								412
 							]
 						],
 						"settings":
@@ -3360,7 +3249,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 11,
 					"type": "text"
 				}
 			]
@@ -3422,16 +3311,48 @@
 		"selected_items":
 		[
 			[
-				"test",
-				"testproject.mpf"
+				"trees",
+				"views\\source\\components\\modals\\trees.jade"
 			],
 			[
 				"global",
 				"css\\source\\widgets\\global.less"
 			],
 			[
-				"trees",
+				"test",
+				"testproject.mpf"
+			],
+			[
+				"nodes",
+				"views\\source\\components\\nodes.jade"
+			],
+			[
+				"tool",
+				"views\\source\\components\\bars\\tool-bar.jade"
+			],
+			[
+				"",
+				"views\\source\\index.jade"
+			],
+			[
+				"bars",
+				"views\\source\\components\\bars.jade"
+			],
+			[
+				"index",
+				"views\\source\\index.jade"
+			],
+			[
+				"app",
+				"js\\App.js"
+			],
+			[
+				"tree",
 				"views\\source\\components\\modals\\trees.jade"
+			],
+			[
+				"varia",
+				"views\\source\\components\\modals\\variable-settings.jade"
 			],
 			[
 				"inde",
@@ -3446,20 +3367,8 @@
 				"views\\source\\components\\bars\\tool-bar\\node-menu.jade"
 			],
 			[
-				"app",
-				"js\\App.js"
-			],
-			[
 				"modal",
 				"views\\source\\components\\modals.jade"
-			],
-			[
-				"nodes",
-				"views\\source\\components\\nodes.jade"
-			],
-			[
-				"",
-				"js\\App.js"
 			],
 			[
 				"ind",
@@ -3476,10 +3385,6 @@
 			[
 				"tes",
 				"testproject.mpf"
-			],
-			[
-				"varia",
-				"views\\source\\components\\modals\\variable-settings.jade"
 			],
 			[
 				"variable",
@@ -3504,14 +3409,6 @@
 			[
 				"to",
 				"views\\source\\components\\bars\\tool-bar.jade"
-			],
-			[
-				"tool",
-				"views\\source\\components\\bars\\tool-bar.jade"
-			],
-			[
-				"bars",
-				"views\\source\\components\\bars.jade"
 			],
 			[
 				"in",
@@ -3560,10 +3457,6 @@
 			[
 				"langu",
 				"views\\source\\components\\bars\\tool-bar\\trees-languages.jade"
-			],
-			[
-				"index",
-				"views\\source\\index.jade"
 			],
 			[
 				"main",
@@ -3928,10 +3821,6 @@
 			[
 				"form-con",
 				"views\\widgets\\forms\\form-controls.jade"
-			],
-			[
-				"search",
-				"Multi-Prets\\media\\skin\\js\\source\\search.js"
 			]
 		],
 		"width": 0.0
