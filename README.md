@@ -8,10 +8,14 @@ Monologue is a branching dialog editor.
 
 ## How-to
 
-To run from source, install Electron through NPM:  
+To run from source, install Electron Prebuilt through NPM:  
 
-`npm install electron -g`
+`npm install electron-prebuilt -g`
 
-Then, run from the root of the repo:  
+Install the dependencies:
+
+`npm install`
+
+Finally, run from the root of the repo:  
 
 `electron .`
