@@ -23,7 +23,7 @@
 
 			$("#tool-bar select").chosen();
 
-			App.File.OpenProject("E:\\_dev\\monologue\\testproject.mpf");
+			// App.File.OpenProject("E:\\_dev\\monologue\\testproject.mpf");
 
 			requestAnimationFrame(App.Draw.Loop);
 		},
