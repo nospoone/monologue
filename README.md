@@ -1,6 +1,6 @@
 ![Monologue](https://raw.githubusercontent.com/nospoone/monologue/master/.github/header.png)
 
-[![MIT License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE.md)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
 ## About 
 
