@@ -6,14 +6,26 @@
 
 Monologue is a branching dialog editor. 
 
-## How-to
+## How-to 
 
-Install the dependencies:
+An installation of [nodejs](https://nodejs.org/en/) is required to develop Monologue.
 
-`npm install`
+First, install the dependencies:
 
-Run the thing:  
+`npm install gulp-cli -g && npm install`
+
+Run the thing:
 
 `npm start`
+
+As this is an [Electron](http://electron.atom.io/) app, the UI is HTML/CSS.
+
+You can compile the Jade/LESS by running gulp:
+
+`gulp {jade|less}`
+
+Or watch for changes and compile automatically:
+
+`gulp watch`
 
 Enjoy! :thumbsup:
