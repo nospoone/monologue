@@ -5,10 +5,11 @@
 	"main": "main.js",
 	"license": "MIT",
 	"repository": "nospoone/monologue",
+	"electronVersion": "0.36.0",
 	"scripts": {
 		"start": "electron main.js",
 		"test": "xo",
-		"build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion"
+		"build": "electron-packager . monologue --out=dist --ignore='^/dist$' --prune --asar --all --version=0.36.0"
 	},
 	"dependencies": {
 		"tsv": "^0.2.0"
