@@ -1,8 +1,34 @@
 {
-  "name": "Monologue",
-  "version": "0.0.1",
-  "main": "main.js",
-  "dependencies": {
-    "tsv": "^0.2.0"
-  }
+	"name": "monologue",
+	"productName": "Monologue",
+	"version": "0.0.1",
+	"main": "main.js",
+	"license": "MIT",
+	"repository": "nospoone/monologue",
+	"scripts": {
+		"start": "electron main.js",
+		"test": "xo",
+		"build": "electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion"
+	},
+	"dependencies": {
+		"tsv": "^0.2.0"
+	},
+	"devDependencies": {
+		"electron-packager": "^5.0.0",
+		"electron-prebuilt": "^0.36.0",
+		"xo": "^0.13.0"
+	},
+	"xo": {
+		"esnext": true,
+		"envs": [
+			"node",
+			"browser"
+		],
+		"ignores": [
+			"**/lib/**"
+		],
+		"rules": {
+			"linebreak-style": 0
+		}
+	}
 }
