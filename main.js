@@ -27,7 +27,8 @@ app.on('ready', () => {
 		height: 600,
 		minWidth: 475,
 		minHeight: 300,
-		frame: false
+		frame: false,
+		icon: path.resolve('./img/icon.png')
 	});
 
 	// and load the index.html of the app.
