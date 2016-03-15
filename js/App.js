@@ -34,8 +34,13 @@ const app = {
 		bindWindowControlEvents() {
 			const scope = 'nav#menu-bar';
 
-			$('span.close', scope).on('click', browserWindow.close);
-			$('span.minimize', scope).on('click', browserWindow.minimize);
+			$('span.close', scope).on('click', () => {
+				browserWindow.close();
+			});
+
+			$('span.minimize', scope).on('click', () => {
+				browserWindow.minimize();
+			});
 
 			$('span.maximize', scope).on('click', e => {
 				if (browserWindow.isMaximized()) {
