@@ -7,6 +7,7 @@
 	"repository": "nospoone/monologue",
 	"electronVersion": "0.36.0",
 	"scripts": {
+		"prestart": "gulp less && gulp jade",
 		"start": "electron main.js",
 		"test": "xo",
 		"build": "electron-packager . monologue --out=dist --ignore='^/dist$' --prune --asar --all --version=0.36.0"
