@@ -124,7 +124,7 @@ module.exports = {
 				} else if (e.type === 'set') {
 					if (e.variable !== undefined && e.variable !== '') {
 						node.find(`[data-type='set'] select[data-variable-set] option[value='${e.variable}']`).prop('selected', 'selected').parent().removeClass('placeholder');
-						if (e.value !== undefined && node.find(`[data-type='set'] select[data-variable-set] option[value='" + e.variable + "']`).length > 0) {
+						if (e.value !== undefined && node.find(`[data-type='set'] select[data-variable-set] option[value='${e.variable}']`).length > 0) {
 							const variable = node.find(`[data-type='set'] select[data-variable-set] option[value='${e.variable}']`);
 							switch (variable.data('validation')) {
 								case 'int':
