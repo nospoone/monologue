@@ -120,7 +120,8 @@ const app = {
 
 			$('canvas, section#nodes, .node header').on('dblclick', e => {
 				if ($(e.target).prop('id') === 'nodes' || $(e.target).prop('id') === 'canvas') {
-					app.view.addNode(app.state, app.data, app.events, e.clientX - app.state.position.x - 100, e.clientY - app.state.position.y - 45);
+					app.view.addNode(app.state.currentTree, app.data, app.events, e.clientX - app.state.position.x - 100, e.clientY - app.state.position.y - 45);
+					app.state.dirty = true;
 				}
 			});
 
@@ -396,6 +397,7 @@ const app = {
 						} else {
 							const newId = app.data.addTree(treeName, treeCategory);
 							$(`select[data-project-trees] optgroup[data-tree-category-id='${treeCategory}']`, trees).append(`<option data-tree='${newId}'>${treeName}</option>`);
+							app.view.addNode(newId, app.data, app.events, 0, 0);
 							treeNameInput.val('').trigger('blur');
 						}
 					} else {

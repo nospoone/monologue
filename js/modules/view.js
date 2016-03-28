@@ -185,11 +185,11 @@ module.exports = {
 
 		$('select.trees').trigger('chosen:updated');
 	},
-	addNode(state, data, events, x, y) {
-		const newId = data.addNode(state, data, x, y);
+	addNode(treeId, data, events, x, y) {
+		const newId = data.addNode(treeId, x, y);
 		const node = $('.node.template').clone().removeClass('template').data('id', newId);
 
-		node.appendTo(`section#nodes .tree[data-id='${state.currentTree}']`);
+		node.appendTo(`section#nodes .tree[data-id='${treeId}']`);
 		events.nodeSelectChange(node.find('select[data-variable-get]').chosen({width: '100%'}).change(events.nodeSelectChange));
 		events.nodeSelectChange(node.find('select[data-variable-set]').chosen({width: '100%'}).change(events.nodeSelectChange));
 		node.find('select[data-voice]').chosen({width: '100%'});
@@ -198,8 +198,6 @@ module.exports = {
 			node.find('span.remove-node').remove();
 			node.find('span.connectFrom, span.connectFromTrigger').remove();
 		}
-
-		state.dirty = true;
 	},
 	generateLanguages(data) {
 		data.project.languages.forEach(language => {

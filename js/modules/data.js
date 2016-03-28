@@ -19,9 +19,8 @@ module.exports = {
 			y: node.editor.y
 		};
 	},
-	addNode(state, data, x, y) {
-		const currentTree = this.getTreeByID(state.currentTree);
-		console.log(currentTree.nodes[currentTree.nodes.length - 1].id);
+	addNode(treeId, x, y) {
+		const currentTree = this.getTreeByID(treeId);
 
 		let newId = 0;
 		if (currentTree.nodes.length > 0) {
