@@ -324,7 +324,7 @@ const app = {
 							variableNameInput.addClass('error').focus();
 							$('span.error.duplicate', variableSettings).removeClass('hidden');
 						} else {
-							const newId = app.data.addCustomVariable(variableName, $('select[data-variable-type] option:selected', variableSettings).val());
+							const newId = app.data.addCustomVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
 							$('select[data-project-variables]').append(`<option value='${newId}'>${variableName}</option>`);
 							variableNameInput.val('').trigger('blur');
 						}
