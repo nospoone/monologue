@@ -99,7 +99,7 @@ module.exports = {
 					node.find('.links').append('<span class="connectTo"></span>');
 
 					if (e.variable !== undefined && e.variable !== '') {
-						node.find(`[data-type='branch'] select[data-variable-get] option[value='${e.variable}']`);
+						node.find(`[data-type='branch'] select[data-variable-get] option[value='${e.variable}']`).prop('selected', 'selected');
 						if (e.value !== undefined && node.find(`[data-type='branch'] select[data-variable-get] option[value='${e.variable}']`).length > 0) {
 							const variable = node.find(`[data-type='branch'] select[data-variable-get] option[value='${e.variable}']`);
 
