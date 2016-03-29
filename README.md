@@ -4,9 +4,21 @@
 
 ## About 
 
-Monologue is a branching dialog editor. 
+Monologue is a node-based conversation tree builder. 
 
-## How-to 
+![Screenshot](https://raw.githubusercontent.com/nospoone/monologue/master/.github/screenshot.png)
+
+## Using
+
+#### Editor
+
+There are no public built binaries, yet. Clone the repository and check the **Developing** section below.
+
+#### Readers
+
+- [monologue-reader](<https://github.com/larsiusprime/monologue-reader>), parser & controller written in Haxe  _(created by the incredible [Lars Doucet](http://github.com))_ 
+
+## Developing
 
 An installation of [nodejs](https://nodejs.org/en/) is required to develop Monologue.
 
@@ -14,11 +26,11 @@ First, install the dependencies:
 
 `npm install gulp-cli -g && npm install`
 
-Run the thing:
+To run Monologue:
 
 `npm start`
 
-As this is an [Electron](http://electron.atom.io/) app, the UI is HTML/CSS.
+The UI is HTML/CSS.
 
 You can compile the Jade/LESS by running gulp:
 
