@@ -17,6 +17,7 @@
 		"tsv": "^0.2.0"
 	},
 	"devDependencies": {
+		"del": "^2.2.0",
 		"electron-packager": "^5.0.0",
 		"gulp": "^3.9.1",
 		"gulp-jade": "^1.1.0",
