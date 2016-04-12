@@ -20,6 +20,10 @@ There are no public built binaries, yet. Clone the repository and check the **De
 
 If you want to implement your own, you can find the specs for the project files [here](<https://github.com/nospoone/monologue/wiki/Project-File-Format>).
 
+#### Default project file
+
+Until the _New Project_ feature is implemented, you can find an example project file [here](https://gist.github.com/nospoone/4338522e0f70c4230ac9).
+
 ## Developing
 
 An installation of [nodejs](https://nodejs.org/en/) is required to develop Monologue.
