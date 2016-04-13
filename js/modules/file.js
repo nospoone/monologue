@@ -61,6 +61,13 @@ module.exports = {
 
 			// save path needs to have a setting somewhere (project settings?)
 			const location = path.join(path.dirname(this.currentProjectFile), `${firstHalf}-${secondHalf}.tsv`);
+
+			language[Object.keys(language)[0]].forEach(text => {
+				while (text.content.indexOf('\n') > -1) {
+					text.content = text.content.replace("\n", "<N>");
+				}
+			});
+
 			fs.writeFileSync(location, tsv.stringify(language[Object.keys(language)[0]]));
 		});
 	}
