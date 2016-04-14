@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow;  // Module to create native browse
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow = null;
+let nodeEditorWindow = null;
 const path = require('path');
 
 // Quit when all windows are closed.
@@ -43,5 +44,29 @@ app.on('ready', () => {
 		// in an array if your app supports multi windows, this is the time
 		// when you should delete the corresponding element.
 		mainWindow = null;
+	});
+
+	// debug
+	nodeEditorWindow = new BrowserWindow({
+		width: 800,
+		height: 600,
+		minWidth: 475,
+		minHeight: 300,
+		frame: false,
+		icon: path.resolve('./img/icon.png')
+	});
+
+	// and load the index.html of the app.
+	nodeEditorWindow.loadURL(path.join('file://', __dirname, '/views/editor.html'));
+
+	// Open the DevTools.
+	nodeEditorWindow.webContents.openDevTools();
+
+	// Emitted when the window is closed.
+	nodeEditorWindow.on('closed', () => {
+		// Dereference the window object, usually you would store windows
+		// in an array if your app supports multi windows, this is the time
+		// when you should delete the corresponding element.
+		nodeEditorWindow = null;
 	});
 });

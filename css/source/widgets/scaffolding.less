@@ -1,0 +1,31 @@
+* {
+	box-sizing: border-box;
+	&:not(input), &:not(textarea) {
+		-webkit-user-select: none;
+	}
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+*:focus {
+	outline: 0;
+	outline: none;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: @openSans;
+	padding-top: 35px;
+	font-size: 18px;
+	background: url(../img/bg.png);
+	overflow: hidden;
+	&.dragging {
+		canvas {
+			cursor: -webkit-grabbing;
+		}
+	}
+}
