@@ -171,28 +171,37 @@
 				padding-right: 5px;
 			}
 		}
+		.conditions .links {
+			display: block;
+		}
 		&.branch, &.switch {
 			.controls {
 				border-bottom: 2px @turquoise solid;
 			}
+			> .links {
+				span.connectTo {
+					display: none;
+				}
+			}
+			.conditions .links {
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				span.connectTo {
+					.branch-links(25);
+				}
+			}
 			.conditions {
 				display: block;
+				position: relative;
 				.branch {
 					position: relative;
 					select + i {
 						position: absolute;
 						top: 9px;
 						right: 10px;
-					}
-				}
-			}
-			.links {
-				span.connectTo {
-					&:not(:last-child) {
-						top: 113px;
-					}
-					&:last-child {
-						top: 153px;
 					}
 				}
 			}
@@ -262,5 +271,14 @@
 				margin-right: 5px;
 			}
 		}
+	}
+}
+
+// branch link helpers
+.branch-links(@counter) when (@counter > 0) {
+	.branch-links(@counter - 1);
+	@minus: (@counter - 1);
+	&:nth-child(@{counter}) {
+		top: 53px + (40px * @minus);
 	}
 }

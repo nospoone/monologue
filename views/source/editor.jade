@@ -81,7 +81,16 @@ html(lang='en')
 								option(value=">", data-int, data-validates) &gt;
 								option(value="<", data-int, data-validates) &lt;
 							input(type="text", data-int, data-string, data-validates, placeholder="Value")
-					.branch
+						.value
+							select(data-condition).placeholder
+								option(disabled, selected, default, value="placeholder") ?
+								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
+								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
+								option(value=">=", data-int, data-validates) &gt;=
+								option(value="<=", data-int, data-validates) &lt;=
+								option(value=">", data-int, data-validates) &gt;
+								option(value="<", data-int, data-validates) &lt;
+							input(type="text", data-int, data-string, data-validates, placeholder="Value")
 						.value
 							select(data-condition).placeholder
 								option(disabled, selected, default, value="placeholder") ?
@@ -94,6 +103,7 @@ html(lang='en')
 							input(type="text", data-int, data-string, data-validates, placeholder="Value")
 					span.else Else...
 					.links
+						span.connectTo
 						span.connectTo
 						span.connectTo
 						span.connectTo
