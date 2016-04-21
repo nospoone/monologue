@@ -191,5 +191,30 @@
 				background: @silver;
 			}
 		}
+		&.switch {
+			span.addTriggers {
+				opacity: 1;
+			}
+		}
+		span.addTriggers {
+			color: @white;
+			position: absolute;
+			bottom: -35px;
+			display: block;
+			z-index: 3;
+			cursor: default;
+			left: 0;
+			opacity: 0;
+			transition: all 150ms @easeOutCubic;
+			&:hover {
+				color: @turquoise;
+				left: 5px;
+			}
+			i {
+				position: relative;
+				top: -1px;
+				margin-right: 5px;
+			}
+		}
 	}
 }

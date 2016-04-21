@@ -64,9 +64,12 @@ html(lang='en')
 				.select
 					i.fa.fa-angle-double-down
 					select.nodetype
-						option(value="name") 
+						option(value="name", data-display="name") 
 				.controls
 				.links
 					span.connectFromTrigger
 					span.connectFrom
 					span.connectTo
+				span.addTriggers
+					i.fa.fa-plus-square
+					| Add branch...

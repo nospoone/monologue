@@ -2990,6 +2990,29 @@ body.dragging canvas {
 #nodes .node select.nodetype:active {
   background: #BDC3C7;
 }
+#nodes .node.switch span.addTriggers {
+  opacity: 1;
+}
+#nodes .node span.addTriggers {
+  color: #ECF0F1;
+  position: absolute;
+  bottom: -35px;
+  display: block;
+  z-index: 3;
+  cursor: default;
+  left: 0;
+  opacity: 0;
+  transition: all 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+#nodes .node span.addTriggers:hover {
+  color: #1ABC9C;
+  left: 5px;
+}
+#nodes .node span.addTriggers i {
+  position: relative;
+  top: -1px;
+  margin-right: 5px;
+}
 #menu-bar {
   background: #2C3E50;
   width: 100%;

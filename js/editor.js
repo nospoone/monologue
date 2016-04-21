@@ -30,7 +30,8 @@ const editor = {
 		$('section.buttons .delete').on('click', editor.events.deleteControl);
 
 		// Prop changes
-		$('[data-prop]', 'section.controls, section.subcontrols').on('change', editor.events.onPropChange);
+		$('[data-prop]', 'section.controls, section.subcontrols').on('keyup change', editor.events.onPropChange);
+		$('[data-prop="type"]', 'section.controls, section.subcontrols').on('change', editor.events.changeNodeType);
 	},
 	events: {
 		dragstart(e) {
@@ -70,10 +71,23 @@ const editor = {
 				$('.node.preview .controls').append(element);
 			}
 
-			editor.data.add(element.data('id'));
+			editor.data.add(element.data('id'), element.index());
 		},
 		onPropChange(e) {
-			console.log($(e.target).data('prop'));
+			const newValue = ($(e.target).prop('tagName').toLowerCase() === 'select') ? $(e.target).find('option:selected').val() : $(e.target).val();
+			const targetProp = $(e.target).data('prop');
+
+			if (targetProp === 'name') {
+				$('select.nodetype option:selected').text(newValue);
+			} else if (targetProp === 'type') {
+				console.log(newValue);
+			}
+
+			if (targetProp === 'name' || targetProp === 'type') {
+				editor.data.prop(targetProp, newValue);
+			} else {
+				editor.data.prop(targetProp, newValue, editor.state.currentControlId);
+			}
 		},
 		moveControlUp() {
 			if (editor.state.getCurrentControl().prev().length > 0) {
@@ -94,6 +108,9 @@ const editor = {
 			editor.data.delete(editor.state.currentControlId);
 			editor.state.currentControlId = null;
 			editor.subcontrols.close();
+		},
+		changeNodeType() {
+
 		}
 	},
 	generateControlMarkup(type) {
@@ -179,10 +196,10 @@ const editor = {
 				return e.id !== id;
 			});
 		},
-		add(id) {
+		add(id, position) {
 			editor.data.raw.fields.push({
 				id,
-				position: '',
+				position,
 				label: '',
 				binding: '',
 				type: '',
@@ -194,6 +211,8 @@ const editor = {
 		prop(prop, value, id) {
 			if (id === undefined) {
 				editor.data.raw[prop] = value;
+			} else if (prop === "maxlength" || prop === "position") {
+				editor.data.raw.fields[editor.data.getControlIndexById(id)][prop] = parseInt(value, 10);
 			} else {
 				editor.data.raw.fields[editor.data.getControlIndexById(id)][prop] = value;
 			}
