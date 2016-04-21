@@ -15,9 +15,9 @@ html(lang='en')
 				label(for="type") Node Type
 				select(data-prop="type")#type
 					option(default, selected) Choose one...
-					option(value="text") Normal
+					option(value="normal") Normal
 					option(value="branch") Branch
-					option(value="multiple") Multiple
+					option(value="switch") Multiple
 				i.fa.fa-angle-double-down
 			.control
 				label Controls
@@ -57,7 +57,7 @@ html(lang='en')
 				span.delete
 					i.fa.fa-trash
 		section.preview#nodes
-			.node.preview
+			.node.preview.normal
 				header
 					span.remove-node
 						i.fa.fa-close
@@ -66,6 +66,37 @@ html(lang='en')
 					select.nodetype
 						option(value="name", data-display="name") 
 				.controls
+				.conditions
+					.branch
+						select(data-variable-get).placeholder
+							option Variable 
+						i.fa.fa-angle-double-down
+						.value
+							select(data-condition).placeholder
+								option(disabled, selected, default, value="placeholder") ?
+								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
+								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
+								option(value=">=", data-int, data-validates) &gt;=
+								option(value="<=", data-int, data-validates) &lt;=
+								option(value=">", data-int, data-validates) &gt;
+								option(value="<", data-int, data-validates) &lt;
+							input(type="text", data-int, data-string, data-validates, placeholder="Value")
+					.branch
+						.value
+							select(data-condition).placeholder
+								option(disabled, selected, default, value="placeholder") ?
+								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
+								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
+								option(value=">=", data-int, data-validates) &gt;=
+								option(value="<=", data-int, data-validates) &lt;=
+								option(value=">", data-int, data-validates) &gt;
+								option(value="<", data-int, data-validates) &lt;
+							input(type="text", data-int, data-string, data-validates, placeholder="Value")
+					span.else Else...
+					.links
+						span.connectTo
+						span.connectTo
+						span.connectTo
 				.links
 					span.connectFromTrigger
 					span.connectFrom

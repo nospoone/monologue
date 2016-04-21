@@ -2870,7 +2870,6 @@ body.dragging canvas {
   z-index: 2;
 }
 #nodes .node {
-  padding-bottom: 10px;
   position: absolute;
   border-radius: 3px;
   border: 1px #16A085 solid;
@@ -2914,7 +2913,7 @@ body.dragging canvas {
   margin: 3px auto;
 }
 #nodes .node .controls {
-  padding: 10px 10px 0;
+  padding: 10px;
   width: 100%;
 }
 #nodes .node .controls .chosen-container:not(:last-child) {
@@ -3014,7 +3013,47 @@ body.dragging canvas {
 #nodes .node .controls .value input {
   float: left;
 }
-#nodes .node .controls span.else {
+#nodes .node .conditions {
+  display: none;
+  padding: 10px;
+  width: 100%;
+}
+#nodes .node .conditions .value:before,
+#nodes .node .conditions .value:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+#nodes .node .conditions .value:after {
+  clear: both;
+}
+#nodes .node .conditions .value select {
+  width: 18%;
+}
+#nodes .node .conditions .value select.small select {
+  width: 13%;
+}
+#nodes .node .conditions .value select.small input {
+  width: 87%;
+}
+#nodes .node .conditions .value select[data-bool],
+#nodes .node .conditions .value select[data-character] {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .conditions .value select:not([data-bool]):not([data-character]) {
+  border-right: none;
+}
+#nodes .node .conditions .value input {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .conditions .value select,
+#nodes .node .conditions .value input {
+  float: left;
+}
+#nodes .node .conditions span.else {
   text-align: right;
   display: block;
   font-size: 14px;
@@ -3023,10 +3062,30 @@ body.dragging canvas {
   border-right: 2px #BDC3C7 solid;
   padding-right: 5px;
 }
-#nodes .node.branch .links span.connectTo:not(:last-child) {
+#nodes .node.branch .controls,
+#nodes .node.switch .controls {
+  border-bottom: 2px #1ABC9C solid;
+}
+#nodes .node.branch .conditions,
+#nodes .node.switch .conditions {
+  display: block;
+}
+#nodes .node.branch .conditions .branch,
+#nodes .node.switch .conditions .branch {
+  position: relative;
+}
+#nodes .node.branch .conditions .branch select + i,
+#nodes .node.switch .conditions .branch select + i {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+}
+#nodes .node.branch .links span.connectTo:not(:last-child),
+#nodes .node.switch .links span.connectTo:not(:last-child) {
   top: 113px;
 }
-#nodes .node.branch .links span.connectTo:last-child {
+#nodes .node.branch .links span.connectTo:last-child,
+#nodes .node.switch .links span.connectTo:last-child {
   top: 153px;
 }
 #nodes .node .links span.connectFrom,
@@ -3246,17 +3305,17 @@ div.blockholder.input {
 div.blockholder.textarea {
   height: 150px;
 }
-section#nodes.preview .node.preview input,
-section#nodes.preview .node.preview textarea,
-section#nodes.preview .node.preview select {
+section#nodes.preview .node.preview .controls input,
+section#nodes.preview .node.preview .controls textarea,
+section#nodes.preview .node.preview .controls select {
   cursor: pointer;
 }
-section#nodes.preview .node.preview input:hover,
-section#nodes.preview .node.preview textarea:hover,
-section#nodes.preview .node.preview select:hover,
-section#nodes.preview .node.preview input.active,
-section#nodes.preview .node.preview textarea.active,
-section#nodes.preview .node.preview select.active {
+section#nodes.preview .node.preview .controls input:hover,
+section#nodes.preview .node.preview .controls textarea:hover,
+section#nodes.preview .node.preview .controls select:hover,
+section#nodes.preview .node.preview .controls input.active,
+section#nodes.preview .node.preview .controls textarea.active,
+section#nodes.preview .node.preview .controls select.active {
   border-color: #1ABC9C;
   background: #BDC3C7;
 }

@@ -10,11 +10,6 @@ const editor = {
 		editor.data.createNode();
 	},
 	bindEvents() {
-		// node name
-		$('.controls [data-node-name]').on('change keyup', () => {
-			$('.preview [data-node-name]').text($('.controls [data-node-name]').val());
-		});
-
 		// Drag & Drop
 		$('.controls .draggable').on('dragstart', editor.events.dragstart);
 		$('.node.preview .controls, .node.preview .controls .blockholder').on('dragover', editor.events.dragover);
@@ -23,6 +18,10 @@ const editor = {
 		// Controls
 		$('.node.preview .controls').on('mousedown', 'select, input, textarea', editor.subcontrols.open);
 		$('section.subcontrols select').on('change', editor.subcontrols.checkEnum);
+		$('.node.preview .conditions').on('mousedown mouseup click', e => {
+			e.preventDefault();
+			e.stopPropagation();
+		});
 
 		// Subcontrols
 		$('section.buttons .up').on('click', editor.events.moveControlUp);
@@ -79,8 +78,6 @@ const editor = {
 
 			if (targetProp === 'name') {
 				$('select.nodetype option:selected').text(newValue);
-			} else if (targetProp === 'type') {
-				console.log(newValue);
 			}
 
 			if (targetProp === 'name' || targetProp === 'type') {
@@ -109,8 +106,9 @@ const editor = {
 			editor.state.currentControlId = null;
 			editor.subcontrols.close();
 		},
-		changeNodeType() {
-
+		changeNodeType(e) {
+			$('.node.preview').removeClass('normal switch branch');
+			$('.node.preview').addClass($(e.target).find('option:selected').val());
 		}
 	},
 	generateControlMarkup(type) {

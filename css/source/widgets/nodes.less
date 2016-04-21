@@ -2,7 +2,6 @@
 	position: relative;
 	z-index: 2;
 	.node {
-		padding-bottom: 10px;
 		&.template {
 			display: none;
 		}
@@ -45,7 +44,7 @@
 			margin: 3px auto;
 		}
 		.controls {
-			padding: 10px 10px 0;
+			padding: 10px;
 			width: 100%;
 			.chosen-container:not(:last-child) {
 				margin-bottom: 5px;
@@ -129,6 +128,39 @@
 					float: left;
 				}
 			}
+		}
+		.conditions {
+			display: none;
+			padding: 10px;
+			width: 100%;
+			.value {
+				.clearfix();
+				select {
+					&.small {
+						select {
+							width: 13%;
+						}
+						input {
+							width: 87%;
+						}
+					}
+					width: 18%;
+					&[data-bool], &[data-character] {
+						width: 82%;
+						border-left: none;
+					}
+					&:not([data-bool]):not([data-character]) {
+						border-right: none;
+					}
+				}
+				input {
+					width: 82%;
+					border-left: none;
+				}
+				select, input {
+					float: left;
+				}
+			}
 			span.else {
 				text-align: right;
 				display: block;
@@ -139,7 +171,21 @@
 				padding-right: 5px;
 			}
 		}
-		&.branch {
+		&.branch, &.switch {
+			.controls {
+				border-bottom: 2px @turquoise solid;
+			}
+			.conditions {
+				display: block;
+				.branch {
+					position: relative;
+					select + i {
+						position: absolute;
+						top: 9px;
+						right: 10px;
+					}
+				}
+			}
 			.links {
 				span.connectTo {
 					&:not(:last-child) {
