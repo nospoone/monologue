@@ -7,4 +7,66 @@ html(lang='en')
 		script(src="../js/editor.js")
 	body
 		include components/bars/menu-bar
-		.draggable(draggable="true")
+		section.controls
+			.control
+				label(for="name") Node Name
+				input(type="text", data-prop="name")#name
+			.control
+				label(for="type") Node Type
+				select(data-prop="type")#type
+					option(default, selected) Choose one...
+					option(value="text") Normal
+					option(value="branch") Branch
+					option(value="multiple") Multiple
+				i.fa.fa-angle-double-down
+			.control
+				label Controls
+				.draggable(draggable="true", data-type="input")
+					span short textbox
+				.draggable(draggable="true", data-type="textarea")
+					span long textbox
+				.draggable(draggable="true", data-type="select")
+						span dropdown
+		section.subcontrols
+			.control(data-for="input,textarea,select")
+				label(for="placeholder") Placeholder Text (Label)
+				input(type="text", data-prop="placeholder")#placeholder
+			.control(data-for="input,textarea,select")
+				label(for="binding") Data Binding
+				input(type="text", data-prop="binding")#binding
+			.control(data-for="input,select")
+				label(for="validation") Validation
+				select(data-prop="validation")#validation
+					option(default, selected) Choose one...
+					option(value="string", data-for="input") String
+					option(value="int", data-for="input") Integer
+					option(value="bool", data-for="select") Boolean
+					option(value="enum", data-for="select") Enumeration
+				i.fa.fa-angle-double-down
+			.control(data-for="input")
+				label(for="maxlength") Max Length
+				input(type="text", data-prop="maxlength")#maxlength
+			.control(data-for="select", data-values)
+				label(for="values") Values (one per line)
+				textarea(data-prop="values")#values
+			section.buttons
+				span.up
+					i.fa.fa-chevron-up
+				span.down
+					i.fa.fa-chevron-down
+				span.delete
+					i.fa.fa-trash
+		section.preview#nodes
+			.node.preview
+				header
+					span.remove-node
+						i.fa.fa-close
+				.select
+					i.fa.fa-angle-double-down
+					select.nodetype
+						option(value="name") 
+				.controls
+				.links
+					span.connectFromTrigger
+					span.connectFrom
+					span.connectTo

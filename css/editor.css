@@ -2865,12 +2865,378 @@ body.dragging canvas {
 #menu-bar .controls span.minimize:hover {
   background: #34495E;
 }
-body {
-  background-image: url(../img/editor-bg.png);
+#nodes {
+  position: relative;
+  z-index: 2;
+}
+#nodes .node {
+  padding-bottom: 10px;
+  position: absolute;
+  border-radius: 3px;
+  border: 1px #16A085 solid;
+  width: 230px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background: #ECF0F1;
+}
+#nodes .node.template {
+  display: none;
+}
+#nodes .node header {
+  background: #1ABC9C;
+  padding: 0 9px;
+  text-align: right;
+  color: #ECF0F1;
+  height: 20px;
+  line-height: 20px;
+}
+#nodes .node header span {
+  position: relative;
+  top: -2px;
+  font-size: 16px;
+}
+#nodes .node .select {
+  position: relative;
+}
+#nodes .node .select option[default] {
+  display: none;
+}
+#nodes .node .select i {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  pointer-events: none;
+}
+#nodes .node span.line {
+  display: block;
+  background: #BDC3C7;
+  height: 2px;
+  width: 97%;
+  margin: 3px auto;
+}
+#nodes .node .controls {
+  padding: 10px 10px 0;
+  width: 100%;
+}
+#nodes .node .controls .chosen-container:not(:last-child) {
+  margin-bottom: 5px;
+}
+#nodes .node .controls .chosen-container-single {
+  font-size: 14px;
+}
+#nodes .node .controls .chosen-container-single .chosen-single,
+#nodes .node .controls .chosen-container-single .chosen-drop {
+  background: #FFF;
+  box-shadow: none;
+  border: 2px #BDC3C7 solid;
+}
+#nodes .node .controls .chosen-container-single .chosen-search input[type="text"] {
+  height: auto;
+}
+#nodes .node .controls .chosen-container-single .chosen-single {
+  height: 34px;
+}
+#nodes .node .controls .chosen-container-single .chosen-drop {
+  width: 150%;
+  top: calc(100% - 2px);
+}
+#nodes .node .controls .chosen-with-drop .chosen-single {
+  border-bottom-color: #FFF;
+}
+#nodes .node .controls.hidden {
+  display: none;
+}
+#nodes .node .controls .branch-controls {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#nodes .node .controls .branch-controls:before,
+#nodes .node .controls .branch-controls:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+#nodes .node .controls .branch-controls:after {
+  clear: both;
+}
+#nodes .node .controls .branch-controls span {
+  display: block;
+  width: 50%;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+#nodes .node .controls .branch-controls span.add {
+  background: #1ABC9C;
+  color: #ECF0F1;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+#nodes .node .controls .branch-controls span.remove {
+  background: #C0392B;
+  color: #ECF0F1;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#nodes .node .controls .value:before,
+#nodes .node .controls .value:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+#nodes .node .controls .value:after {
+  clear: both;
+}
+#nodes .node .controls .value select {
+  width: 18%;
+}
+#nodes .node .controls .value select.small select {
+  width: 13%;
+}
+#nodes .node .controls .value select.small input {
+  width: 87%;
+}
+#nodes .node .controls .value select[data-bool],
+#nodes .node .controls .value select[data-character] {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .controls .value select:not([data-bool]):not([data-character]) {
+  border-right: none;
+}
+#nodes .node .controls .value input {
+  width: 82%;
+  border-left: none;
+}
+#nodes .node .controls .value select,
+#nodes .node .controls .value input {
+  float: left;
+}
+#nodes .node .controls span.else {
+  text-align: right;
+  display: block;
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  border-right: 2px #BDC3C7 solid;
+  padding-right: 5px;
+}
+#nodes .node.branch .links span.connectTo:not(:last-child) {
+  top: 113px;
+}
+#nodes .node.branch .links span.connectTo:last-child {
+  top: 153px;
+}
+#nodes .node .links span.connectFrom,
+#nodes .node .links span.connectTo,
+#nodes .node .links span.connectFromTrigger {
+  position: absolute;
+  top: calc(50% - 15px);
+  display: block;
+  width: 15px;
+  height: 30px;
+}
+#nodes .node .links span.connectFromTrigger {
+  width: 35px;
+  height: 70px;
+  top: calc(50% - 35px);
+  left: -36px;
+}
+#nodes .node .links span.connectFrom {
+  border-radius: 30px 0 0 30px;
+  background: #E74C3C;
+  left: -16px;
+}
+#nodes .node .links span.connectTo {
+  border-radius: 0 30px 30px 0;
+  background: #2ECC71;
+  right: -16px;
+}
+#nodes .node select.nodetype {
+  -webkit-appearance: none;
+  width: 100%;
+  display: block;
+  margin: 5px auto 0;
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px #16A085 solid;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 2px 3px;
+}
+#nodes .node select.nodetype:hover,
+#nodes .node select.nodetype:active {
+  background: #BDC3C7;
+}
+input,
+textarea,
+select {
+  width: 100%;
+  display: block;
+  -webkit-appearance: none;
+  border: 2px #BDC3C7 solid;
+  padding: 5px 5px;
+  font-size: 14px;
+  height: 35px;
+}
+input:not(:last-child),
+textarea:not(:last-child),
+select:not(:last-child) {
+  margin-bottom: 5px;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #1ABC9C;
+}
+input.error,
+textarea.error,
+select.error {
+  border-color: #C0392B;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+input.placeholder,
+textarea.placeholder,
+select.placeholder {
+  font-size: 14px;
+  color: #BDC3C7;
+}
+input [default],
+textarea [default],
+select [default] {
+  display: none;
+}
+input option.hidden,
+textarea option.hidden,
+select option.hidden {
+  display: none;
+}
+textarea {
+  min-height: 150px;
+}
+section.controls,
+section.subcontrols {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  padding: 45px 10px 10px;
+  background: #ECF0F1;
+  box-shadow: 2px 1px 4px 0px rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+section.controls .control,
+section.subcontrols .control {
+  position: relative;
+}
+section.controls .control:not(:last-child),
+section.subcontrols .control:not(:last-child) {
+  margin-bottom: 15px;
+}
+section.controls .control i,
+section.subcontrols .control i {
+  position: absolute;
+  right: 10px;
+  top: 33px;
+}
+section.controls .control label,
+section.subcontrols .control label {
+  text-transform: uppercase;
+  font-size: 14px;
+}
+section.controls .control label + .draggable,
+section.subcontrols .control label + .draggable {
+  margin-top: 5px;
+}
+section.subcontrols {
+  z-index: 1;
+  opacity: 0;
+  transition: all 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+section.subcontrols section.buttons span {
+  width: calc(33% - 32px);
+  height: 43px;
+  display: block;
+  float: left;
+  background: #FFF;
+  line-height: 43px;
+  text-align: center;
+  border: 2px #BDC3C7 solid;
+  margin: 0 24px;
+  transition: transform 150ms linear;
+  transform: scale(1, 1);
+}
+section.subcontrols section.buttons span:hover {
+  border-color: #1ABC9C;
+}
+section.subcontrols section.buttons span i {
+  font-size: 24px;
+}
+section.subcontrols section.buttons span:not(:last-child):not(:first-child) {
+  margin: 0;
+}
+section.subcontrols section.buttons span:active {
+  transform: scale(0.95, 0.95);
+}
+section.subcontrols section.buttons span.disabled {
+  pointer-events: none;
+  opacity: 0.25;
+}
+section.subcontrols.open {
+  opacity: 1;
+  left: 250px;
+}
+section#nodes.preview {
+  width: 230px;
+  position: absolute;
+  right: 50px;
+  top: 85px;
 }
 .draggable {
-  width: 150px;
-  height: 150px;
-  background:  red;
+  background-color: #dee1e3;
+  border: 2px dashed #BDC3C7;
   cursor: move;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 5px;
+  margin-top: 5px;
+}
+div.blockholder {
+  background-color: #dee1e3;
+  border: 2px dashed #BDC3C7;
+  opacity: 0.75;
+}
+div.blockholder:not(:last-child) {
+  margin-bottom: 5px;
+}
+div.blockholder.select,
+div.blockholder.input {
+  height: 35px;
+}
+div.blockholder.textarea {
+  height: 150px;
+}
+section#nodes.preview .node.preview input,
+section#nodes.preview .node.preview textarea,
+section#nodes.preview .node.preview select {
+  cursor: pointer;
+}
+section#nodes.preview .node.preview input:hover,
+section#nodes.preview .node.preview textarea:hover,
+section#nodes.preview .node.preview select:hover,
+section#nodes.preview .node.preview input.active,
+section#nodes.preview .node.preview textarea.active,
+section#nodes.preview .node.preview select.active {
+  border-color: #1ABC9C;
+  background: #BDC3C7;
+}
+body {
+  background-image: url(../img/editor-bg.png);
 }

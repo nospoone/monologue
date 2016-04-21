@@ -1,0 +1,195 @@
+#nodes {
+	position: relative;
+	z-index: 2;
+	.node {
+		padding-bottom: 10px;
+		&.template {
+			display: none;
+		}
+		position: absolute;
+		border-radius: 3px;
+		border: 1px @greenSea solid;
+		width: 230px;
+		.BoxShadowHelper();
+		background: @white;
+		header {
+			background: @turquoise;
+			padding: 0 9px;
+			text-align: right;
+			color: @white;
+			height: 20px;
+			line-height: 20px;
+			span {
+				position: relative;
+			    top: -2px;
+    			font-size: 16px;
+			}
+		}
+		.select {
+			position: relative;
+			option[default] {
+				display: none;
+			}
+			i {
+				position: absolute;
+				top: 9px;
+				right: 10px;
+				pointer-events: none;
+			}
+		}
+		span.line {
+			display: block;
+			background: @silver;
+			height: 2px;
+			width: 97%;
+			margin: 3px auto;
+		}
+		.controls {
+			padding: 10px 10px 0;
+			width: 100%;
+			.chosen-container:not(:last-child) {
+				margin-bottom: 5px;
+			}
+			.chosen-container-single {
+				font-size: 14px;
+				.chosen-single, .chosen-drop {
+					background: #FFF;
+					box-shadow: none;
+					border: 2px @silver solid;
+				}
+				.chosen-search input[type="text"] {
+					height: auto;
+				}
+				.chosen-single {
+					height: 34px;
+				}
+				.chosen-drop {
+					width: 150%;
+					top: calc(~"100% - 2px");
+				}
+			}
+			.chosen-with-drop {
+				.chosen-single {
+					border-bottom-color: #FFF;
+				}
+			}
+			&.hidden {
+				display: none;
+			}
+			.branch-controls {
+				width: 100%;
+				.clearfix();
+				margin-bottom: 10px;
+				span {
+					display: block;
+					width: 50%;
+					float: left;
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+					&.add {
+						background: @turquoise;
+						color: @white;
+						border-top-left-radius: 3px;
+						border-bottom-left-radius: 3px;
+					}
+					&.remove {
+						background: @pomegranate;
+						color: @white;
+						border-top-right-radius: 3px;
+						border-bottom-right-radius: 3px;
+					}
+				}
+			}
+			.value {
+				.clearfix();
+				select {
+					&.small {
+						select {
+							width: 13%;
+						}
+						input {
+							width: 87%;
+						}
+					}
+					width: 18%;
+					&[data-bool], &[data-character] {
+						width: 82%;
+						border-left: none;
+					}
+					&:not([data-bool]):not([data-character]) {
+						border-right: none;
+					}
+				}
+				input {
+					width: 82%;
+					border-left: none;
+				}
+				select, input {
+					float: left;
+				}
+			}
+			span.else {
+				text-align: right;
+				display: block;
+				font-size: 14px;
+				height: 35px;
+				line-height: 35px;
+				border-right: 2px @silver solid;
+				padding-right: 5px;
+			}
+		}
+		&.branch {
+			.links {
+				span.connectTo {
+					&:not(:last-child) {
+						top: 113px;
+					}
+					&:last-child {
+						top: 153px;
+					}
+				}
+			}
+		}
+		.links {
+			span.connectFrom, span.connectTo, span.connectFromTrigger {
+				position: absolute;
+				top: calc(~"50% - 15px");
+				display: block;
+				.size(15px, 30px);
+			}
+			span.connectFromTrigger {
+				.size(35px, 70px);
+				top: calc(~"50% - 35px");
+				left: -36px;
+			}
+			span.connectFrom {
+				border-radius: 30px 0 0 30px;
+				background: @alizarin;
+				left: -16px;
+			}
+			span.connectTo {
+				border-radius: 0 30px 30px 0;
+				background: @emerald;
+				right: -16px;
+			}
+		}
+		select.nodetype {
+			-webkit-appearance: none;
+			width: 100%;
+			display: block;
+			margin: 5px auto 0;
+			background: transparent;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 2px @greenSea solid;
+			text-transform: uppercase;
+			font-size: 14px;
+			padding: 2px 3px;
+			&:hover, &:active {
+				background: @silver;
+			}
+		}
+	}
+}

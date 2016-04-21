@@ -1,0 +1,114 @@
+section.controls, section.subcontrols {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 250px;
+	height: 100%;
+	padding: 45px 10px 10px;
+	background: @white;
+	box-shadow: 2px 1px 4px 0px rgba(0, 0, 0, 0.35);
+	z-index: 2;
+	.control {
+		position: relative;
+		&:not(:last-child) {
+			margin-bottom: 15px;
+		}
+		i {
+			position: absolute;
+			right: 10px;
+			top: 33px;
+		}
+		label {
+			text-transform: uppercase;
+			font-size: 14px;
+			+ .draggable {
+				margin-top: 5px;
+			}
+		}
+	}
+}
+
+section.subcontrols {
+	z-index: 1;
+	opacity: 0;
+	transition: all 250ms @easeOutCubic;
+	section.buttons {
+		span {
+			width: calc(~"33% - 32px");
+			height: 43px;
+			display: block;
+			float: left;
+			background: #FFF;
+			line-height: 43px;
+			text-align: center;
+			border: 2px @silver solid;
+			&:hover {
+				border-color: @turquoise;
+			}
+			i {
+				font-size: 24px;
+			}
+			margin: 0 24px;
+			&:not(:last-child):not(:first-child) {
+				margin: 0;
+			}
+			transition: transform 150ms linear;
+			transform: scale(1, 1);
+			&:active {
+				transform: scale(0.95, 0.95);
+			}
+			&.disabled {
+				pointer-events: none;
+				opacity: 0.25;
+			}
+		}
+	}
+	&.open {
+		opacity: 1;
+		left: 250px;
+	}
+}
+
+section#nodes.preview {
+	width: 230px;
+	position: absolute;
+	right: 50px;
+	top: 35px + 50px;
+}
+
+.draggable {
+	background-color: lighten(@silver, 12%);
+	border: 2px dashed @silver;
+	cursor: move;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 5px;
+	margin-top: 5px;
+}
+
+div.blockholder {
+	background-color: lighten(@silver, 12%);
+	border: 2px dashed @silver;
+	opacity: 0.75;
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+	&.select, &.input {
+		height: 35px;
+	}
+	&.textarea {
+		height: 150px;
+	}
+}
+
+section#nodes.preview {
+	.node.preview {
+		input, textarea, select {
+			cursor: pointer;
+			&:hover, &.active {
+				border-color: @turquoise;
+				background: @silver;
+			}
+		}
+	}
+}

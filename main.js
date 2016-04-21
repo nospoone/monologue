@@ -48,10 +48,10 @@ app.on('ready', () => {
 
 	// debug
 	nodeEditorWindow = new BrowserWindow({
-		width: 800,
+		width: 835,
 		height: 600,
-		minWidth: 475,
-		minHeight: 300,
+		minWidth: 835,
+		minHeight: 600,
 		frame: false,
 		icon: path.resolve('./img/icon.png')
 	});

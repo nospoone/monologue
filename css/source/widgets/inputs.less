@@ -1,0 +1,32 @@
+input, textarea, select {
+	&:not(:last-child) {
+		margin-bottom: 5px;
+	}
+	&:focus {
+		border-color: @turquoise;
+	}
+	&.error {
+		border-color: @pomegranate;
+	}
+	width: 100%;
+	display: block;
+	-webkit-appearance: none;
+	border: 2px @silver solid;
+	padding: 5px 5px;
+	font-size: 14px;
+	height: 35px;
+	&::-webkit-input-placeholder, &.placeholder {
+		font-size: 14px;
+		color: @silver;
+	}
+	[default] { 
+		display: none;
+	}
+	option.hidden {
+		display: none;
+	}
+}
+
+textarea {
+	min-height: 150px;
+}

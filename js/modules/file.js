@@ -49,6 +49,7 @@ module.exports = {
 			// this should really be elsewhere as a separate option
 			// larger projects will take forever to output this
 			// as the tsv module isn't async
+			view.showStatusMessage('Exporting...');
 			this.exportTSVs(data);
 
 			this.saving = false;
