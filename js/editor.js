@@ -302,7 +302,7 @@ const editor = {
 		createNode() {
 			editor.data.raw = {
 				name: '',
-				type: '',
+				type: 'normal',
 				fields: []
 			};
 		},
