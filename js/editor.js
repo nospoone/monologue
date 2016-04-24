@@ -72,6 +72,7 @@ const editor = {
 
 			if (file !== undefined) {
 				editor.resetNode();
+				editor.subcontrols.close();
 
 				editor.data.fromJSON(fs.readFileSync(file[0], {encoding: 'utf8'}));
 				$('select.nodetype option:selected').text(editor.data.raw.name);
@@ -107,6 +108,7 @@ const editor = {
 
 			if (confirm === 0) {
 				editor.resetNode();
+				editor.subcontrols.close();
 			}
 		},
 		dragstart(e) {
