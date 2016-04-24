@@ -100,36 +100,36 @@
 					}
 				}
 			}
-			.value {
-				.clearfix();
-				select {
-					&.small {
-						select {
-							width: 13%;
-						}
-						input {
-							width: 87%;
-						}
+		}
+		.value {
+			.clearfix();
+			select {
+				&.small {
+					select {
+						width: 13%;
 					}
-					width: 18%;
-					&[data-bool], &[data-character] {
-						width: 82%;
-						border-left: none;
-					}
-					&:not([data-bool]):not([data-character]) {
-						border-right: none;
+					input {
+						width: 87%;
 					}
 				}
-				input {
+				width: 18%;
+				&[data-bool], &[data-character] {
 					width: 82%;
 					border-left: none;
 				}
-				select, input {
-					float: left;
+				&:not([data-bool]):not([data-character]) {
+					border-right: none;
 				}
 			}
+			input {
+				width: 82%;
+				border-left: none;
+			}
+			select, input {
+				float: left;
+			}
 		}
-		.conditions {
+		.conditions, .set {
 			display: none;
 			padding: 10px;
 			width: 100%;
@@ -173,6 +173,14 @@
 		}
 		.conditions .links {
 			display: block;
+		}
+		&.set {
+			.set {
+				display: block;
+			}
+			.controls {
+				border-bottom: 2px @turquoise solid;
+			}
 		}
 		&.branch {
 			span.addTriggers {

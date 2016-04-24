@@ -2978,82 +2978,96 @@ body.dragging canvas {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-#nodes .node .controls .value:before,
-#nodes .node .controls .value:after {
+#nodes .node .value:before,
+#nodes .node .value:after {
   content: " ";
   /* 1 */
   display: table;
   /* 2 */
 }
-#nodes .node .controls .value:after {
+#nodes .node .value:after {
   clear: both;
 }
-#nodes .node .controls .value select {
+#nodes .node .value select {
   width: 18%;
 }
-#nodes .node .controls .value select.small select {
+#nodes .node .value select.small select {
   width: 13%;
 }
-#nodes .node .controls .value select.small input {
+#nodes .node .value select.small input {
   width: 87%;
 }
-#nodes .node .controls .value select[data-bool],
-#nodes .node .controls .value select[data-character] {
+#nodes .node .value select[data-bool],
+#nodes .node .value select[data-character] {
   width: 82%;
   border-left: none;
 }
-#nodes .node .controls .value select:not([data-bool]):not([data-character]) {
+#nodes .node .value select:not([data-bool]):not([data-character]) {
   border-right: none;
 }
-#nodes .node .controls .value input {
+#nodes .node .value input {
   width: 82%;
   border-left: none;
 }
-#nodes .node .controls .value select,
-#nodes .node .controls .value input {
+#nodes .node .value select,
+#nodes .node .value input {
   float: left;
 }
-#nodes .node .conditions {
+#nodes .node .conditions,
+#nodes .node .set {
   display: none;
   padding: 10px;
   width: 100%;
 }
 #nodes .node .conditions .value:before,
-#nodes .node .conditions .value:after {
+#nodes .node .set .value:before,
+#nodes .node .conditions .value:after,
+#nodes .node .set .value:after {
   content: " ";
   /* 1 */
   display: table;
   /* 2 */
 }
-#nodes .node .conditions .value:after {
+#nodes .node .conditions .value:after,
+#nodes .node .set .value:after {
   clear: both;
 }
-#nodes .node .conditions .value select {
+#nodes .node .conditions .value select,
+#nodes .node .set .value select {
   width: 18%;
 }
-#nodes .node .conditions .value select.small select {
+#nodes .node .conditions .value select.small select,
+#nodes .node .set .value select.small select {
   width: 13%;
 }
-#nodes .node .conditions .value select.small input {
+#nodes .node .conditions .value select.small input,
+#nodes .node .set .value select.small input {
   width: 87%;
 }
 #nodes .node .conditions .value select[data-bool],
-#nodes .node .conditions .value select[data-character] {
+#nodes .node .set .value select[data-bool],
+#nodes .node .conditions .value select[data-character],
+#nodes .node .set .value select[data-character] {
   width: 82%;
   border-left: none;
 }
-#nodes .node .conditions .value select:not([data-bool]):not([data-character]) {
+#nodes .node .conditions .value select:not([data-bool]):not([data-character]),
+#nodes .node .set .value select:not([data-bool]):not([data-character]) {
   border-right: none;
 }
-#nodes .node .conditions .value input {
+#nodes .node .conditions .value input,
+#nodes .node .set .value input {
   width: 82%;
   border-left: none;
 }
 #nodes .node .conditions .value select,
-#nodes .node .conditions .value input {
+#nodes .node .set .value select,
+#nodes .node .conditions .value input,
+#nodes .node .set .value input {
   float: left;
 }
-#nodes .node .conditions span.else {
+#nodes .node .conditions span.else,
+#nodes .node .set span.else {
   text-align: right;
   display: block;
   font-size: 14px;
@@ -3064,6 +3078,12 @@ body.dragging canvas {
 }
 #nodes .node .conditions .links {
   display: block;
+}
+#nodes .node.set .set {
+  display: block;
+}
+#nodes .node.set .controls {
+  border-bottom: 2px #1ABC9C solid;
 }
 #nodes .node.branch span.addTriggers {
   opacity: 1;

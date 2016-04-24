@@ -202,7 +202,7 @@ const editor = {
 		},
 		changeNodeType(e, value) {
 			const newValue = (typeof value === 'undefined') ? $(e.target).find('option:selected').val() : value;
-			$('.node.preview').removeClass('normal branch');
+			$('.node.preview').removeClass('normal branch set');
 			$('.node.preview').addClass(newValue);
 		}
 	},

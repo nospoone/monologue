@@ -27,6 +27,7 @@ html(lang='en')
 					option(default, selected) Choose one...
 					option(value="normal") Normal
 					option(value="branch") Branch
+					option(value="set") Set
 				i.fa.fa-angle-double-down
 			.control
 				label Controls
@@ -75,6 +76,13 @@ html(lang='en')
 					select.nodetype
 						option(value="name", data-display="name") 
 				.controls
+				.set
+					select(data-variable-set).placeholder
+						option(disabled, selected, default, value="placeholder") Variable
+					.value.small
+						select(data-operation).placeholder
+							option(disabled, selected, default, value="placeholder") ?
+						input(type="text", data-int, data-string, data-validates, placeholder="Value")
 				.conditions
 					.branch
 						select(data-variable-get).placeholder
@@ -83,12 +91,6 @@ html(lang='en')
 						.value
 							select(data-condition).placeholder
 								option(disabled, selected, default, value="placeholder") ?
-								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
-								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
-								option(value=">=", data-int, data-validates) &gt;=
-								option(value="<=", data-int, data-validates) &lt;=
-								option(value=">", data-int, data-validates) &gt;
-								option(value="<", data-int, data-validates) &lt;
 							input(type="text", data-int, data-string, data-validates, placeholder="Value")
 					span.else Else...
 					.links
