@@ -174,7 +174,10 @@
 		.conditions .links {
 			display: block;
 		}
-		&.branch, &.switch {
+		&.branch {
+			span.addTriggers {
+				opacity: 1;
+			}
 			.controls {
 				border-bottom: 2px @turquoise solid;
 			}
@@ -244,11 +247,6 @@
 			padding: 2px 3px;
 			&:hover, &:active {
 				background: @silver;
-			}
-		}
-		&.switch {
-			span.addTriggers {
-				opacity: 1;
 			}
 		}
 		span.addTriggers {

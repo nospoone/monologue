@@ -2,6 +2,9 @@
 
 const $ = require('../js/lib/jquery.js');
 const uuid = require('../js/editor/uuid.js');
+const dialog = require('remote').require('dialog');
+const fs = require('remote').require('fs');
+const browserWindow = require('remote').require('browser-window').fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
 
 const editor = {
 	bootstrap() {
@@ -31,8 +34,81 @@ const editor = {
 		// Prop changes
 		$('[data-prop]', 'section.controls, section.subcontrols').on('keyup change', editor.events.onPropChange);
 		$('[data-prop="type"]', 'section.controls, section.subcontrols').on('change', editor.events.changeNodeType);
+
+		// Window controls
+		$('nav#menu-bar span.close').on('click', editor.events.close);
+		$('nav#menu-bar span.minimize').on('click', editor.events.minimize);
+		$('nav#menu-bar span.maximize').on('click', editor.events.maximize);
+
+		// Node controls
+		$('section.controls span.open').on('click', editor.events.open);
+		$('section.controls span.save').on('click', editor.events.save);
+		$('section.controls span.reset').on('click', editor.events.reset);
 	},
 	events: {
+		close() {
+			require('electron').ipcRenderer.send('closeNodeEditor');
+		},
+		minimize() {
+			browserWindow.minimize();
+		},
+		maximize(e) {
+			if (browserWindow.isMaximized()) {
+				browserWindow.unmaximize();
+				$(e.target).removeClass('maximized');
+			} else {
+				browserWindow.maximize();
+				$(e.target).addClass('maximized');
+			}
+		},
+		open() {
+			const file = dialog.showOpenDialog(browserWindow, {
+				title: 'Open Node Definition...',
+				properties: ['openFile'],
+				filters: [
+					{name: 'Monologue Node Definition', extensions: ['mnd']}
+				]
+			});
+
+			if (file !== undefined) {
+				editor.resetNode();
+
+				editor.data.fromJSON(fs.readFileSync(file[0], {encoding: 'utf8'}));
+				$('select.nodetype option:selected').text(editor.data.raw.name);
+				$('.controls input#name').val(editor.data.raw.name);
+				$(`.control select#type option[value='${editor.data.raw.type}']`).prop('selected', true);
+				editor.events.changeNodeType(null, editor.data.raw.type);
+
+				for (let i = 0; i < editor.data.raw.fields.length; i++) {
+					$('.node.preview .controls').append(editor.generateControlMarkup(editor.data.raw.fields[i].type, editor.data.raw.fields[i].id, editor.data.raw.fields[i].placeholder));
+				}
+			}
+		},
+		save() {
+			const file = dialog.showSaveDialog(browserWindow, {
+				title: 'Save Node Definition...',
+				filters: [
+					{name: 'Monologue Node Definition', extensions: ['mnd']}
+				]
+			});
+
+			if (file !== undefined) {
+				fs.writeFileSync(file, editor.data.getJSON());
+			}
+		},
+		reset() {
+			const confirm = dialog.showMessageBox(browserWindow, {
+				type: 'warning',
+				buttons: ['Yes', 'No'],
+				title: 'Reset Confirmation',
+				message: 'Are you sure?',
+				detail: "Resetting the current node will erase all data. Work will be lost if the current node hasn't been saved."
+			});
+
+			if (confirm === 0) {
+				editor.resetNode();
+			}
+		},
 		dragstart(e) {
 			e.originalEvent.dataTransfer.setData('text/plain', $(e.target).data('type'));
 		},
@@ -46,10 +122,8 @@ const editor = {
 
 			const target = $(e.target);
 			if (target.hasClass('controls')) {
-				// TODO: when dragging over empty space
-				// although not super important
+				// TODO: sorting when dragging over empty space although not super important
 			} else if (e.offsetY > (target.height() / 2) && !target.next().hasClass('blockholder')) {
-				// dropping after the target
 				$('.blockholder').remove();
 				target.after(`<div class='blockholder ${e.originalEvent.dataTransfer.getData('text/plain')}'></div>`);
 			} else if (e.offsetY < (target.height() / 2) && !target.prev().hasClass('blockholder')) {
@@ -70,7 +144,7 @@ const editor = {
 				$('.node.preview .controls').append(element);
 			}
 
-			editor.data.add(element.data('id'), element.index());
+			editor.data.add(element.data('id'), element.index(), controlType);
 		},
 		onPropChange(e) {
 			const newValue = ($(e.target).prop('tagName').toLowerCase() === 'select') ? $(e.target).find('option:selected').val() : $(e.target).val();
@@ -80,25 +154,43 @@ const editor = {
 				$('select.nodetype option:selected').text(newValue);
 			}
 
+			if (targetProp === 'placeholder') {
+				if (editor.state.getCurrentControl().prop('tagName').toLowerCase() === 'select') {
+					editor.state.getCurrentControl().find('[default]').text(newValue);
+				} else {
+					editor.state.getCurrentControl().prop('placeholder', newValue);
+				}
+			}
+
 			if (targetProp === 'name' || targetProp === 'type') {
-				editor.data.prop(targetProp, newValue);
+				editor.data.setProp(targetProp, newValue);
 			} else {
-				editor.data.prop(targetProp, newValue, editor.state.currentControlId);
+				editor.data.setProp(targetProp, newValue, editor.state.currentControlId);
 			}
 		},
 		moveControlUp() {
-			if (editor.state.getCurrentControl().prev().length > 0) {
-				const swapped = editor.state.getCurrentControl().prev().detach();
-				editor.state.getCurrentControl().after(swapped);
+			const control = editor.state.getCurrentControl();
+			if (control.prev().length > 0) {
+				const swapped = control.prev().detach();
+				control.after(swapped);
 				editor.subcontrols.checkPrevNext();
+
+				editor.data.setProp('position', control.index(), editor.state.currentControlId);
 			}
+
+			editor.subcontrols.setCorrectControlOrder();
 		},
 		moveControlDown() {
-			if (editor.state.getCurrentControl().next().length > 0) {
-				const swapped = editor.state.getCurrentControl().next().detach();
-				editor.state.getCurrentControl().before(swapped);
+			const control = editor.state.getCurrentControl();
+			if (control.next().length > 0) {
+				const swapped = control.next().detach();
+				control.before(swapped);
 				editor.subcontrols.checkPrevNext();
+
+				editor.data.setProp('position', control.index(), editor.state.currentControlId);
 			}
+
+			editor.subcontrols.setCorrectControlOrder();
 		},
 		deleteControl() {
 			$(`[data-id='${editor.state.currentControlId}`).remove();
@@ -106,22 +198,33 @@ const editor = {
 			editor.state.currentControlId = null;
 			editor.subcontrols.close();
 		},
-		changeNodeType(e) {
-			$('.node.preview').removeClass('normal switch branch');
-			$('.node.preview').addClass($(e.target).find('option:selected').val());
+		changeNodeType(e, value) {
+			const newValue = (typeof value === 'undefined') ? $(e.target).find('option:selected').val() : value;
+			$('.node.preview').removeClass('normal branch');
+			$('.node.preview').addClass(newValue);
 		}
 	},
-	generateControlMarkup(type) {
+	generateControlMarkup(type, id, value) {
+		id = (typeof id === 'undefined') ? uuid.generate() : id;
+
 		switch (type) {
 			case editor.controlType.input:
-				return $(`<input data-id='${uuid.generate()}' data-type='${type}' type='text' />`);
+				return $(`<input data-id='${id}' data-type='${type}' type='text', placeholder='${value}' />`);
 			case editor.controlType.textarea:
-				return $(`<textarea data-id='${uuid.generate()}' data-type='${type}'></textarea>`);
+				return $(`<textarea data-id='${id}' data-type='${type}', placeholder='${value}'></textarea>`);
 			case editor.controlType.select:
-				return $(`<select data-id='${uuid.generate()}' data-type='${type}'></select>`);
+				return $(`<select class='placeholder' data-id='${id}' data-type='${type}'><option default selected>${value}</option></select>`);
 			default:
 				throw new Error(`Control markup generation failed: control type '${type}' non-existant.`);
 		}
+	},
+	resetNode() {
+		editor.data.reset();
+		$('section#nodes .controls').empty();
+		$('select.nodetype option:selected').text('');
+		$('.controls input#name').val('');
+		$('.control select#type option:selected').prop('selected', false);
+		editor.events.changeNodeType(null, 'normal');
 	},
 	subcontrols: {
 		open(e) {
@@ -130,7 +233,7 @@ const editor = {
 
 			editor.state.currentControlId = $(e.target).data('id');
 			editor.state.currentControlType = $(e.target).data('type');
-			editor.subcontrols.show(editor.state.currentControlType);
+			editor.subcontrols.show(editor.state.currentControlId, editor.state.currentControlType);
 
 			$('section.subcontrols').addClass('open');
 			$('input, textarea, select', '#nodes.preview').removeClass('active');
@@ -140,7 +243,16 @@ const editor = {
 			$('section.subcontrols').removeClass('open');
 			$('input, textarea, select', '#nodes.preview').removeClass('active');
 		},
-		show(type) {
+		show(id, type) {
+			$.each($('section.subcontrols [data-prop]'), (i, e) => {
+				const element = $(e);
+				if (element.data('prop') === 'validation') {
+					element.find(`option[value='${editor.data.getProp(element.data('prop'), id)}']`).prop('selected', true);
+				} else {
+					element.val(editor.data.getProp(element.data('prop'), id));
+				}
+			});
+
 			$.each($('section.subcontrols [data-for]'), (i, e) => {
 				$(e).hide();
 				const types = $(e).data('for').split(',');
@@ -165,11 +277,16 @@ const editor = {
 			}
 		},
 		checkEnum() {
-			if ($('[data-validation] option:selected').val() === 'enum') {
+			if ($('[data-prop="validation"] option:selected').val() === 'enum') {
 				$('.control[data-values]').show();
 			} else {
 				$('.control[data-values]').hide();
 			}
+		},
+		setCorrectControlOrder() {
+			$.each($('input, select, textarea', '.node.preview .controls'), (i, e) => {
+				editor.data.setProp('position', $(e).index(), $(e).data('id'));
+			});
 		}
 	},
 	state: {
@@ -182,11 +299,9 @@ const editor = {
 		raw: [],
 		createNode() {
 			editor.data.raw = {
-				id: '',
 				name: '',
 				type: '',
-				fields: [],
-				conditions: []
+				fields: []
 			};
 		},
 		delete(id) {
@@ -194,26 +309,48 @@ const editor = {
 				return e.id !== id;
 			});
 		},
-		add(id, position) {
+		add(id, position, type) {
 			editor.data.raw.fields.push({
 				id,
 				position,
-				label: '',
+				type,
+				placeholder: '',
 				binding: '',
-				type: '',
-				validation: '',
+				validation: (type === 'select') ? 'bool' : 'string',
 				maxlength: -1,
 				values: []
 			});
 		},
-		prop(prop, value, id) {
+		reset() {
+			editor.data.raw = {
+				name: '',
+				type: '',
+				fields: []
+			};
+		},
+		setProp(prop, value, id) {
 			if (id === undefined) {
 				editor.data.raw[prop] = value;
 			} else if (prop === "maxlength" || prop === "position") {
 				editor.data.raw.fields[editor.data.getControlIndexById(id)][prop] = parseInt(value, 10);
+			} else if (prop === "values") {
+				value = value.split('\n').filter(e => {
+					return e.length > 0;
+				});
+
+				editor.data.raw.fields[editor.data.getControlIndexById(id)][prop] = value;
 			} else {
 				editor.data.raw.fields[editor.data.getControlIndexById(id)][prop] = value;
 			}
+		},
+		getProp(prop, id) {
+			if (id === undefined) {
+				return editor.data.raw[prop];
+			} else if (prop === "values") {
+				return editor.data.raw.fields[editor.data.getControlIndexById(id)][prop].join('\n');
+			}
+
+			return editor.data.raw.fields[editor.data.getControlIndexById(id)][prop];
 		},
 		getControlIndexById(id) {
 			for (const field of editor.data.raw.fields) {
@@ -223,6 +360,12 @@ const editor = {
 			}
 
 			throw new Error(`Element with id '${id}' not found.`);
+		},
+		getJSON() {
+			return JSON.stringify(editor.data.raw);
+		},
+		fromJSON(jsonString) {
+			editor.data.raw = JSON.parse(jsonString);
 		}
 	},
 	controlType: {

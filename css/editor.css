@@ -3065,133 +3065,105 @@ body.dragging canvas {
 #nodes .node .conditions .links {
   display: block;
 }
-#nodes .node.branch .controls,
-#nodes .node.switch .controls {
+#nodes .node.branch span.addTriggers {
+  opacity: 1;
+}
+#nodes .node.branch .controls {
   border-bottom: 2px #1ABC9C solid;
 }
-#nodes .node.branch > .links span.connectTo,
-#nodes .node.switch > .links span.connectTo {
+#nodes .node.branch > .links span.connectTo {
   display: none;
 }
-#nodes .node.branch .conditions .links,
-#nodes .node.switch .conditions .links {
+#nodes .node.branch .conditions .links {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(1),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(1) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(1) {
   top: 53px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(2),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(2) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(2) {
   top: 93px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(3),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(3) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(3) {
   top: 133px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(4),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(4) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(4) {
   top: 173px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(5),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(5) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(5) {
   top: 213px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(6),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(6) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(6) {
   top: 253px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(7),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(7) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(7) {
   top: 293px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(8),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(8) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(8) {
   top: 333px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(9),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(9) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(9) {
   top: 373px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(10),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(10) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(10) {
   top: 413px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(11),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(11) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(11) {
   top: 453px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(12),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(12) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(12) {
   top: 493px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(13),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(13) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(13) {
   top: 533px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(14),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(14) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(14) {
   top: 573px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(15),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(15) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(15) {
   top: 613px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(16),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(16) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(16) {
   top: 653px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(17),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(17) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(17) {
   top: 693px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(18),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(18) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(18) {
   top: 733px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(19),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(19) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(19) {
   top: 773px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(20),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(20) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(20) {
   top: 813px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(21),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(21) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(21) {
   top: 853px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(22),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(22) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(22) {
   top: 893px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(23),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(23) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(23) {
   top: 933px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(24),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(24) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(24) {
   top: 973px;
 }
-#nodes .node.branch .conditions .links span.connectTo:nth-child(25),
-#nodes .node.switch .conditions .links span.connectTo:nth-child(25) {
+#nodes .node.branch .conditions .links span.connectTo:nth-child(25) {
   top: 1013px;
 }
-#nodes .node.branch .conditions,
-#nodes .node.switch .conditions {
+#nodes .node.branch .conditions {
   display: block;
   position: relative;
 }
-#nodes .node.branch .conditions .branch,
-#nodes .node.switch .conditions .branch {
+#nodes .node.branch .conditions .branch {
   position: relative;
 }
-#nodes .node.branch .conditions .branch select + i,
-#nodes .node.switch .conditions .branch select + i {
+#nodes .node.branch .conditions .branch select + i {
   position: absolute;
   top: 9px;
   right: 10px;
@@ -3238,9 +3210,6 @@ body.dragging canvas {
 #nodes .node select.nodetype:hover,
 #nodes .node select.nodetype:active {
   background: #BDC3C7;
-}
-#nodes .node.switch span.addTriggers {
-  opacity: 1;
 }
 #nodes .node span.addTriggers {
   color: #ECF0F1;
@@ -3345,6 +3314,64 @@ section.controls .control label + .draggable,
 section.subcontrols .control label + .draggable {
   margin-top: 5px;
 }
+section.controls header,
+section.subcontrols header {
+  width: 100%;
+  margin-bottom: 20px;
+}
+section.controls header:before,
+section.subcontrols header:before,
+section.controls header:after,
+section.subcontrols header:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+section.controls header:after,
+section.subcontrols header:after {
+  clear: both;
+}
+section.controls header:after,
+section.subcontrols header:after {
+  display: block;
+  width: 250px;
+  height: 2px;
+  background: #1ABC9C;
+  position: relative;
+  content: " ";
+  top: 10px;
+  left: -10px;
+}
+section.controls header span,
+section.subcontrols header span {
+  display: block;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: calc(33% - 6px);
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  background: #FFF;
+  float: left;
+  padding-left: 5px;
+}
+section.controls header span i,
+section.subcontrols header span i {
+  margin-right: 5px;
+}
+section.controls header span:first-child,
+section.subcontrols header span:first-child {
+  margin-right: 9px;
+}
+section.controls header span:last-child,
+section.subcontrols header span:last-child {
+  margin-left: 9px;
+}
+section.controls header span:hover,
+section.subcontrols header span:hover {
+  background: #1ABC9C;
+  color: #ECF0F1;
+}
 section.subcontrols {
   z-index: 1;
   opacity: 0;
@@ -3425,7 +3452,9 @@ section#nodes.preview .node.preview .controls input.active,
 section#nodes.preview .node.preview .controls textarea.active,
 section#nodes.preview .node.preview .controls select.active {
   border-color: #1ABC9C;
-  background: #BDC3C7;
+}
+section#nodes.preview .node.preview .controls select {
+  background: #FFF url(../img/dropdown.png) 96% 10px no-repeat;
 }
 body {
   background-image: url(../img/editor-bg.png);

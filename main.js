@@ -33,7 +33,7 @@ app.on('ready', () => {
 	});
 
 	// and load the index.html of the app.
-	mainWindow.loadURL(path.join('file://', __dirname, '/views/index.html'));
+	mainWindow.loadURL(path.join('file://', __dirname, `/views/index.html?id=${mainWindow.id}`));
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools();
@@ -53,11 +53,12 @@ app.on('ready', () => {
 		minWidth: 835,
 		minHeight: 600,
 		frame: false,
-		icon: path.resolve('./img/icon.png')
+		icon: path.resolve('./img/icon.png'),
+		show: false
 	});
 
 	// and load the index.html of the app.
-	nodeEditorWindow.loadURL(path.join('file://', __dirname, '/views/editor.html'));
+	nodeEditorWindow.loadURL(path.join('file://', __dirname, `/views/editor.html?id=${nodeEditorWindow.id}`));
 
 	// Open the DevTools.
 	nodeEditorWindow.webContents.openDevTools();
@@ -69,4 +70,12 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		nodeEditorWindow = null;
 	});
+});
+
+electron.ipcMain.on('openNodeEditor', () => {
+	nodeEditorWindow.show();
+});
+
+electron.ipcMain.on('closeNodeEditor', () => {
+	nodeEditorWindow.hide();
 });

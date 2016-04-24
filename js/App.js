@@ -2,7 +2,8 @@
 
 const $ = require('../js/lib/jquery.js');
 const dialog = require('remote').require('dialog');
-const browserWindow = require('remote').require('browser-window').getFocusedWindow();
+const browserWindow = require('remote').require('browser-window').fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
+
 const app = {
 	bootstrap() {
 		$('#splash h2').text(require('../js/modules/greetings.js').getRandomGreeting());
@@ -197,7 +198,13 @@ const app = {
 
 				e.preventDefault();
 				e.stopPropagation();
-				return false;
+			});
+
+			$('span.node-editor', scope).on('click', e => {
+				require('electron').ipcRenderer.send('openNodeEditor');
+
+				e.preventDefault();
+				e.stopPropagation();
 			});
 		},
 		bindNodeEvents() {

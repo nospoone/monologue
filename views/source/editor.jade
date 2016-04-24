@@ -8,6 +8,16 @@ html(lang='en')
 	body
 		include components/bars/menu-bar
 		section.controls
+			header
+				span.open 
+					i.fa.fa-folder-open
+					| Open
+				span.save 
+					i.fa.fa-download
+					| Save
+				span.reset 
+					i.fa.fa-recycle
+					| Reset
 			.control
 				label(for="name") Node Name
 				input(type="text", data-prop="name")#name
@@ -17,7 +27,6 @@ html(lang='en')
 					option(default, selected) Choose one...
 					option(value="normal") Normal
 					option(value="branch") Branch
-					option(value="switch") Multiple
 				i.fa.fa-angle-double-down
 			.control
 				label Controls
@@ -81,30 +90,8 @@ html(lang='en')
 								option(value=">", data-int, data-validates) &gt;
 								option(value="<", data-int, data-validates) &lt;
 							input(type="text", data-int, data-string, data-validates, placeholder="Value")
-						.value
-							select(data-condition).placeholder
-								option(disabled, selected, default, value="placeholder") ?
-								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
-								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
-								option(value=">=", data-int, data-validates) &gt;=
-								option(value="<=", data-int, data-validates) &lt;=
-								option(value=">", data-int, data-validates) &gt;
-								option(value="<", data-int, data-validates) &lt;
-							input(type="text", data-int, data-string, data-validates, placeholder="Value")
-						.value
-							select(data-condition).placeholder
-								option(disabled, selected, default, value="placeholder") ?
-								option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
-								option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
-								option(value=">=", data-int, data-validates) &gt;=
-								option(value="<=", data-int, data-validates) &lt;=
-								option(value=">", data-int, data-validates) &gt;
-								option(value="<", data-int, data-validates) &lt;
-							input(type="text", data-int, data-string, data-validates, placeholder="Value")
 					span.else Else...
 					.links
-						span.connectTo
-						span.connectTo
 						span.connectTo
 						span.connectTo
 				.links

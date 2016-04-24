@@ -26,6 +26,43 @@ section.controls, section.subcontrols {
 			}
 		}
 	}
+	header {
+		width: 100%;
+		.clearfix();
+		margin-bottom: 20px;
+		&:after {
+			display: block;
+			.size(250px, 2px);
+			background: @turquoise;
+			position: relative;
+			content: " ";
+			top: 10px;
+			left: -10px;
+		}
+		span {
+			display: block;
+			.BoxShadowHelper();
+			.size(calc(~"33% - 6px"), 30px);
+			line-height: 30px;
+			font-size: 14px;
+			background: #FFF;
+			float: left;
+			padding-left: 5px;
+			i {
+				margin-right: 5px;
+			}
+			&:first-child {
+				margin-right: 9px;
+			}
+			&:last-child {
+				margin-left: 9px;
+			}
+			&:hover {
+				background: @turquoise;
+				color: @white;
+			}
+		}
+	}
 }
 
 section.subcontrols {
@@ -108,8 +145,11 @@ section#nodes.preview {
 				cursor: pointer;
 				&:hover, &.active {
 					border-color: @turquoise;
-					background: @silver;
+					// background: @silver;
 				}
+			}
+			select {
+				background: #FFF url(../img/dropdown.png) 96% 10px no-repeat;
 			}
 		}
 	}
