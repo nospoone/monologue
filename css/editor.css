@@ -3456,6 +3456,3 @@ section#nodes.preview .node.preview .controls select.active {
 section#nodes.preview .node.preview .controls select {
   background: #FFF url(../img/dropdown.png) 96% 10px no-repeat;
 }
-body {
-  background-image: url(../img/editor-bg.png);
-}
