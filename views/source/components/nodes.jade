@@ -7,53 +7,7 @@ section#nodes
 			i.fa.fa-angle-double-down
 			select.nodetype
 				option(disabled, selected, default, value="default") Node Type
-				option(value="text") Text
-				option(value="set") Set
-				option(value="branch") Branch
-		.controls(data-type="text").hidden
-			input(type="text", data-name, placeholder="Name")
-			select(data-voice).placeholder
-			textarea(data-message, placeholder="Message")
-		.controls(data-type="set").hidden
-			select(data-variable-set).placeholder
-				optgroup(data-game, label="Game/Progression Variables")
-				optgroup(data-attitude, label="Attitude Variables")
-				optgroup(data-custom, label="Custom Variables")
-			.value.small
-				select(data-operation).placeholder
-					option(disabled, selected, default, value="placeholder") ?
-					option(value="=", data-validates, data-int, data-string, data-bool, data-character) =
-					option(value="+", data-validates, data-int) +
-					option(value="-", data-validates, data-int) -
-				input(type="text", data-int, data-string, data-validates, placeholder="Value")
-				select(data-bool, data-validates).placeholder
-					option(disabled, selected, default, value="placeholder") Boolean
-					option(value="true") True
-					option(value="false") False
-				select(data-character, data-validates).placeholder
-					option(disabled, selected, default, value="placeholder") Character
-		.controls(data-type="branch").hidden
-			select(data-variable-get).placeholder
-				optgroup(data-game, label="Game/Progression Variables")
-				optgroup(data-attitude, label="Attitude Variables") 
-				optgroup(data-custom, label="Custom Variables") 
-			.value
-				select(data-condition).placeholder
-					option(disabled, selected, default, value="placeholder") ?
-					option(value="==", data-int, data-string, data-bool, data-character, data-validates) ==
-					option(value="!=", data-int, data-string, data-bool, data-character, data-validates) !=
-					option(value=">=", data-int, data-validates) &gt;=
-					option(value="<=", data-int, data-validates) &lt;=
-					option(value=">", data-int, data-validates) &gt;
-					option(value="<", data-int, data-validates) &lt;
-				input(type="text", data-int, data-string, data-validates, placeholder="Value")
-				select(data-bool, data-validates).placeholder
-					option(disabled, selected, default, value="placeholder") Boolean
-					option(value="true") True
-					option(value="false") False
-				select(data-character, data-validates).placeholder
-					option(disabled, selected, default, value="placeholder") Character
-			span.else Else...
+		.controls
 		.links
 			span.connectFromTrigger
 			span.connectFrom

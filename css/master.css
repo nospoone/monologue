@@ -3490,6 +3490,52 @@ canvas {
 .modal .control select[data-new-tree-category] {
   width: 16%;
 }
+.modal .multiselect:before,
+.modal .multiselect:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal .multiselect:after {
+  clear: both;
+}
+.modal .multiselect div.left,
+.modal .multiselect .controls,
+.modal .multiselect div.right {
+  float: left;
+}
+.modal .multiselect .controls {
+  width: 40px;
+}
+.modal .multiselect .controls span {
+  display: block;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
+  line-height: 34px;
+  background: #BDC3C7;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.modal .multiselect .controls span:hover {
+  background: #1ABC9C;
+  color: #ECF0F1;
+}
+.modal .multiselect div.left,
+.modal .multiselect div.right {
+  width: calc(50% - 33px);
+}
+.modal .multiselect div.left select,
+.modal .multiselect div.right select {
+  width: 100%;
+}
+.modal .multiselect div.left {
+  margin-right: 12px;
+}
+.modal .multiselect div.right {
+  margin-left: 12px;
+}
 #splash {
   position: fixed;
   z-index: 6;

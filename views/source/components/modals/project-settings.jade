@@ -2,6 +2,22 @@
 	h2 Project Settings
 	label(for="title") Project Title
 	input(type="text", data-project-title, name="title")#title
+	label(for="Nodes") Project Nodes
+	.multiselect
+		.left
+			select(multiple, size="10")#multiselect.left
+			
+		.controls
+			span.rightAll
+				i.fa.fa-angle-double-right
+			span.right
+				i.fa.fa-angle-right
+			span.left
+				i.fa.fa-angle-left
+			span.leftAll
+				i.fa.fa-angle-double-left
+		.right
+			select(multiple, size="10")#multiselect.right
 	footer
 		span.close
 			i.fa.fa-times

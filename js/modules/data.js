@@ -11,6 +11,7 @@ module.exports = {
 	customVariables: null,
 	voices: null,
 	characters: null,
+	nodes: [],
 	getNodeCoordinates(treeId, nodeId) {
 		const node = this.getNodeByID(treeId, nodeId);
 

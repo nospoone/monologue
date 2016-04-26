@@ -16,8 +16,17 @@ const app = {
 		app.events.bindTreeChangeEvents();
 		app.events.bindModalEvents();
 
+		
+
 		// file.startAutosaveLoop();
 		$('#tool-bar select').chosen();
+		$('.project-settings select.left').multiselect({
+			right: '.project-settings select.right',
+			rightAll: '.project-settings .rightAll',
+			rightSelected: '.project-settings .right',
+			leftAll: '.project-settings .leftAll',
+			leftSelected: '.project-settings .left'
+		});
 
 		// debug autoload
 		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\testproject.mpf');
@@ -170,6 +179,16 @@ const app = {
 				$('nav#tool-bar .menu').click();
 			});
 
+			$('.node-editor', scope + subscope).on('click', () => {
+				require('electron').ipcRenderer.send('openNodeEditor');
+				$('nav#tool-bar .menu').click();
+			});
+
+			$('.settings', scope + subscope).on('click', () => {
+				app.view.showModal(app.view, '.project-settings');
+				$('nav#tool-bar .menu').click();
+			});
+
 			$('select.languages').chosen().change(e => {
 				app.view.changeLanguage(app.state, app.data, $(e.target).find(':selected').val());
 			});
@@ -192,8 +211,8 @@ const app = {
 				});
 
 				if (file !== undefined) {
-					app.file.openProject(app.state, app.data, file[0]);
-					app.view.loadProject(app.state, app.data, app.events);
+					app.file.openProject(app.state, app.data, file[0], app.nodes);
+					app.view.loadProject(app.state, app.data, app.events, app.nodes);
 				}
 
 				e.preventDefault();
@@ -416,6 +435,13 @@ const app = {
 					$('span.error.empty', trees).removeClass('hidden');
 				}
 			});
+
+			// PROJECT SETTINGS
+			const projectSettings = '.project-settings';
+			$('span.close', projectSettings).on('click', () => {
+				console.log('closed');
+				app.view.hideModal(app.view);
+			});
 		},
 		nodeSelectChange(select, resetValues) {
 			select = (select !== undefined && select.type !== 'change') ? select : $(this);
@@ -436,6 +462,7 @@ const app = {
 	view: require('../js/modules/view.js'),
 	file: require('../js/modules/file.js'),
 	data: require('../js/modules/data.js'),
+	nodes: require('../js/modules/nodes.js'),
 	state: {
 		position: {
 			x: 0,

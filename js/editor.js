@@ -301,6 +301,7 @@ const editor = {
 		raw: [],
 		createNode() {
 			editor.data.raw = {
+				id: uuid.generate(),
 				name: '',
 				type: 'normal',
 				fields: []

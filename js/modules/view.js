@@ -1,13 +1,15 @@
 'use strict';
 
 const $ = require('../../js/lib/jquery.js');
+let nodeMarkupCache = [];
 
 module.exports = {
-	loadProject(state, data, events) {
+	loadProject(state, data, events, nodes) {
 		this.animateWithCallback($('#splash .content'), 'shown', () => {
 			this.animateWithCallback($('#splash .icon'), 'shown', () => {
 				$('h1').text(`Monologue - ${data.project.name}`);
 
+				nodeMarkupCache = nodes.getMarkupArray(data);
 				this.generateTreesCategories(data);
 				this.generateTrees(state, data);
 				this.generateLanguages(data);
@@ -47,36 +49,12 @@ module.exports = {
 	generateNodes(state, data, events) {
 		data.variables.forEach(variable => {
 			if (variable.set) {
-				$(`.node.template select[data-variable-set] optgroup[data-${variable.origin}]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
+				$(`.node.template select[data-variable-set]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
 			}
 
 			if (variable.get) {
-				$(`.node.template select[data-variable-get] optgroup[data-${variable.origin}]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
+				$(`.node.template select[data-variable-get]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
 			}
-		});
-
-		data.customVariables.forEach(variable => {
-			if (variable.set) {
-				$(`.node.template select[data-variable-set] optgroup[data-custom]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
-			}
-
-			if (variable.get) {
-				$(`.node.template select[data-variable-get] optgroup[data-custom]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
-			}
-		});
-
-		$.each($('.node.template optgroup'), (key, element) => {
-			if ($(element).children().length === 0) {
-				$(element).remove();
-			}
-		});
-
-		data.voices.forEach(voice => {
-			$('.node.template select[data-voice]').append(`<option value='${voice.displayName}'>${voice.displayName}</option>`);
-		});
-
-		data.characters.forEach(character => {
-			$('.node.template select[data-character]').append(`<option value='${character.id}'>${character.displayName}</option>`);
 		});
 
 		$.each($('section#nodes .tree'), (key, element) => {

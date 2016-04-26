@@ -9,7 +9,7 @@ const $ = require('../../js/lib/jquery.js');
 module.exports = {
 	currentProjectFile: null,
 	saving: false,
-	openProject(state, data, file) {
+	openProject(state, data, file, nodes) {
 		const parsedFile = JSON.parse(fs.readFileSync(file, {encoding: 'utf8'}));
 
 		data.project = parsedFile.project;
@@ -20,12 +20,15 @@ module.exports = {
 		data.characters = parsedFile.project.characters;
 		data.trees = parsedFile.trees;
 		data.translations = parsedFile.translations;
+		data.nodes = parsedFile.project.nodes;
 		this.currentProjectFile = file;
 
 		state.position.x = data.project.state.position.x;
 		state.position.y = data.project.state.position.y;
 		state.zoom = data.project.state.zoom;
 		state.currentTree = data.project.state.currentTree;
+
+		nodes.init(data.nodes);
 	},
 	saveProject(data, view, state, auto) {
 		auto = auto || false;

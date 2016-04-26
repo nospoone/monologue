@@ -172,6 +172,40 @@ canvas {
 			}
 		}
 	}
+	.multiselect {
+		.clearfix();
+		div.left, .controls, div.right {
+			float: left;
+		}
+		.controls {
+			width: 40px;
+			span {
+				display: block;
+				font-size: 28px;
+				.square(40px);
+				line-height: 34px;
+				background: @silver;
+				margin-bottom: 5px;
+				text-align: center;
+				&:hover {
+					background: @turquoise;
+					color: @white;
+				}
+			}
+		}
+		div.left, div.right {
+			width: calc(~"50% - 33px");
+			select {
+				width: 100%;
+			}
+		}
+		div.left {
+			margin-right: 12px;
+		}
+		div.right {
+			margin-left: 12px;
+		}
+	}
 }
 
 #splash {
