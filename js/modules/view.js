@@ -63,11 +63,12 @@ module.exports = {
 			data.getTreeByID(parseInt(tree.data('id'), 10)).nodes.forEach((e, i) => {
 				const node = $('.node.template').clone().removeClass('template');
 
-				e.type = (e.type === undefined) ? 'default' : e.type;
+				e.type = (e.type === undefined) ? 'text' : e.type;
 				node.data('id', e.id);
 				node.find(`select.nodetype option[value='${e.type}']`).attr('selected', 'selected');
-				node.find(`.controls[data-type='${e.type}']`).removeClass('hidden');
 
+				console.log(nodeMarkupCache[e.type]);
+				/*
 				if (e.type === 'text') {
 					node.find('[data-type="text"] input[data-name]').val(e.name);
 					node.find(`[data-type='text'] select[data-voice] option[value='${e.voice}']`).prop('selected', 'selected');
@@ -124,6 +125,7 @@ module.exports = {
 						node.find(`[data-type='set'] select[data-operation] option[value='${e.operation}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 					}
 				}
+				*/
 
 				if (i === 0) {
 					node.find('span.remove-node').remove();
@@ -132,7 +134,6 @@ module.exports = {
 
 				events.nodeSelectChange(node.find('select[data-variable-get]').chosen({width: '100%'}).change(events.nodeSelectChange), false);
 				events.nodeSelectChange(node.find('select[data-variable-set]').chosen({width: '100%'}).change(events.nodeSelectChange), false);
-				node.find('select[data-voice]').chosen({width: '100%'});
 
 				node.appendTo(tree);
 			});
@@ -194,7 +195,7 @@ module.exports = {
 	generateModalInformations(data) {
 		$("input[data-project-title]").val(data.project.name);
 
-		data.customVariables.forEach(variable => {
+		data.variables.forEach(variable => {
 			$("select[data-project-variables]").append(`<option value='${variable.id}'>${variable.displayName}</option>`);
 		});
 	},

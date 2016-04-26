@@ -252,11 +252,11 @@ const app = {
 					parent.removeClass('branch');
 				}
 
-				app.data.updateNode(app.state, parent);
+				app.data.updateNode(app.state, parent, app.nodes);
 			});
 
 			$('section#nodes').on('change', '.controls input, .controls textarea, .controls select', e => {
-				app.data.updateNode(app.state, $(e.target).closest('.node'));
+				app.data.updateNode(app.state, $(e.target).closest('.node'), app.nodes);
 			});
 
 			$('section#nodes').on('focus', '.controls input, .controls textarea, .controls select', e => {

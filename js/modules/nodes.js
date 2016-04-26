@@ -70,5 +70,19 @@ module.exports = {
 			default:
 				throw new Error(`Failed to generate markup: type '${type}' is invalid.`);
 		}
+	},
+	getNodeById(id) {
+		for (const node of raw) {
+			if (node.id === id) {
+				return node;
+			}
+		}
+	},
+	getFieldsById(id) {
+		for (const node of raw) {
+			if (node.id === id) {
+				return node.fields;
+			}
+		}
 	}
 };
