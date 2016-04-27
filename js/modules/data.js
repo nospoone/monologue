@@ -48,12 +48,17 @@ module.exports = {
 			const nodeType = nodes.getNodeById(dataNode.type).type;
 
 			if (nodeType === "branch") {
-				console.log(dataNode);
+				dataNode.links = [];
 				$.each(nodeElement.find('.conditions .branch'), (i, e) => {
-					const variable = e.find('select[data-variable-get] option:selected').val();
-					const condition = e.find('.value select[data-condition] option:selected').val();
-					const value = e.find('.value input[type=text]').val();
-
+					const va = $(e).find('select[data-variable-get] option:selected').val();
+					const co = $(e).find('.value select[data-condition] option:selected').val();
+					const val = $(e).find('.value input[type=text]').val();
+					dataNode.links.push({
+						variable: va,
+						condition: co,
+						value: val,
+						link: -1
+					});
 				});
 			} else if (nodeType === "set") {
 

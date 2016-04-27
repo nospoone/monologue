@@ -1,7 +1,7 @@
 'use strict';
 
-const $ = require('../../js/lib/jquery.js');
 const browserWindow = require('remote').require("browser-window").getFocusedWindow();
+const $ = require('../../js/lib/jquery.js');
 
 module.exports = {
 	canvas: {
@@ -16,7 +16,7 @@ module.exports = {
 				this.scrollElements(state, data);
 			}
 
-			this.drawLinks(state, data);
+			// this.drawLinks(state, data);
 		}
 	},
 	scrollElements(state, data) {
@@ -34,6 +34,7 @@ module.exports = {
 		state.dirty = false;
 	},
 	drawLinks(state, data) {
+		// review this to go through links
 		$.each($(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`), (key, element) => {
 			const currentNode = $(element);
 			const id = currentNode.data('id');

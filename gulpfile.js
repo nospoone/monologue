@@ -1,5 +1,4 @@
 const path = require('path');
-const del = require('del');
 const gulp = require('gulp');
 const jade = require('gulp-jade');
 const less = require('gulp-less');

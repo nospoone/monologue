@@ -61,10 +61,11 @@ module.exports = {
 			case field.type.textarea:
 				return $(`<textarea${properties} /></textarea>`);
 			case field.type.select:
-				select = `<select${properties} >`;
+				select = `<select class="placeholder"${properties} ><option disabled selected default value="placeholder">${placeholder}</option>`;
 				for (let i = 0; i < values.length; i++) {
 					select += `<option value='${i}'>${values[i]}</option>`;
 				}
+				select += `</select>`;
 
 				return $(select);
 			default:

@@ -2830,53 +2830,85 @@ body.dragging canvas {
   width: 97%;
   margin: 3px auto;
 }
-#nodes .node .controls {
+#nodes .node .controls:not(.empty) {
   padding: 10px;
+}
+#nodes .node .controls,
+#nodes .node .branch,
+#nodes .node .set {
   width: 100%;
 }
-#nodes .node .controls .chosen-container:not(:last-child) {
+#nodes .node .controls .chosen-container:not(:last-child),
+#nodes .node .branch .chosen-container:not(:last-child),
+#nodes .node .set .chosen-container:not(:last-child) {
   margin-bottom: 5px;
 }
-#nodes .node .controls .chosen-container-single {
+#nodes .node .controls .chosen-container-single,
+#nodes .node .branch .chosen-container-single,
+#nodes .node .set .chosen-container-single {
   font-size: 14px;
 }
 #nodes .node .controls .chosen-container-single .chosen-single,
-#nodes .node .controls .chosen-container-single .chosen-drop {
+#nodes .node .branch .chosen-container-single .chosen-single,
+#nodes .node .set .chosen-container-single .chosen-single,
+#nodes .node .controls .chosen-container-single .chosen-drop,
+#nodes .node .branch .chosen-container-single .chosen-drop,
+#nodes .node .set .chosen-container-single .chosen-drop {
   background: #FFF;
   box-shadow: none;
   border: 2px #BDC3C7 solid;
 }
-#nodes .node .controls .chosen-container-single .chosen-search input[type="text"] {
+#nodes .node .controls .chosen-container-single .chosen-search input[type="text"],
+#nodes .node .branch .chosen-container-single .chosen-search input[type="text"],
+#nodes .node .set .chosen-container-single .chosen-search input[type="text"] {
   height: auto;
 }
-#nodes .node .controls .chosen-container-single .chosen-single {
+#nodes .node .controls .chosen-container-single .chosen-single,
+#nodes .node .branch .chosen-container-single .chosen-single,
+#nodes .node .set .chosen-container-single .chosen-single {
   height: 34px;
 }
-#nodes .node .controls .chosen-container-single .chosen-drop {
+#nodes .node .controls .chosen-container-single .chosen-drop,
+#nodes .node .branch .chosen-container-single .chosen-drop,
+#nodes .node .set .chosen-container-single .chosen-drop {
   width: 150%;
   top: calc(100% - 2px);
 }
-#nodes .node .controls .chosen-with-drop .chosen-single {
+#nodes .node .controls .chosen-with-drop .chosen-single,
+#nodes .node .branch .chosen-with-drop .chosen-single,
+#nodes .node .set .chosen-with-drop .chosen-single {
   border-bottom-color: #FFF;
 }
-#nodes .node .controls.hidden {
+#nodes .node .controls.hidden,
+#nodes .node .branch.hidden,
+#nodes .node .set.hidden {
   display: none;
 }
-#nodes .node .controls .branch-controls {
+#nodes .node .controls .branch-controls,
+#nodes .node .branch .branch-controls,
+#nodes .node .set .branch-controls {
   width: 100%;
   margin-bottom: 10px;
 }
 #nodes .node .controls .branch-controls:before,
-#nodes .node .controls .branch-controls:after {
+#nodes .node .branch .branch-controls:before,
+#nodes .node .set .branch-controls:before,
+#nodes .node .controls .branch-controls:after,
+#nodes .node .branch .branch-controls:after,
+#nodes .node .set .branch-controls:after {
   content: " ";
   /* 1 */
   display: table;
   /* 2 */
 }
-#nodes .node .controls .branch-controls:after {
+#nodes .node .controls .branch-controls:after,
+#nodes .node .branch .branch-controls:after,
+#nodes .node .set .branch-controls:after {
   clear: both;
 }
-#nodes .node .controls .branch-controls span {
+#nodes .node .controls .branch-controls span,
+#nodes .node .branch .branch-controls span,
+#nodes .node .set .branch-controls span {
   display: block;
   width: 50%;
   float: left;
@@ -2884,13 +2916,17 @@ body.dragging canvas {
   line-height: 30px;
   text-align: center;
 }
-#nodes .node .controls .branch-controls span.add {
+#nodes .node .controls .branch-controls span.add,
+#nodes .node .branch .branch-controls span.add,
+#nodes .node .set .branch-controls span.add {
   background: #1ABC9C;
   color: #ECF0F1;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-#nodes .node .controls .branch-controls span.remove {
+#nodes .node .controls .branch-controls span.remove,
+#nodes .node .branch .branch-controls span.remove,
+#nodes .node .set .branch-controls span.remove {
   background: #C0392B;
   color: #ECF0F1;
   border-top-right-radius: 3px;
@@ -2916,11 +2952,11 @@ body.dragging canvas {
   width: 87%;
 }
 #nodes .node .value select[data-bool],
-#nodes .node .value select[data-character] {
+#nodes .node .value select[data-enum] {
   width: 82%;
   border-left: none;
 }
-#nodes .node .value select:not([data-bool]):not([data-character]) {
+#nodes .node .value select:not([data-bool]):not([data-enum]) {
   border-right: none;
 }
 #nodes .node .value input {
@@ -2964,13 +3000,13 @@ body.dragging canvas {
 }
 #nodes .node .conditions .value select[data-bool],
 #nodes .node .set .value select[data-bool],
-#nodes .node .conditions .value select[data-character],
-#nodes .node .set .value select[data-character] {
+#nodes .node .conditions .value select[data-enum],
+#nodes .node .set .value select[data-enum] {
   width: 82%;
   border-left: none;
 }
-#nodes .node .conditions .value select:not([data-bool]):not([data-character]),
-#nodes .node .set .value select:not([data-bool]):not([data-character]) {
+#nodes .node .conditions .value select:not([data-bool]):not([data-enum]),
+#nodes .node .set .value select:not([data-bool]):not([data-enum]) {
   border-right: none;
 }
 #nodes .node .conditions .value input,
@@ -3000,13 +3036,13 @@ body.dragging canvas {
 #nodes .node.set .set {
   display: block;
 }
-#nodes .node.set .controls {
+#nodes .node.set .controls:not(.empty) {
   border-bottom: 2px #1ABC9C solid;
 }
 #nodes .node.branch span.addTriggers {
   opacity: 1;
 }
-#nodes .node.branch .controls {
+#nodes .node.branch .controls:not(.empty) {
   border-bottom: 2px #1ABC9C solid;
 }
 #nodes .node.branch > .links span.connectTo {

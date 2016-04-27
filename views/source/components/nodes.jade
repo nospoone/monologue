@@ -8,6 +8,49 @@ section#nodes
 			select.nodetype
 				option(disabled, selected, default, value="default") Node Type
 		.controls
+		.conditions
+			.branch
+				select(data-variable-get).placeholder
+				.value
+					select(data-condition).placeholder 
+						option(disabled, selected, default, value="placeholder") ? 
+						option(value="==", data-int, data-string, data-bool, data-enum, data-validates) == 
+						option(value="!=", data-int, data-string, data-bool, data-enum, data-validates) != 
+						option(value=">=", data-int, data-validates) &gt;= 
+						option(value="<=", data-int, data-validates) &lt;= 
+						option(value=">", data-int, data-validates) &gt; 
+						option(value="<", data-int, data-validates) &lt; 
+					input(type="text", data-int, data-string, data-validates, placeholder="Value") 
+					select(data-bool, data-validates).placeholder 
+						option(disabled, selected, default, value="placeholder") Boolean 
+						option(value="true") True 
+						option(value="false") False 
+					select(data-enum, data-validates).placeholder 
+						option(disabled, selected, default, value="placeholder") Enumeration
+			span.else Else...
+			.links
+				span.connectTo
+				span.connectTo
+		.set
+			select(data-variable-set).placeholder
+				option(disabled, selected, default, value="placeholder") Variable
+			.value.small 
+				select(data-operation).placeholder 
+					option(disabled, selected, default, value="placeholder") ? 
+					option(value="=", data-validates, data-int, data-string, data-bool, data-ennum) = 
+					option(value="+", data-validates, data-int) + 
+					option(value="-", data-validates, data-int) - 
+				input(type="text", data-int, data-string, data-validates, placeholder="Value") 
+				select(data-bool, data-validates).placeholder 
+					option(disabled, selected, default, value="placeholder") Boolean 
+					option(value="true") True 
+					option(value="false") False 
+				select(data-enum, data-validates).placeholder 
+					option(disabled, selected, default, value="placeholder")
 		.links
 			span.connectFromTrigger
 			span.connectFrom
+			span.connectTo
+		span.addTriggers
+			i.fa.fa-plus-square
+			| Add branch...

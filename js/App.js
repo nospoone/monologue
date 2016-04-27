@@ -238,21 +238,9 @@ const app = {
 			});
 
 			$('section#nodes').on('change', 'select.nodetype', e => {
-				const newType = $(e.target).find(':selected').val();
 				const parent = $(e.target).closest('.node');
-
-				parent.find('.controls:not(.hidden)').addClass('hidden');
-				parent.find(`.controls[data-type='${newType}']`).removeClass('hidden');
-
-				if (newType === 'branch' && parent.find('span.connectTo').length < 2) {
-					parent.find('.links').append('<span class="connectTo"></span>');
-					parent.addClass('branch');
-				} else if (newType !== 'branch' && parent.find('span.connectTo').length > 1) {
-					parent.find('.links span.connectTo').last().remove();
-					parent.removeClass('branch');
-				}
-
 				app.data.updateNode(app.state, parent, app.nodes);
+				app.view.generateNodeMarkup(app.data.getNodeByID(app.state.currentTree, parent.data('id')), parent, parent.data('id'), app.nodes);
 			});
 
 			$('section#nodes').on('change', '.controls input, .controls textarea, .controls select', e => {

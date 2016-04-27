@@ -27,8 +27,6 @@ module.exports = {
 		state.position.y = data.project.state.position.y;
 		state.zoom = data.project.state.zoom;
 		state.currentTree = data.project.state.currentTree;
-
-		nodes.init(data.nodes);
 	},
 	saveProject(data, view, state, auto) {
 		auto = auto || false;

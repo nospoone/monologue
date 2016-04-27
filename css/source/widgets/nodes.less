@@ -43,8 +43,12 @@
 			width: 97%;
 			margin: 3px auto;
 		}
-		.controls {
-			padding: 10px;
+		.controls {	
+			&:not(.empty) {
+				padding: 10px;
+			}
+		}
+		.controls, .branch, .set {
 			width: 100%;
 			.chosen-container:not(:last-child) {
 				margin-bottom: 5px;
@@ -113,11 +117,11 @@
 					}
 				}
 				width: 18%;
-				&[data-bool], &[data-character] {
+				&[data-bool], &[data-enum] {
 					width: 82%;
 					border-left: none;
 				}
-				&:not([data-bool]):not([data-character]) {
+				&:not([data-bool]):not([data-enum]) {
 					border-right: none;
 				}
 			}
@@ -145,11 +149,11 @@
 						}
 					}
 					width: 18%;
-					&[data-bool], &[data-character] {
+					&[data-bool], &[data-enum] {
 						width: 82%;
 						border-left: none;
 					}
-					&:not([data-bool]):not([data-character]) {
+					&:not([data-bool]):not([data-enum]) {
 						border-right: none;
 					}
 				}
@@ -178,7 +182,7 @@
 			.set {
 				display: block;
 			}
-			.controls {
+			.controls:not(.empty) {
 				border-bottom: 2px @turquoise solid;
 			}
 		}
@@ -186,7 +190,7 @@
 			span.addTriggers {
 				opacity: 1;
 			}
-			.controls {
+			.controls:not(.empty) {
 				border-bottom: 2px @turquoise solid;
 			}
 			> .links {
