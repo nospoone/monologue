@@ -47,6 +47,8 @@ module.exports = {
 			dataNode.type = nodeElement.find('select.nodetype option:selected').val();
 			const nodeType = nodes.getNodeById(dataNode.type).type;
 
+			// loop through bound fields
+
 			if (nodeType === "branch") {
 				dataNode.links = [];
 				$.each(nodeElement.find('.conditions .branch'), (i, e) => {
@@ -57,15 +59,14 @@ module.exports = {
 						variable: va,
 						condition: co,
 						value: val,
-						link: -1
+						link: -1 // see how links get made - figure a way for links to get unique and identified
 					});
 				});
 			} else if (nodeType === "set") {
-
-			} else {
-
+				// see previous way of setting
 			}
 
+			// not sure this can happen anymore - all fields are dynamic
 			// throw new Error(`Error while updating node (${dataNodeId}): Invalid Node Type.`);
 		}
 	},
