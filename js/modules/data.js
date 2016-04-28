@@ -50,17 +50,10 @@ module.exports = {
 			// loop through bound fields
 
 			if (nodeType === "branch") {
-				dataNode.links = [];
-				$.each(nodeElement.find('.conditions .branch'), (i, e) => {
-					const va = $(e).find('select[data-variable-get] option:selected').val();
-					const co = $(e).find('.value select[data-condition] option:selected').val();
-					const val = $(e).find('.value input[type=text]').val();
-					dataNode.links.push({
-						variable: va,
-						condition: co,
-						value: val,
-						link: -1 // see how links get made - figure a way for links to get unique and identified
-					});
+				$.each(nodeElement.find('.conditions .branch .value'), (i, e) => {
+					dataNode.conditions[i].variable = $(e).find('select[data-variable-get] option:selected').val();
+					dataNode.conditions[i].condition = $(e).find('.value select[data-condition] option:selected').val();
+					dataNode.conditions[i].value = $(e).find('.value input[type=text]').val();
 				});
 			} else if (nodeType === "set") {
 				// see previous way of setting
@@ -89,17 +82,15 @@ module.exports = {
 			}
 		}
 
+		console.log(id);
+
 		this.trees[state.currentTree].nodes.forEach(node => {
-			if (node.link === id) {
-				node.link = -1;
-			}
-
-			if (node.trueLink !== undefined && node.trueLink === id) {
-				delete node.trueLink;
-			}
-
-			if (node.falseLink !== undefined && node.falseLink === id) {
-				delete node.falseLink;
+			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
+				for (const condition of node.conditions) {
+					if (typeof condition.link !== 'undefined' && condition.link === id) {
+						condition.link = -1;
+					}
+				}
 			}
 		});
 	},
@@ -108,6 +99,15 @@ module.exports = {
 		nodeFrom.conditions = nodeFrom.conditions || [];
 		nodeFrom.conditions[state.link.linkIndex] = nodeFrom.conditions[state.link.linkIndex] || {};
 		nodeFrom.conditions[state.link.linkIndex].link = state.link.linkTarget.data('id');
+	},
+	bumpLinks(state, id) {
+		const nodeFrom = this.getNodeByID(state.currentTree, id);
+		if (typeof nodeFrom.conditions === 'undefined') {
+			nodeFrom.conditions = [];
+		} else {
+			nodeFrom.conditions[nodeFrom.conditions.length] = nodeFrom.conditions[nodeFrom.conditions.length - 1];
+			nodeFrom.conditions[nodeFrom.conditions.length - 2] = undefined;
+		}
 	},
 	getText(language, key) {
 		for (let i = 0; i < this.translations.length; i++) {

@@ -16,8 +16,6 @@ const app = {
 		app.events.bindTreeChangeEvents();
 		app.events.bindModalEvents();
 
-		
-
 		// file.startAutosaveLoop();
 		$('#tool-bar select').chosen();
 		$('.project-settings select.left').multiselect({
@@ -29,7 +27,7 @@ const app = {
 		});
 
 		// debug autoload
-		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf', app.nodes);
+		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
 		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
@@ -211,7 +209,7 @@ const app = {
 				});
 
 				if (file !== undefined) {
-					app.file.openProject(app.state, app.data, file[0], app.nodes);
+					app.file.openProject(app.state, app.data, file[0]);
 					app.view.loadProject(app.state, app.data, app.events, app.nodes);
 				}
 
@@ -279,13 +277,19 @@ const app = {
 				app.state.link.linkTarget = null;
 			});
 
-			$('section#nodes').on('click', '.links span.connectFromTrigger, .links span.connectFrom', e => {
+			$('section#nodes').on('click', '.links span.connectFromTrigger, .links span.connectFrom', () => {
 				if (app.state.link.linking) {
 					app.data.link(app.state);
 					app.state.link.linking = false;
 					app.state.link.linkingFrom = null;
 					app.state.link.linkIndex = null;
 				}
+			});
+
+			$('section#nodes').on('click', '.addTriggers', e => {
+				$(e.target).closest('.node').find('.conditions .branch').append($(e.target).closest('.node').find('.conditions .branch .value:last-child').clone());
+				$(e.target).closest('.node').find('.conditions .links').append($('<span class="connectTo"></span>'));
+				app.data.bumpLinks(app.state, $(e.target).closest('.node').data('id'));
 			});
 		},
 		bindTreeChangeEvents() {

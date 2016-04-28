@@ -9,7 +9,7 @@ const $ = require('../../js/lib/jquery.js');
 module.exports = {
 	currentProjectFile: null,
 	saving: false,
-	openProject(state, data, file, nodes) {
+	openProject(state, data, file) {
 		const parsedFile = JSON.parse(fs.readFileSync(file, {encoding: 'utf8'}));
 
 		data.project = parsedFile.project;
