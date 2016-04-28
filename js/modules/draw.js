@@ -16,7 +16,7 @@ module.exports = {
 				this.scrollElements(state, data);
 			}
 
-			// this.drawLinks(state, data);
+			this.drawLinks(state, data);
 		}
 	},
 	scrollElements(state, data) {
@@ -40,85 +40,35 @@ module.exports = {
 			const id = currentNode.data('id');
 			const currentDataNode = data.getNodeByID(state.currentTree, id);
 
-			let fromX;
-			let fromY;
-			let toX;
-			let toY;
+			if (typeof currentDataNode.conditions !== 'undefined') {
+				for (let i = 0; i < currentDataNode.conditions.length; i++) {
+					if (typeof currentDataNode.conditions[i] !== 'undefined' && currentDataNode.conditions[i].link !== -1) {
+						const link = currentDataNode.conditions[i].link;
+						const fromElem = currentNode.find(`.links span.connectTo:eq(${i})`);
+						const fromPos = fromElem.offset();
+						const fromX = fromPos.left;
+						const fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
 
-			if (currentNode.hasClass("branch")) {
-				if (currentDataNode.trueLink !== undefined) {
-					const link = currentDataNode.trueLink;
-					const fromElem = currentNode.find(".links span.connectTo:eq(0)");
-					const fromPos = fromElem.offset();
+						// find correct node element for ID
+						const toElem = $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).filter(index => {
+							return $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).eq(index).data('id') === link;
+						}).find("span.connectFrom");
+						const toPos = toElem.offset();
 
-					fromX = fromPos.left;
-					fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
+						const toX = toPos.left;
+						const toY = toPos.top + (toElem.outerHeight() / 2) - 35;
 
-					// find correct node element for ID
-					const toElem = $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).filter(index => {
-						return $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).eq(index).data('id') === link;
-					}).find("span.connectFrom");
-					const toPos = toElem.offset();
-
-					toX = toPos.left;
-					toY = toPos.top + (toElem.outerHeight() / 2) - 35;
-
-					this.drawBezier(state, fromX, fromY, toX, toY);
+						this.drawBezier(state, fromX, fromY, toX, toY);
+					}
 				}
-
-				if (currentDataNode.falseLink !== undefined) {
-					const link = currentDataNode.falseLink;
-					const fromElem = currentNode.find(".links span.connectTo:eq(1)");
-					const fromPos = fromElem.offset();
-
-					fromX = fromPos.left;
-					fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
-
-					const toElem = $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).filter(function () {
-						return $(this).data('id') === link;
-					}).find("span.connectFrom");
-					const toPos = toElem.offset();
-
-					toX = toPos.left;
-					toY = toPos.top + (toElem.outerHeight() / 2) - 35;
-
-					this.drawBezier(state, fromX, fromY, toX, toY);
-				}
-			} else if (currentDataNode.link !== -1) {
-				const link = currentDataNode.link;
-				const fromElem = currentNode.find(".links span.connectTo:eq(0)");
-				const fromPos = fromElem.offset();
-
-				fromX = fromPos.left;
-				fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
-
-				const toElem = $(`section#nodes .tree[data-id="${state.currentTree}"] .node:not(.template)`).filter(function () {
-					return $(this).data('id') === link;
-				}).find("span.connectFrom");
-				const toPos = toElem.offset();
-
-				toX = toPos.left;
-				toY = toPos.top + (toElem.outerHeight() / 2) - 35;
-
-				this.drawBezier(state, fromX, fromY, toX, toY);
 			}
 		});
 
 		if (state.link.linking) {
 			let toX;
 			let toY;
-			let fromElem;
 
-			if (state.link.linkingFrom.hasClass("branch")) {
-				if (state.link.isTrueLink) {
-					fromElem = state.link.linkingFrom.find(".links span.connectTo:eq(0)");
-				} else {
-					fromElem = state.link.linkingFrom.find(".links span.connectTo:eq(1)");
-				}
-			} else {
-				fromElem = state.link.linkingFrom.find(".links span.connectTo");
-			}
-
+			const fromElem = state.link.linkingFrom.find(`.links span.connectTo:eq(${state.link.linkIndex})`);
 			const fromPos = fromElem.offset();
 			const fromX = fromPos.left;
 			const fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;

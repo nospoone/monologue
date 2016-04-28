@@ -104,13 +104,10 @@ module.exports = {
 		});
 	},
 	link(state) {
-		if (state.link.isTrueLink === undefined) {
-			this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id')).link = state.link.linkTarget.data('id');
-		} else if (state.link.isTrueLink) {
-			this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id')).trueLink = state.link.linkTarget.data('id');
-		} else {
-			this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id')).falseLink = state.link.linkTarget.data('id');
-		}
+		const nodeFrom = this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id'));
+		nodeFrom.conditions = nodeFrom.conditions || [];
+		nodeFrom.conditions[state.link.linkIndex] = nodeFrom.conditions[state.link.linkIndex] || {};
+		nodeFrom.conditions[state.link.linkIndex].link = state.link.linkTarget.data('id');
 	},
 	getText(language, key) {
 		for (let i = 0; i < this.translations.length; i++) {

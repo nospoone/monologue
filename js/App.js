@@ -29,8 +29,8 @@ const app = {
 		});
 
 		// debug autoload
-		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\testproject.mpf');
-		// app.view.loadProject(app.state, app.data, app.events);
+		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf', app.nodes);
+		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
 		app.draw.canvas.context = app.draw.canvas.element.getContext('2d');
@@ -253,12 +253,8 @@ const app = {
 
 			$('section#nodes').on('click', '.links span.connectTo', e => {
 				app.state.link.linking = true;
-				app.state.link.isTrueLink = undefined;
 				app.state.link.linkingFrom = $(e.target).closest('.node');
-
-				if (app.state.link.linkingFrom.hasClass('branch')) {
-					app.state.link.isTrueLink = $(e.target).index() === 0 || $(e.target).index() === 2;
-				}
+				app.state.link.linkIndex = $(e.target).index();
 
 				e.preventDefault();
 				e.stopPropagation();
@@ -283,17 +279,12 @@ const app = {
 				app.state.link.linkTarget = null;
 			});
 
-			$('section#nodes').on('click', '.links span.connectFromTrigger, .links span.connectFrom', () => {
+			$('section#nodes').on('click', '.links span.connectFromTrigger, .links span.connectFrom', e => {
 				if (app.state.link.linking) {
-					if (app.state.link.linkingFrom.hasClass('branch')) {
-						app.data.link(app.state);
-					} else {
-						app.data.link(app.state);
-					}
-
+					app.data.link(app.state);
 					app.state.link.linking = false;
 					app.state.link.linkingFrom = null;
-					app.state.link.linkTarget = null;
+					app.state.link.linkIndex = null;
 				}
 			});
 		},
