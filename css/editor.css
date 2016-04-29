@@ -3305,7 +3305,10 @@ select:not(:last-child) {
 }
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+input.focused,
+textarea.focused,
+select.focused {
   border-color: #1ABC9C;
 }
 input.error,

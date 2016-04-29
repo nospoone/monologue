@@ -42,7 +42,7 @@ module.exports = {
 
 			if (typeof currentDataNode.conditions !== 'undefined') {
 				for (let i = 0; i < currentDataNode.conditions.length; i++) {
-					if (typeof currentDataNode.conditions[i] !== 'undefined' && currentDataNode.conditions[i].link !== -1) {
+					if (typeof currentDataNode.conditions[i] !== 'undefined' && typeof currentDataNode.conditions[i].link !== 'undefined' && currentDataNode.conditions[i].link !== -1) {
 						const link = currentDataNode.conditions[i].link;
 						const fromElem = currentNode.find(`.links span.connectTo:eq(${i})`);
 						const fromPos = fromElem.offset();
@@ -88,10 +88,12 @@ module.exports = {
 		}
 	},
 	resize() {
-		const windowSize = browserWindow.getContentSize();
+		if (browserWindow !== null) {
+			const windowSize = browserWindow.getContentSize();
 
-		this.canvas.element.width = windowSize[0];
-		this.canvas.element.height = windowSize[1] - 35;
+			this.canvas.element.width = windowSize[0];
+			this.canvas.element.height = windowSize[1] - 35;
+		}
 	},
 	drawBezier(state, fromX, fromY, toX, toY) {
 		const cp1X = fromX + (toX - fromX) / 3;

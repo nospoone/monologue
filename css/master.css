@@ -3305,7 +3305,10 @@ select:not(:last-child) {
 }
 input:focus,
 textarea:focus,
-select:focus {
+select:focus,
+input.focused,
+textarea.focused,
+select.focused {
   border-color: #1ABC9C;
 }
 input.error,
@@ -3406,11 +3409,15 @@ canvas {
 .modal select:not(:last-child) {
   margin-bottom: 25px;
 }
-.modal select {
+.modal select[data-project-variables],
+.modal select[data-project-variables-values] {
   height: auto;
 }
-.modal select[data-project-variables],
+.modal select[data-project-variables] {
+  width: calc(50% - 20px - 5px);
+}
 .modal select[data-project-trees] {
+  height: auto;
   width: calc(100% - 40px);
 }
 .modal select[data-project-trees] + .side-controls {
@@ -3462,6 +3469,113 @@ canvas {
   background: #BDC3C7;
   color: #ECF0F1;
 }
+.modal section.variables:before,
+.modal section.variables:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal section.variables:after {
+  clear: both;
+}
+.modal section.variables .side-controls,
+.modal section.variables select {
+  float: left;
+}
+.modal section.variables .side-controls {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-right: 10px;
+}
+.modal section.variables .values {
+  transition: opacity 150ms;
+  margin-left: 10px;
+  width: calc(50% - 20px - 5px);
+  float: left;
+  position: relative;
+}
+.modal section.variables .values:not(.active) {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.modal section.variables .values select {
+  margin-bottom: 5px;
+  float: none;
+}
+.modal section.variables .values .controls:before,
+.modal section.variables .values .controls:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal section.variables .values .controls:after {
+  clear: both;
+}
+.modal section.variables .values .controls input {
+  width: 42.5%;
+  margin-bottom: 0;
+  float: left;
+}
+.modal section.variables .values .controls input:first-child {
+  border-right: none;
+}
+.modal section.variables .values .controls input:first-child + input {
+  border-left: none;
+  border-right: none;
+}
+.modal section.variables .values .controls input.error {
+  border-color: #C0392B;
+}
+.modal section.variables .values .controls input.error + span:not(.error) {
+  background: #C0392B;
+}
+.modal section.variables .values .controls span {
+  float: left;
+  display: block;
+  width: 15%;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  background: #BDC3C7;
+  color: #ECF0F1;
+}
+.modal section.variables .values .controls span.focused {
+  background: #1ABC9C;
+}
+.modal section.variables .values .controls span.error {
+  background: #C0392B;
+}
+.modal section.variables .values span.error {
+  color: #C0392B;
+  font-size: 12px;
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+}
+.modal section.variables .values span.error.hidden {
+  opacity: 0;
+}
+.modal.variable-settings .labels:before,
+.modal.variable-settings .labels:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.modal.variable-settings .labels:after {
+  clear: both;
+}
+.modal.variable-settings .labels label {
+  float: left;
+}
+.modal.variable-settings .labels label:first-child {
+  padding-left: 40px;
+  width: 390px;
+}
 .modal.trees .control input {
   width: 77%;
 }
@@ -3480,7 +3594,7 @@ canvas {
 }
 .modal .control input {
   float: left;
-  width: 81%;
+  width: 79%;
   border-right: none;
 }
 .modal .control input:focus + select {
@@ -3505,6 +3619,9 @@ canvas {
   background: #BDC3C7;
   color: #ECF0F1;
 }
+.modal .control span:not(.error).focused {
+  background: #1ABC9C;
+}
 .modal .control span.error {
   color: #C0392B;
   font-size: 12px;
@@ -3518,7 +3635,7 @@ canvas {
 }
 .modal .control select {
   float: left;
-  width: 12%;
+  width: 14%;
   display: block;
   border-left: none;
   border-right: none;

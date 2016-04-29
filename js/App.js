@@ -1,8 +1,8 @@
 'use strict';
 
-const $ = require('../js/lib/jquery.js');
 const dialog = require('remote').require('dialog');
 const browserWindow = require('remote').require('browser-window').fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
+const $ = require('../js/lib/jquery.js');
 
 const app = {
 	bootstrap() {
@@ -27,7 +27,8 @@ const app = {
 		});
 
 		// debug autoload
-		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
+		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
+		app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
 		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
@@ -241,7 +242,7 @@ const app = {
 				app.view.generateNodeMarkup(app.data.getNodeByID(app.state.currentTree, parent.data('id')), parent, parent.data('id'), app.nodes);
 			});
 
-			$('section#nodes').on('change', '.controls input, .controls textarea, .controls select', e => {
+			$('section#nodes').on('change', 'input, textarea, select', e => {
 				app.data.updateNode(app.state, $(e.target).closest('.node'), app.nodes);
 			});
 
@@ -287,9 +288,10 @@ const app = {
 			});
 
 			$('section#nodes').on('click', '.addTriggers', e => {
+				const elseLinked = $(e.target).closest('.node').find('.conditions .links span.connectTo').length === app.data.getNodeByID(app.state.currentTree, $(e.target).closest('.node').data('id')).conditions.length;
 				$(e.target).closest('.node').find('.conditions .branch').append($(e.target).closest('.node').find('.conditions .branch .value:last-child').clone());
 				$(e.target).closest('.node').find('.conditions .links').append($('<span class="connectTo"></span>'));
-				app.data.bumpLinks(app.state, $(e.target).closest('.node').data('id'));
+				app.data.bumpLinks(app.state, $(e.target).closest('.node').data('id'), elseLinked);
 			});
 		},
 		bindTreeChangeEvents() {
@@ -314,8 +316,23 @@ const app = {
 			const validCharsRegex = new RegExp(/^[a-zA-ZÀ-ÿ0-9 ]+$/);
 
 			$('select[data-project-variables]', variableSettings).on('change', () => {
-				if ($('select[data-project-variables] option:selected', variableSettings).length > 0) {
+				const selectedVariable = $('select[data-project-variables] option:selected', variableSettings);
+				if (selectedVariable.length > 0) {
 					$('span.remove-variable', variableSettings).removeClass('disabled');
+					if (selectedVariable.data('validation') === 'enum') {
+						$('.values', variableSettings).addClass('active');
+
+						const values = app.data.getVariableValuesById(parseInt(selectedVariable.val(), 10));
+						let valueMarkup = '';
+						for (const value of values) {
+							valueMarkup += `<option value='${value.value}'>${value.displayName} (${value.value})</option>`;
+						}
+
+						$('select[data-project-variables-values]').html(valueMarkup);
+					} else {
+						$('.values', variableSettings).removeClass('active');
+						$('select[data-project-variables-values]').html('');
+					}
 				} else {
 					$('span.remove-variable', variableSettings).addClass('disabled');
 				}
@@ -330,12 +347,12 @@ const app = {
 
 				if (variableName.length > 0) {
 					if (validCharsRegex.test(variableName)) {
-						if (app.data.duplicateCustomVariableExists(variableName)) {
+						if (app.data.duplicateVariableExists(variableName)) {
 							variableNameInput.addClass('error').focus();
 							$('span.error.duplicate', variableSettings).removeClass('hidden');
 						} else {
-							const newId = app.data.addCustomVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
-							$('select[data-project-variables]').append(`<option value='${newId}'>${variableName}</option>`);
+							const newId = app.data.addVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
+							$('select[data-project-variables]').append(`<option data-validation='${$('select[data-project-new-variable-type] option:selected', variableSettings).val()}' value='${newId}'>${variableName}</option>`);
 							variableNameInput.val('').trigger('blur');
 						}
 					} else {
@@ -348,9 +365,45 @@ const app = {
 				}
 			});
 
+			$('span.add-variable-value', variableSettings).on('click', () => {
+				const variableId = $('select[data-project-variables] option:selected', variableSettings).val();
+				const valueInput = $('.values input[data-value]', variableSettings);
+				const nameInput = $('.values input[data-display-name]', variableSettings);
+
+				const value = valueInput.val();
+				const name = nameInput.val();
+
+				$('.values span.error', variableSettings).addClass('hidden');
+				valueInput.removeClass('error');
+				nameInput.removeClass('error');
+
+				if (value.length > 0 && name.length > 0) {
+					if (validCharsRegex.test(value) || validCharsRegex.test(name)) {
+						if (app.data.duplicateVariableValueExists(variableId, value, name)) {
+							valueInput.addClass('error');
+							nameInput.addClass('error');
+							$('.values span.error.duplicate', variableSettings).removeClass('hidden');
+						} else {
+							app.data.addVariableValue(variableId, value, name);
+							$('select[data-project-variables-values]').append(`<option value='${value}'>${name} (${value})</option>`);
+							valueInput.val('').trigger('blur');
+							nameInput.val('').trigger('blur');
+						}
+					} else {
+						valueInput.addClass('error');
+						nameInput.addClass('error');
+						$('.values span.error.invalid', variableSettings).removeClass('hidden');
+					}
+				} else {
+					valueInput.addClass('error');
+					nameInput.addClass('error');
+					$('.values span.error.empty', variableSettings).removeClass('hidden');
+				}
+			});
+
 			$('span.remove-variable', variableSettings).on('click', () => {
 				if ($('select[data-project-variables] option:selected', variableSettings).length > 0) {
-					app.data.removeCustomVariable(parseInt($('select[data-project-variables] option:selected', variableSettings).val(), 10));
+					app.data.removeVariable(parseInt($('select[data-project-variables] option:selected', variableSettings).val(), 10));
 					$('select[data-project-variables] option:selected', variableSettings).remove();
 					$('select[data-project-variables]', variableSettings).trigger('change');
 				}
@@ -362,6 +415,10 @@ const app = {
 					$('select[data-project-variables]', variableSettings).find('option:selected').prop('selected', false);
 					$('select[data-project-variables]', variableSettings).trigger('change');
 				}
+			});
+
+			$('.control input, .control select, .controls input, .controls select', variableSettings).on('focus blur', e => {
+				$(e.target).parent().find('input, select, span:not(.error)').toggleClass('focused');
 			});
 
 			// TREES

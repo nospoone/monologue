@@ -64,11 +64,15 @@ canvas {
 		margin-bottom: 25px;
 	}
 	select {
-		height: auto;
-		&[data-project-variables], &[data-project-trees] {
-			width: calc(~"100% - 40px");
+		&[data-project-variables], &[data-project-variables-values] {
+			height: auto;
+		}
+		&[data-project-variables] {
+			width: calc(~"50% - 20px - 5px");
 		}
 		&[data-project-trees] {
+			height: auto;
+			width: calc(~"100% - 40px");
 			+ .side-controls {
 				top: 93px;
 			}
@@ -113,6 +117,93 @@ canvas {
 			}
 		}
 	}
+	section.variables {
+		.clearfix();
+		.side-controls, select {
+			float: left;
+		}
+		.side-controls {
+			position: relative;
+			top: 0;
+			left: 0;
+			margin-right: 10px;
+		}
+		.values {
+			&:not(.active) {
+				opacity: 0.4;
+				pointer-events: none;
+			}
+			transition: opacity 150ms;
+			margin-left: 10px;
+			width: calc(~"50% - 20px - 5px");
+			float: left;
+			position: relative;
+			select {
+				margin-bottom: 5px;
+				float: none;
+			}
+			.controls {
+				.clearfix();
+				input {
+					width: 42.5%;
+					margin-bottom: 0;
+					float: left;
+					&:first-child {
+						border-right: none;
+						+ input {
+							border-left: none;
+							border-right: none;
+						}
+					}
+					&.error {
+						border-color: @pomegranate;
+						+ span:not(.error) {
+							background: @pomegranate;
+						}
+					}
+				}
+				span {
+					float: left;
+					display: block;
+					width: 15%;
+					height: 35px;
+					line-height: 35px;
+					text-align: center;
+					background: @silver;
+					color: @white;
+					&.focused {
+						background: @turquoise;
+					}
+					&.error {
+						background: @pomegranate;
+					}
+				}
+			}
+			span.error {
+				color: @pomegranate;
+				font-size: 12px;
+				opacity: 1;
+				position: absolute;
+				left: 0;
+				bottom: -20px;
+				&.hidden {
+					opacity: 0;
+				}
+			}
+		}
+	}
+	&.variable-settings {
+		.labels {
+			.clearfix();
+			label {
+				float: left;
+			}
+			label:first-child {
+				padding-left: 40px;
+				width: 390px;
+			}
+		}
+	}
 	&.trees .control {
 		input {
 			width: 77%;
@@ -123,7 +214,7 @@ canvas {
 		position: relative;
 		input {
 			float: left;
-			width: 81%;
+			width: 79%;
 			border-right: none;
 			&:focus + select {
 				border-color: @turquoise;
@@ -149,6 +240,9 @@ canvas {
 			text-align: center;
 			background: @silver;
 			color: @white;
+			&.focused {
+				background: @turquoise;
+			}
 		}
 		span.error {
 			color: @pomegranate;
@@ -163,7 +257,7 @@ canvas {
 		}
 		select {
 			float: left;
-			width: 12%;
+			width: 14%;
 			display: block;
 			border-left: none;
 			border-right: none;

@@ -156,7 +156,7 @@ module.exports = {
 		$("input[data-project-title]").val(data.project.name);
 
 		data.variables.forEach(variable => {
-			$("select[data-project-variables]").append(`<option value='${variable.id}'>${variable.displayName}</option>`);
+			$("select[data-project-variables]").append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`);
 		});
 	},
 	generateTreesCategories(data) {

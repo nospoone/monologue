@@ -1,16 +1,25 @@
 .modal.variable-settings.hidden.invisible
 	h2 Variables
 		span.subtitle A project reload is needed for any changes here to take effect.
-	label(for="title") Variables
-	select(size="10", data-project-variables)
-	.side-controls
-		span.remove-variable.disabled
-			i.fa.fa-times
-		span.move-up.disabled
-			i.fa.fa-arrow-up
-		span.move-down.disabled
-			i.fa.fa-arrow-down
-	label(for="title") Add new variable
+	.labels
+		label Variables
+		label.values Variable Values
+	section.variables
+		.side-controls
+			span.remove-variable.disabled
+				i.fa.fa-times
+		select(size="10", data-project-variables)
+		.values
+			select(size="8", data-project-variables-values)
+			section.controls
+				input(type="text", data-value, placeholder='Value')
+				input(type="text", data-display-name, placeholder='Display Name')
+				span.add-variable-value
+					i.fa.fa-plus
+			span.error.duplicate.hidden Value already exists.
+			span.error.invalid.hidden Invalid characters in value or display name.
+			span.error.empty.hidden Value and/or display name cannot be empty.
+	label Add new variable
 	.control
 		span.error.duplicate.hidden Variable name already exists.
 		span.error.invalid.hidden Invalid characters in variable name.
@@ -21,7 +30,7 @@
 			option(value="int") Int
 			option(value="string") String
 			option(value="bool") Boolean
-			option(value="character") Character
+			option(value="enum") Enumeration
 		span.add-variable
 			i.fa.fa-plus
 	footer

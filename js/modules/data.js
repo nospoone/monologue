@@ -8,7 +8,6 @@ module.exports = {
 	treeCategories: null,
 	languages: null,
 	variables: null,
-	customVariables: null,
 	voices: null,
 	characters: null,
 	nodes: [],
@@ -47,13 +46,32 @@ module.exports = {
 			dataNode.type = nodeElement.find('select.nodetype option:selected').val();
 			const nodeType = nodes.getNodeById(dataNode.type).type;
 
-			// loop through bound fields
+			dataNode.elements = dataNode.elements || {};
+			$.each(nodeElement.find('.controls [data-binding]'), (i, e) => {
+				switch ($(e).prop('tagName')) {
+					case 'INPUT':
+					case 'TEXTAREA':
+						dataNode.elements[$(e).data('binding')] = $(e).val();
+						break;
+					case 'SELECT':
+						dataNode.elements[$(e).data('binding')] = ($(e).find('option:selected').val() === 'placeholder') ? '' : $(e).find('option:selected').val();
+						break;
+					default:
+						break;
+				}
+			});
 
 			if (nodeType === "branch") {
+				dataNode.conditions = dataNode.conditions || [];
 				$.each(nodeElement.find('.conditions .branch .value'), (i, e) => {
-					dataNode.conditions[i].variable = $(e).find('select[data-variable-get] option:selected').val();
-					dataNode.conditions[i].condition = $(e).find('.value select[data-condition] option:selected').val();
-					dataNode.conditions[i].value = $(e).find('.value input[type=text]').val();
+					dataNode.conditions[i] = dataNode.conditions[i] || {};
+					const selectedVariable = $(e).parent().find('select[data-variable-get] option:selected');
+
+					console.log(selectedVariable.data('validation'));
+
+					dataNode.conditions[i].variable = $(e).parent().find('select[data-variable-get] option:selected').val();
+					dataNode.conditions[i].condition = $(e).find('select[data-condition] option:selected').val();
+					dataNode.conditions[i].value = $(e).find('input[type=text]').val();
 				});
 			} else if (nodeType === "set") {
 				// see previous way of setting
@@ -82,8 +100,6 @@ module.exports = {
 			}
 		}
 
-		console.log(id);
-
 		this.trees[state.currentTree].nodes.forEach(node => {
 			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
 				for (const condition of node.conditions) {
@@ -100,13 +116,15 @@ module.exports = {
 		nodeFrom.conditions[state.link.linkIndex] = nodeFrom.conditions[state.link.linkIndex] || {};
 		nodeFrom.conditions[state.link.linkIndex].link = state.link.linkTarget.data('id');
 	},
-	bumpLinks(state, id) {
+	bumpLinks(state, id, elseLinked) {
 		const nodeFrom = this.getNodeByID(state.currentTree, id);
 		if (typeof nodeFrom.conditions === 'undefined') {
 			nodeFrom.conditions = [];
-		} else {
+		} else if (elseLinked) {
 			nodeFrom.conditions[nodeFrom.conditions.length] = nodeFrom.conditions[nodeFrom.conditions.length - 1];
 			nodeFrom.conditions[nodeFrom.conditions.length - 2] = undefined;
+		} else {
+			nodeFrom.conditions.push(undefined);
 		}
 	},
 	getText(language, key) {
@@ -156,22 +174,21 @@ module.exports = {
 			}
 		}
 	},
-	getCustomVariableByID(variableId) {
-		for (let i = 0; i < this.customVariables.length; i++) {
-			if (this.customVariables[i].id === variableId) {
-				return this.customVariables[i];
+	getVariableByID(variableId) {
+		for (let i = 0; i < this.variables.length; i++) {
+			if (this.variables[i].id === variableId) {
+				return this.variables[i];
 			}
 		}
 	},
-	addCustomVariable(name, valid) {
+	addVariable(name, valid) {
 		let newId = 0;
-		if (this.customVariables.length > 0) {
-			newId = this.customVariables[this.customVariables.length - 1].id + 1;
+		if (this.variables.length > 0) {
+			newId = this.variables[this.variables.length - 1].id + 1;
 		}
 
-		this.customVariables.push({
+		this.variables.push({
 			displayName: name,
-			type: "custom",
 			validation: valid,
 			set: true,
 			get: true,
@@ -180,25 +197,50 @@ module.exports = {
 
 		return newId;
 	},
-	removeCustomVariable(variableId) {
-		console.log(typeof variableId);
-		for (let i = 0; i < this.customVariables.length; i++) {
-			if (this.customVariables[i].id === variableId) {
-				this.customVariables[i] = undefined;
+	removeVariable(variableId) {
+		for (let i = 0; i < this.variables.length; i++) {
+			if (this.variables[i].id === variableId) {
+				this.variables[i] = undefined;
 			}
 		}
 
 		// filters out the undefined variables
-		this.customVariables = this.customVariables.filter(Boolean);
+		this.variables = this.variables.filter(Boolean);
 	},
-	duplicateCustomVariableExists(variableName) {
-		for (let i = 0; i < this.customVariables.length; i++) {
-			if (this.customVariables[i].displayName === variableName) {
+	duplicateVariableExists(variableName) {
+		for (let i = 0; i < this.variables.length; i++) {
+			if (this.variables[i].displayName === variableName) {
 				return true;
 			}
 		}
 
 		return false;
+	},
+	getVariableValuesById(id) {
+		const values = this.getVariableByID(parseInt(id, 10)).values;
+		return (typeof values === 'undefined') ? [] : values;
+	},
+	addVariableValue(id, value, displayName) {
+		const variable = this.getVariableByID(parseInt(id, 10));
+		variable.values = variable.values || [];
+		variable.values.push({
+			value,
+			displayName
+		});
+	},
+	duplicateVariableValueExists(id, value, displayName) {
+		const values = this.getVariableValuesById(id);
+		value = (isNaN(parseInt(value, 10))) ? value : parseInt(value, 10);
+		for (const val of values) {
+			if (val.value === value || val.displayName === displayName) {
+				return true;
+			}
+		}
+
+		return false;
+	},
+	removeVariableValue(id, value) {
+		// TODO
 	},
 	addTree(treeName, catId) {
 		let newId = 0;
