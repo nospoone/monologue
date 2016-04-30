@@ -145,7 +145,7 @@ canvas {
 			.controls {
 				.clearfix();
 				input {
-					width: 42.5%;
+					width: 36%;
 					margin-bottom: 0;
 					float: left;
 					&:first-child {
@@ -162,15 +162,27 @@ canvas {
 						}
 					}
 				}
-				span {
+				span.add-variable-value, span.remove-variable-value {
 					float: left;
 					display: block;
-					width: 15%;
 					height: 35px;
 					line-height: 35px;
 					text-align: center;
+					color: @white;
+				}
+				span.remove-variable-value {
+					width: 35px;
+					float: right;
+					border-radius: 3px;
+					background: @pomegranate;
+					&.disabled {
+						background: @silver;
+					}
+				}
+				span.add-variable-value {
 					background: @silver;
 					color: @white;
+					width: 15%;
 					&.focused {
 						background: @turquoise;
 					}
@@ -202,6 +214,13 @@ canvas {
 				padding-left: 40px;
 				width: 390px;
 			}
+			label:last-child {
+				transition: opacity 250ms;
+				&:not(.active) {
+					opacity: 0.4;
+					pointer-events: none;
+				}
+			}
 		}
 	}
 	&.trees .control {
@@ -212,9 +231,9 @@ canvas {
 	.control {
 		.clearfix();
 		position: relative;
-		input {
+		input[type=text] {
 			float: left;
-			width: 79%;
+			width: 63.9%;
 			border-right: none;
 			&:focus + select {
 				border-color: @turquoise;
@@ -263,6 +282,42 @@ canvas {
 			border-right: none;
 			&[data-new-tree-category] {
 				width: 16%;
+			}
+		}
+		input[type=checkbox] {
+			display: none;
+			+ label {
+				display: block;
+				float: left;
+				width: 50px;
+				border: 2px @silver solid;
+				height: 35px;
+				line-height: 31px;
+				text-align: center;
+				color: @silver;
+				margin-left: 5px;
+				&.focused {
+					border-color: @turquoise;
+					color: @wetAsphalt;
+				}
+			}
+			&:checked + label {
+				color: @white;
+				background: @silver;
+				&.focused {
+					background: @turquoise;
+					color: @white;
+					border-color: @turquoise;
+				}
+			}
+			&.error {
+				+ label {
+					border-color: @pomegranate;
+				}
+				&:checked + label, &:checked + label.focused {
+					border-color: @pomegranate;
+					background: @pomegranate;
+				}
 			}
 		}
 	}

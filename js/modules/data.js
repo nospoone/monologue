@@ -61,7 +61,7 @@ module.exports = {
 				}
 			});
 
-			if (nodeType === "branch") {
+			if (nodeType === 'branch') {
 				dataNode.conditions = dataNode.conditions || [];
 				$.each(nodeElement.find('.conditions .branch .value'), (i, e) => {
 					dataNode.conditions[i] = dataNode.conditions[i] || {};
@@ -73,8 +73,12 @@ module.exports = {
 					dataNode.conditions[i].condition = $(e).find('select[data-condition] option:selected').val();
 					dataNode.conditions[i].value = $(e).find('input[type=text]').val();
 				});
-			} else if (nodeType === "set") {
-				// see previous way of setting
+			} else if (nodeType === 'set') {
+				const validation = nodeElement.find('.set select[data-variable-set] option:selected').data('validation');
+
+				console.log(validation);
+				//dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable-set] option:selected').val();
+				//dataNode.operation = nodeElement.find('[data-type="set"] select[data-operation] option:selected').val();
 			}
 
 			// not sure this can happen anymore - all fields are dynamic
@@ -181,21 +185,21 @@ module.exports = {
 			}
 		}
 	},
-	addVariable(name, valid) {
-		let newId = 0;
+	addVariable(displayName, validation, get, set) {
+		let id = 0;
 		if (this.variables.length > 0) {
-			newId = this.variables[this.variables.length - 1].id + 1;
+			id = this.variables[this.variables.length - 1].id + 1;
 		}
 
 		this.variables.push({
-			displayName: name,
-			validation: valid,
-			set: true,
-			get: true,
-			id: newId
+			displayName,
+			validation,
+			set,
+			get,
+			id
 		});
 
-		return newId;
+		return id;
 	},
 	removeVariable(variableId) {
 		for (let i = 0; i < this.variables.length; i++) {
@@ -240,7 +244,19 @@ module.exports = {
 		return false;
 	},
 	removeVariableValue(id, value) {
-		// TODO
+		value = (isNaN(parseInt(value, 10))) ? value : parseInt(value, 10);
+		for (let i = 0; i < this.variables.length; i++) {
+			if (this.variables[i].id === parseInt(id, 10)) {
+				for (let j = 0; j < this.variables[i].values.length; j++) {
+					if (this.variables[i].values[j].value === value) {
+						this.variables[i].values[j] = undefined;
+					}
+				}
+
+				// filters out the undefined variables
+				this.variables[i].values = this.variables[i].values.filter(Boolean);
+			}
+		}
 	},
 	addTree(treeName, catId) {
 		let newId = 0;

@@ -3287,7 +3287,7 @@ body.dragging canvas {
 #menu-bar .controls span.minimize:hover {
   background: #34495E;
 }
-input,
+input[type=text],
 textarea,
 select {
   width: 100%;
@@ -3298,39 +3298,39 @@ select {
   font-size: 14px;
   height: 35px;
 }
-input:not(:last-child),
+input[type=text]:not(:last-child),
 textarea:not(:last-child),
 select:not(:last-child) {
   margin-bottom: 5px;
 }
-input:focus,
+input[type=text]:focus,
 textarea:focus,
 select:focus,
-input.focused,
+input[type=text].focused,
 textarea.focused,
 select.focused {
   border-color: #1ABC9C;
 }
-input.error,
+input[type=text].error,
 textarea.error,
 select.error {
   border-color: #C0392B;
 }
-input::-webkit-input-placeholder,
+input[type=text]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
-input.placeholder,
+input[type=text].placeholder,
 textarea.placeholder,
 select.placeholder {
   font-size: 14px;
   color: #BDC3C7;
 }
-input [default],
+input[type=text] [default],
 textarea [default],
 select [default] {
   display: none;
 }
-input option.hidden,
+input[type=text] option.hidden,
 textarea option.hidden,
 select option.hidden {
   display: none;
@@ -3515,7 +3515,7 @@ canvas {
   clear: both;
 }
 .modal section.variables .values .controls input {
-  width: 42.5%;
+  width: 36%;
   margin-bottom: 0;
   float: left;
 }
@@ -3532,20 +3532,33 @@ canvas {
 .modal section.variables .values .controls input.error + span:not(.error) {
   background: #C0392B;
 }
-.modal section.variables .values .controls span {
+.modal section.variables .values .controls span.add-variable-value,
+.modal section.variables .values .controls span.remove-variable-value {
   float: left;
   display: block;
-  width: 15%;
   height: 35px;
   line-height: 35px;
   text-align: center;
-  background: #BDC3C7;
   color: #ECF0F1;
 }
-.modal section.variables .values .controls span.focused {
+.modal section.variables .values .controls span.remove-variable-value {
+  width: 35px;
+  float: right;
+  border-radius: 3px;
+  background: #C0392B;
+}
+.modal section.variables .values .controls span.remove-variable-value.disabled {
+  background: #BDC3C7;
+}
+.modal section.variables .values .controls span.add-variable-value {
+  background: #BDC3C7;
+  color: #ECF0F1;
+  width: 15%;
+}
+.modal section.variables .values .controls span.add-variable-value.focused {
   background: #1ABC9C;
 }
-.modal section.variables .values .controls span.error {
+.modal section.variables .values .controls span.add-variable-value.error {
   background: #C0392B;
 }
 .modal section.variables .values span.error {
@@ -3576,6 +3589,13 @@ canvas {
   padding-left: 40px;
   width: 390px;
 }
+.modal.variable-settings .labels label:last-child {
+  transition: opacity 250ms;
+}
+.modal.variable-settings .labels label:last-child:not(.active) {
+  opacity: 0.4;
+  pointer-events: none;
+}
 .modal.trees .control input {
   width: 77%;
 }
@@ -3592,21 +3612,21 @@ canvas {
 .modal .control:after {
   clear: both;
 }
-.modal .control input {
+.modal .control input[type=text] {
   float: left;
-  width: 79%;
+  width: 63.9%;
   border-right: none;
 }
-.modal .control input:focus + select {
+.modal .control input[type=text]:focus + select {
   border-color: #1ABC9C;
 }
-.modal .control input:focus + select + span {
+.modal .control input[type=text]:focus + select + span {
   background: #1ABC9C;
 }
-.modal .control input.error + select {
+.modal .control input[type=text].error + select {
   border-color: #C0392B;
 }
-.modal .control input.error + select + span {
+.modal .control input[type=text].error + select + span {
   background: #C0392B;
 }
 .modal .control span:not(.error) {
@@ -3642,6 +3662,41 @@ canvas {
 }
 .modal .control select[data-new-tree-category] {
   width: 16%;
+}
+.modal .control input[type=checkbox] {
+  display: none;
+}
+.modal .control input[type=checkbox] + label {
+  display: block;
+  float: left;
+  width: 50px;
+  border: 2px #BDC3C7 solid;
+  height: 35px;
+  line-height: 31px;
+  text-align: center;
+  color: #BDC3C7;
+  margin-left: 5px;
+}
+.modal .control input[type=checkbox] + label.focused {
+  border-color: #1ABC9C;
+  color: #34495E;
+}
+.modal .control input[type=checkbox]:checked + label {
+  color: #ECF0F1;
+  background: #BDC3C7;
+}
+.modal .control input[type=checkbox]:checked + label.focused {
+  background: #1ABC9C;
+  color: #ECF0F1;
+  border-color: #1ABC9C;
+}
+.modal .control input[type=checkbox].error + label {
+  border-color: #C0392B;
+}
+.modal .control input[type=checkbox].error:checked + label,
+.modal .control input[type=checkbox].error:checked + label.focused {
+  border-color: #C0392B;
+  background: #C0392B;
 }
 .modal .multiselect:before,
 .modal .multiselect:after {

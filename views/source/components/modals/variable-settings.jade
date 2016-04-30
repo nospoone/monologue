@@ -12,10 +12,12 @@
 		.values
 			select(size="8", data-project-variables-values)
 			section.controls
-				input(type="text", data-value, placeholder='Value')
 				input(type="text", data-display-name, placeholder='Display Name')
+				input(type="text", data-value, placeholder='Value')
 				span.add-variable-value
 					i.fa.fa-plus
+				span.remove-variable-value.disabled
+					i.fa.fa-times
 			span.error.duplicate.hidden Value already exists.
 			span.error.invalid.hidden Invalid characters in value or display name.
 			span.error.empty.hidden Value and/or display name cannot be empty.
@@ -24,6 +26,7 @@
 		span.error.duplicate.hidden Variable name already exists.
 		span.error.invalid.hidden Invalid characters in variable name.
 		span.error.empty.hidden Variable name cannot be empty.
+		span.error.getset.hidden Either GET or SET must checked.
 		input(type="text", data-project-new-variable, placeholder="New Variable")
 		select(data-project-new-variable-type).placeholder
 			option(disabled, selected, default, value="placeholder") Type
@@ -33,6 +36,10 @@
 			option(value="enum") Enumeration
 		span.add-variable
 			i.fa.fa-plus
+		input(type="checkbox", data-variable-set)#vset
+		label(for="vset") SET
+		input(type="checkbox", data-variable-get)#vget
+		label(for="vget") GET
 	footer
 		span.close
 			i.fa.fa-times

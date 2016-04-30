@@ -156,7 +156,19 @@ module.exports = {
 		$("input[data-project-title]").val(data.project.name);
 
 		data.variables.forEach(variable => {
-			$("select[data-project-variables]").append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`);
+			let getSet = '';
+			if (variable.get || variable.set) {
+				getSet += '(';
+				if (variable.get && variable.set) {
+					getSet += 'get, set';
+				} else if (variable.get && !variable.set) {
+					getSet += 'get';
+				} else if (!variable.get && variable.set) {
+					getSet += 'set';
+				}
+				getSet += ')';
+			}
+			$("select[data-project-variables]").append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName} ${getSet}</option>`);
 		});
 	},
 	generateTreesCategories(data) {

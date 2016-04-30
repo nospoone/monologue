@@ -293,6 +293,15 @@ const app = {
 				$(e.target).closest('.node').find('.conditions .links').append($('<span class="connectTo"></span>'));
 				app.data.bumpLinks(app.state, $(e.target).closest('.node').data('id'), elseLinked);
 			});
+
+			$('section#nodes').on('change', '.set select[data-variable-set]', e => {
+				if ($(e.target).find('option:selected').data('validation') === 'enum') {
+					$(e.target).parent().find('select[data-enum]').html('<option disabled selected default value="placeholder">Value</option>');
+					for (const option of app.data.getVariableValuesById(parseInt($(e.target).val(), 10))) {
+						$(e.target).parent().find('select[data-enum]').append(`<option value='${option.value}'>${option.displayName}</option>`);
+					}
+				}
+			});
 		},
 		bindTreeChangeEvents() {
 			$('select.trees').chosen().change(e => {
@@ -331,10 +340,27 @@ const app = {
 						$('select[data-project-variables-values]').html(valueMarkup);
 					} else {
 						$('.values', variableSettings).removeClass('active');
-						$('select[data-project-variables-values]').html('');
+						$('select[data-project-variables-values]', variableSettings).empty();
 					}
 				} else {
 					$('span.remove-variable', variableSettings).addClass('disabled');
+				}
+			});
+
+			$('select[data-project-variables-values]', variableSettings).on('change blur', () => {
+				const selectedVariable = $('select[data-project-variables] option:selected', variableSettings);
+				if (selectedVariable.length > 0) {
+					$('span.remove-variable-value', variableSettings).removeClass('disabled');
+				} else {
+					$('span.remove-variable-value', variableSettings).addClass('disabled');
+				}
+			});
+
+			$('span.remove-variable-value', variableSettings).on('click', () => {
+				if (!$('span.remove-variable-value', variableSettings).hasClass('disabled')) {
+					app.data.removeVariableValue(parseInt($('select[data-project-variables] option:selected', variableSettings).val(), 10), $('select[data-project-variables-values] option:selected', variableSettings).val());
+					$('select[data-project-variables-values] option:selected', variableSettings).remove();
+					$('span.remove-variable-value', variableSettings).addClass('disabled');
 				}
 			});
 
@@ -342,26 +368,51 @@ const app = {
 				const variableNameInput = $('input[data-project-new-variable]', variableSettings);
 				const variableName = variableNameInput.val();
 
+				const get = $('[data-variable-get]').prop('checked');
+				const set = $('[data-variable-set]').prop('checked');
+
 				$('span.error', variableSettings).addClass('hidden');
 				variableNameInput.removeClass('error');
+				$('[data-variable-get], [data-variable-set]').removeClass('error');
 
-				if (variableName.length > 0) {
-					if (validCharsRegex.test(variableName)) {
-						if (app.data.duplicateVariableExists(variableName)) {
-							variableNameInput.addClass('error').focus();
-							$('span.error.duplicate', variableSettings).removeClass('hidden');
+				if (get || set) {
+					if (variableName.length > 0) {
+						if (validCharsRegex.test(variableName)) {
+							if (app.data.duplicateVariableExists(variableName)) {
+								variableNameInput.addClass('error').focus();
+								$('[data-variable-get], [data-variable-set]').addClass('error');
+								$('.control span.error.duplicate', variableSettings).removeClass('hidden');
+							} else {
+								const newId = app.data.addVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
+								let getSet = '';
+								if (get || set) {
+									getSet += '(';
+									if (get && set) {
+										getSet += 'get, set';
+									} else if (get && !set) {
+										getSet += 'get';
+									} else if (!get && set) {
+										getSet += 'set';
+									}
+									getSet += ')';
+								}
+								$('select[data-project-variables]').append(`<option data-validation='${$('select[data-project-new-variable-type] option:selected', variableSettings).val()}' value='${newId}'>${variableName} ${getSet}</option>`);
+								variableNameInput.val('').trigger('blur');
+							}
 						} else {
-							const newId = app.data.addVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
-							$('select[data-project-variables]').append(`<option data-validation='${$('select[data-project-new-variable-type] option:selected', variableSettings).val()}' value='${newId}'>${variableName}</option>`);
-							variableNameInput.val('').trigger('blur');
+							variableNameInput.addClass('error').focus();
+							$('[data-variable-get], [data-variable-set]').addClass('error');
+							$('.control span.error.invalid', variableSettings).removeClass('hidden');
 						}
 					} else {
 						variableNameInput.addClass('error').focus();
-						$('span.error.invalid', variableSettings).removeClass('hidden');
+						$('[data-variable-get], [data-variable-set]').addClass('error');
+						$('.control span.error.empty', variableSettings).removeClass('hidden');
 					}
 				} else {
 					variableNameInput.addClass('error').focus();
-					$('span.error.empty', variableSettings).removeClass('hidden');
+					$('[data-variable-get], [data-variable-set]').addClass('error');
+					$('.control span.error.getset', variableSettings).removeClass('hidden');
 				}
 			});
 
@@ -385,7 +436,7 @@ const app = {
 							$('.values span.error.duplicate', variableSettings).removeClass('hidden');
 						} else {
 							app.data.addVariableValue(variableId, value, name);
-							$('select[data-project-variables-values]').append(`<option value='${value}'>${name} (${value})</option>`);
+							$('select[data-project-variables-values]', variableSettings).append(`<option value='${value}'>${name} (${value})</option>`);
 							valueInput.val('').trigger('blur');
 							nameInput.val('').trigger('blur');
 						}
@@ -406,6 +457,10 @@ const app = {
 					app.data.removeVariable(parseInt($('select[data-project-variables] option:selected', variableSettings).val(), 10));
 					$('select[data-project-variables] option:selected', variableSettings).remove();
 					$('select[data-project-variables]', variableSettings).trigger('change');
+
+					$('span.remove-variable-value', variableSettings).addClass('disabled');
+					$('select[data-project-variables-values]', variableSettings).empty();
+					$('.values', variableSettings).removeClass('active');
 				}
 			});
 
@@ -417,8 +472,12 @@ const app = {
 				}
 			});
 
-			$('.control input, .control select, .controls input, .controls select', variableSettings).on('focus blur', e => {
-				$(e.target).parent().find('input, select, span:not(.error)').toggleClass('focused');
+			$('.control input, .control select, .controls input, .controls select', variableSettings).on('focus click', e => {
+				$(e.target).parent().find('input, select, span:not(.error), label').addClass('focused');
+			});
+
+			$('.control input, .control select, .controls input, .controls select', variableSettings).on('blur', e => {
+				$(e.target).parent().find('input, select, span:not(.error), label').removeClass('focused');
 			});
 
 			// TREES
@@ -479,7 +538,6 @@ const app = {
 			// PROJECT SETTINGS
 			const projectSettings = '.project-settings';
 			$('span.close', projectSettings).on('click', () => {
-				console.log('closed');
 				app.view.hideModal(app.view);
 			});
 		},

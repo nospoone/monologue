@@ -3287,7 +3287,7 @@ body.dragging canvas {
   top: -1px;
   margin-right: 5px;
 }
-input,
+input[type=text],
 textarea,
 select {
   width: 100%;
@@ -3298,39 +3298,39 @@ select {
   font-size: 14px;
   height: 35px;
 }
-input:not(:last-child),
+input[type=text]:not(:last-child),
 textarea:not(:last-child),
 select:not(:last-child) {
   margin-bottom: 5px;
 }
-input:focus,
+input[type=text]:focus,
 textarea:focus,
 select:focus,
-input.focused,
+input[type=text].focused,
 textarea.focused,
 select.focused {
   border-color: #1ABC9C;
 }
-input.error,
+input[type=text].error,
 textarea.error,
 select.error {
   border-color: #C0392B;
 }
-input::-webkit-input-placeholder,
+input[type=text]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
 select::-webkit-input-placeholder,
-input.placeholder,
+input[type=text].placeholder,
 textarea.placeholder,
 select.placeholder {
   font-size: 14px;
   color: #BDC3C7;
 }
-input [default],
+input[type=text] [default],
 textarea [default],
 select [default] {
   display: none;
 }
-input option.hidden,
+input[type=text] option.hidden,
 textarea option.hidden,
 select option.hidden {
   display: none;
