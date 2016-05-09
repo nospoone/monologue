@@ -38,6 +38,15 @@ module.exports = {
 
 		return newId;
 	},
+	changeNode(state, nodeElement, newType) {
+		const dataNodeId = nodeElement.data('id');
+		const dataNode = this.getNodeByID(state.currentTree, dataNodeId);
+
+		this.unlink(state, dataNodeId);
+		delete dataNode.conditions;
+		delete dataNode.elements;
+		dataNode.type = newType;
+	},
 	updateNode(state, nodeElement, nodes) {
 		const dataNodeId = nodeElement.data('id');
 		const dataNode = this.getNodeByID(state.currentTree, dataNodeId);
@@ -50,8 +59,11 @@ module.exports = {
 			$.each(nodeElement.find('.controls [data-binding]'), (i, e) => {
 				switch ($(e).prop('tagName')) {
 					case 'INPUT':
-					case 'TEXTAREA':
 						dataNode.elements[$(e).data('binding')] = $(e).val();
+						break;
+					case 'TEXTAREA':
+						this.setText(state.currentLanguage, `$T${state.currentTree}N${dataNodeId}E${i}`, $(e).val());
+						dataNode.elements[$(e).data('binding')] = `$T${state.currentTree}N${dataNodeId}E${i}`;
 						break;
 					case 'SELECT':
 						dataNode.elements[$(e).data('binding')] = ($(e).find('option:selected').val() === 'placeholder') ? '' : $(e).find('option:selected').val();
@@ -65,24 +77,27 @@ module.exports = {
 				dataNode.conditions = dataNode.conditions || [];
 				$.each(nodeElement.find('.conditions .branch .value'), (i, e) => {
 					dataNode.conditions[i] = dataNode.conditions[i] || {};
-					const selectedVariable = $(e).parent().find('select[data-variable-get] option:selected');
-
-					console.log(selectedVariable.data('validation'));
-
 					dataNode.conditions[i].variable = $(e).parent().find('select[data-variable-get] option:selected').val();
 					dataNode.conditions[i].condition = $(e).find('select[data-condition] option:selected').val();
 					dataNode.conditions[i].value = $(e).find('input[type=text]').val();
 				});
 			} else if (nodeType === 'set') {
+				dataNode.set = {
+					variable: nodeElement.find('.set select[data-variable-set] option:selected').val(),
+					operation: nodeElement.find('.set .value select[data-operation] option:selected').val()
+				};
+
 				const validation = nodeElement.find('.set select[data-variable-set] option:selected').data('validation');
-
-				console.log(validation);
-				//dataNode.variable = nodeElement.find('[data-type="set"] select[data-variable-set] option:selected').val();
-				//dataNode.operation = nodeElement.find('[data-type="set"] select[data-operation] option:selected').val();
+				if (validation === 'int') {
+					dataNode.set.value = nodeElement.find('.set .value input[data-int]').val();
+				} else if (validation === 'string') {
+					dataNode.set.value = nodeElement.find('.set .value input[data-string]').val();
+				} else if (validation === 'bool') {
+					dataNode.set.value = nodeElement.find('.set .value select[data-bool] option:selected').val();
+				} else if (validation === 'enum') {
+					dataNode.set.value = nodeElement.find('.set .value select[data-enum] option:selected').val();
+				}
 			}
-
-			// not sure this can happen anymore - all fields are dynamic
-			// throw new Error(`Error while updating node (${dataNodeId}): Invalid Node Type.`);
 		}
 	},
 	removeNode(state, id) {
@@ -104,6 +119,18 @@ module.exports = {
 			}
 		}
 
+		this.trees[state.currentTree].nodes.forEach(node => {
+			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
+				for (const condition of node.conditions) {
+					if (typeof condition.link !== 'undefined' && condition.link === id) {
+						condition.link = -1;
+					}
+				}
+			}
+		});
+	},
+	// removes all links from/to this node
+	unlink(state, id) {
 		this.trees[state.currentTree].nodes.forEach(node => {
 			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
 				for (const condition of node.conditions) {

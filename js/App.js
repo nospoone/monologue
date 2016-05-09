@@ -27,8 +27,8 @@ const app = {
 		});
 
 		// debug autoload
-		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
-		app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
+		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
+		// app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
 		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
@@ -226,6 +226,19 @@ const app = {
 			});
 		},
 		bindNodeEvents() {
+			// space toggle
+			$(window).on('keydown', e => {
+				if (e.which === 112 && !app.state.langToggled) {
+					app.state.langToggled = true;
+				}
+			});
+
+			$(window).on('keyup', e => {
+				if (e.which === 112 && app.state.langToggled) {
+					app.state.langToggled = false;
+				}
+			});
+
 			$('section#nodes, .modal').on('change blur', 'select', e => {
 				if ($(e.target).find(':selected').val() === 'placeholder') {
 					$(e.target).addClass('placeholder');
@@ -238,11 +251,11 @@ const app = {
 
 			$('section#nodes').on('change', 'select.nodetype', e => {
 				const parent = $(e.target).closest('.node');
-				app.data.updateNode(app.state, parent, app.nodes);
-				app.view.generateNodeMarkup(app.data.getNodeByID(app.state.currentTree, parent.data('id')), parent, parent.data('id'), app.nodes);
+				app.data.changeNode(app.state, parent, $(e.target).val());
+				app.view.generateNodeMarkup(app.state, app.data, app.data.getNodeByID(app.state.currentTree, parent.data('id')), parent, parent.data('id'), app.nodes);
 			});
 
-			$('section#nodes').on('change', 'input, textarea, select', e => {
+			$('section#nodes').on('change', 'input, textarea, select:not(.nodetype)', e => {
 				app.data.updateNode(app.state, $(e.target).closest('.node'), app.nodes);
 			});
 
@@ -579,6 +592,7 @@ const app = {
 			linkingFrom: null,
 			linkTarget: null
 		},
+		langToggled: false,
 		zoom: 1,
 		dragging: false,
 		draggedNode: null,

@@ -63,7 +63,7 @@ module.exports = {
 
 			data.getTreeByID(parseInt(tree.data('id'), 10)).nodes.forEach((e, i) => {
 				e.type = (e.type === undefined) ? 'text' : e.type;
-				const node = this.generateNodeMarkup(e, $('.node.template').clone().removeClass('template'), i, nodes);
+				const node = this.generateNodeMarkup(state, data, e, $('.node.template').clone().removeClass('template'), i, nodes);
 				node.data('id', e.id);
 				node.find(`select.nodetype option[value='${e.type}']`).attr('selected', 'selected');
 				events.nodeSelectChange(node.find('select[data-variable-get]').chosen({width: '100%'}).change(events.nodeSelectChange), false);
@@ -72,14 +72,26 @@ module.exports = {
 			});
 		});
 	},
-	generateNodeMarkup(nodeData, nodeElement, index, nodes) {
+	generateNodeMarkup(state, data, nodeData, nodeElement, index, nodes) {
 		nodeElement.find('.controls').empty();
 		nodeElement.find('.controls').removeClass('empty');
 		nodeElement.removeClass('normal branch set');
 
 		if (typeof nodeMarkupCache[nodeData.type] !== 'undefined' && nodeMarkupCache[nodeData.type].length > 0) {
 			for (const field of nodeMarkupCache[nodeData.type]) {
-				nodeElement.find('.controls').append(field.clone());
+				const clonedField = field.clone();
+				if (typeof nodeData.elements !== 'undefined' && typeof nodeData.elements[field.data('binding')] !== 'undefined' && nodeData.elements[field.data('binding')].length > 0) {
+					if (clonedField.prop('tagName') === 'TEXTAREA') {
+						clonedField.val(data.getText(state.currentLanguage, nodeData.elements[field.data('binding')]));
+					} else if (clonedField.prop('tagName') === 'SELECT') {
+						clonedField.removeClass('placeholder').find(`option[value='${nodeData.elements[field.data('binding')]}']`).prop('selected', 'selected');
+					} else {
+						// if we get here, it's a regular input
+						clonedField.val(nodeData.elements[field.data('binding')]);
+					}
+				}
+
+				nodeElement.find('.controls').append(clonedField);
 			}
 		} else {
 			nodeElement.find('.controls').addClass('empty');
@@ -92,6 +104,31 @@ module.exports = {
 
 		if (nodes.getNodeById(nodeData.type).type === 'branch') {
 			nodeElement.addClass('branch');
+			if (typeof nodeData.conditions !== 'undefined') {
+				for (let i = 0; i < nodeData.conditions.length; i++) {
+					if (typeof nodeData.conditions[i].variable !== undefined) {
+						nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').trigger('chosen:updated');
+					}
+
+					if (typeof nodeData.conditions[i].condition !== undefined && nodeData.conditions[i].condition !== 'placeholder') {
+						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition]`).removeClass('placeholder');
+						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition] option[value='${nodeData.conditions[i].condition}']`).prop('selected', 'selected');
+					}
+
+					if (typeof nodeData.conditions[i].value !== undefined) {
+						const validation = nodeElement.find(`.conditions .branch select[data-variable-get] option:selected`).data('validation');
+						if (validation === 'int') {
+							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-int]`).val(nodeData.conditions[i].value);
+						} else if (validation === 'string') {
+							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-string]`).val(nodeData.conditions[i].value);
+						} else if (validation === 'bool') {
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
+						} else if (validation === 'enum') {
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
+						}
+					}
+				}
+			}
 		} else if (nodes.getNodeById(nodeData.type).type === 'set') {
 			nodeElement.addClass('set');
 		} else {
@@ -146,8 +183,14 @@ module.exports = {
 		$('select.languages').trigger('chosen:updated');
 	},
 	changeLanguage(state, data, newLanguage) {
-		$.each($('section#nodes .tree .node select.nodetype option[value="text"]:selected'), (key, element) => {
-			$(element).closest('.node').find('textarea').val(data.getText(newLanguage, `$T${$(element).closest('.tree').data('id')}N${$(element).closest('.node').data('id')}`));
+		$.each($('section#nodes .tree .node'), (key, element) => {
+			const nodeId = $(element).data('id');
+			$.each($(element).find('textarea'), (k, e) => {
+				const dataNode = data.getNodeByID(state.currentTree, nodeId);
+				if (typeof dataNode.elements !== 'undefined' && typeof dataNode.elements[$(e).data('binding')] !== 'undefined') {
+					$(e).val(data.getText(newLanguage, dataNode.elements[$(e).data('binding')]));
+				}
+			});
 		});
 
 		state.currentLanguage = newLanguage;

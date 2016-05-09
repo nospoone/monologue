@@ -39,12 +39,17 @@ module.exports = {
 			const currentNode = $(element);
 			const id = currentNode.data('id');
 			const currentDataNode = data.getNodeByID(state.currentTree, id);
+			const isBranchNode = currentNode.hasClass('branch');
 
 			if (typeof currentDataNode.conditions !== 'undefined') {
 				for (let i = 0; i < currentDataNode.conditions.length; i++) {
-					if (typeof currentDataNode.conditions[i] !== 'undefined' && typeof currentDataNode.conditions[i].link !== 'undefined' && currentDataNode.conditions[i].link !== -1) {
+					if (typeof currentDataNode.conditions[i] !== 'undefined' && currentDataNode.conditions[i] !== null && typeof currentDataNode.conditions[i].link !== 'undefined' && currentDataNode.conditions[i].link !== -1) {
 						const link = currentDataNode.conditions[i].link;
-						const fromElem = currentNode.find(`.links span.connectTo:eq(${i})`);
+						let fromElem = currentNode.find(`.conditions .links span.connectTo:eq(${i})`);
+						if (!isBranchNode) {
+							fromElem = currentNode.find(`> .links span.connectTo`);
+						}
+
 						const fromPos = fromElem.offset();
 						const fromX = fromPos.left;
 						const fromY = fromPos.top + (fromElem.outerHeight() / 2) - 35;
