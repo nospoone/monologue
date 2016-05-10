@@ -326,8 +326,9 @@ const editor = {
 		},
 		reset() {
 			editor.data.raw = {
+				id: uuid.generate(),
 				name: '',
-				type: '',
+				type: 'normal',
 				fields: []
 			};
 		},
