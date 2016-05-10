@@ -48,13 +48,24 @@ module.exports = {
 		}, true);
 	},
 	generateNodes(state, data, events, nodes) {
+		console.log('generating nodes');
 		data.variables.forEach(variable => {
 			if (variable.set) {
 				$(`.node.template select[data-variable-set]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
+				if (variable.validation === 'enum' && typeof variable.values !== 'undefined') {
+					variable.values.forEach(value => {
+						$(`.node.template .set .value select[data-enum]`).append(`<option data-parent='${variable.id}' value='${value.value}'>${value.displayName}</option>`);
+					});
+				}
 			}
 
 			if (variable.get) {
 				$(`.node.template select[data-variable-get]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
+				if (variable.validation === 'enum' && typeof variable.values !== 'undefined') {
+					variable.values.forEach(value => {
+						$(`.node.template .branch .value select[data-enum]`).append(`<option data-parent='${variable.id}' value='${value.value}'>${value.displayName}</option>`);
+					});
+				}
 			}
 		});
 
@@ -73,6 +84,8 @@ module.exports = {
 		});
 	},
 	generateNodeMarkup(state, data, nodeData, nodeElement, index, nodes) {
+		console.log('generating node markup');
+
 		nodeElement.find('.controls').empty();
 		nodeElement.find('.controls').removeClass('empty');
 		nodeElement.removeClass('normal branch set');
@@ -118,17 +131,18 @@ module.exports = {
 				}
 
 				for (let i = 0; i < nodeData.conditions.length; i++) {
-					if (typeof nodeData.conditions[i].variable !== undefined) {
+					if (typeof nodeData.conditions[i].variable !== 'undefined') {
 						nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').trigger('chosen:updated');
 					}
 
-					if (typeof nodeData.conditions[i].condition !== undefined && nodeData.conditions[i].condition !== 'placeholder') {
+					if (typeof nodeData.conditions[i].condition !== 'undefined' && nodeData.conditions[i].condition !== 'placeholder') {
 						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition]`).removeClass('placeholder');
 						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition] option[value='${nodeData.conditions[i].condition}']`).prop('selected', 'selected');
 					}
 
-					if (typeof nodeData.conditions[i].value !== undefined) {
+					if (typeof nodeData.conditions[i].value !== 'undefined' && nodeData.conditions[i].value.length > 0) {
 						const validation = nodeElement.find(`.conditions .branch select[data-variable-get] option:selected`).data('validation');
+						console.log(validation);
 						if (validation === 'int') {
 							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-int]`).val(nodeData.conditions[i].value);
 						} else if (validation === 'string') {
@@ -136,6 +150,7 @@ module.exports = {
 						} else if (validation === 'bool') {
 							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
 						} else if (validation === 'enum') {
+							console.log(nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`));
 							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
 						}
 					}

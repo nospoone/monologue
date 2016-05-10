@@ -226,7 +226,7 @@ const app = {
 			});
 		},
 		bindNodeEvents() {
-			// space toggle
+			// f1 toggle
 			$(window).on('keydown', e => {
 				if (e.which === 112 && !app.state.langToggled) {
 					app.state.langToggled = true;
@@ -564,6 +564,15 @@ const app = {
 
 			select.parent().find('[data-validates]').hide();
 			select.parent().find(`[data-${validation}]`).show();
+
+			if (validation === 'enum') {
+				const varId = parseInt($(select).val(), 10);
+				$.each(select.parent().find('.value select[data-enum] option'), (k, e) => {
+					if ($(e).data('parent') !== varId) {
+						$(e).hide();
+					}
+				});
+			}
 
 			if (resetValues) {
 				select.parent().find('option[data-validates]').prop('selected', false);
