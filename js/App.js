@@ -27,8 +27,8 @@ const app = {
 		});
 
 		// debug autoload
-		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
-		// app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
+		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
+		app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
 		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
@@ -230,12 +230,15 @@ const app = {
 			$(window).on('keydown', e => {
 				if (e.which === 112 && !app.state.langToggled) {
 					app.state.langToggled = true;
+					app.state.toggledFromLanguage = app.state.currentLanguage;
+					app.view.changeLanguage(app.state, app.data, 'enUS');
 				}
 			});
 
 			$(window).on('keyup', e => {
 				if (e.which === 112 && app.state.langToggled) {
 					app.state.langToggled = false;
+					app.view.changeLanguage(app.state, app.data, app.state.toggledFromLanguage);
 				}
 			});
 
@@ -597,7 +600,8 @@ const app = {
 		dragging: false,
 		draggedNode: null,
 		currentTree: 0,
-		currentLanguage: 'enUS'
+		currentLanguage: 'enUS',
+		toggledFromLanguage: 'enUS'
 	}
 };
 

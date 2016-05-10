@@ -134,7 +134,7 @@ module.exports = {
 		this.trees[state.currentTree].nodes.forEach(node => {
 			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
 				for (const condition of node.conditions) {
-					if (typeof condition.link !== 'undefined' && condition.link === id) {
+					if (condition !== null && typeof condition.link !== 'undefined' && condition.link === id) {
 						condition.link = -1;
 					}
 				}
