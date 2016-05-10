@@ -3737,6 +3737,7 @@ canvas {
 .modal .multiselect div.left select,
 .modal .multiselect div.right select {
   width: 100%;
+  height: 176px;
 }
 .modal .multiselect div.left {
   margin-right: 12px;
