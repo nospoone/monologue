@@ -23,7 +23,6 @@ module.exports = {
 		}
 
 		for (const node of raw) {
-			console.log(node.id);
 			if (nodesUsed.indexOf(node.id.toLowerCase()) > -1) {
 				$('.project-settings select.right').append(`<option value='${node.id}'>${node.name}</option>`);
 				$('section#nodes .node.template .select select.nodetype').append(`<option value='${node.id}'>${node.name}</option>`);
