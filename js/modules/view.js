@@ -48,7 +48,6 @@ module.exports = {
 		}, true);
 	},
 	generateNodes(state, data, events, nodes) {
-		console.log('generating nodes');
 		data.variables.forEach(variable => {
 			if (variable.set) {
 				$(`.node.template select[data-variable-set]`).append(`<option data-validation='${variable.validation}' value='${variable.id}'>${variable.displayName}</option>`).trigger("chosen:updated");
@@ -84,8 +83,6 @@ module.exports = {
 		});
 	},
 	generateNodeMarkup(state, data, nodeData, nodeElement, index, nodes) {
-		console.log('generating node markup');
-
 		nodeElement.find('.controls').empty();
 		nodeElement.find('.controls').removeClass('empty');
 		nodeElement.removeClass('normal branch set');
@@ -132,7 +129,7 @@ module.exports = {
 
 				for (let i = 0; i < nodeData.conditions.length; i++) {
 					if (typeof nodeData.conditions[i].variable !== 'undefined') {
-						nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').trigger('chosen:updated');
+						nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').parent().trigger('chosen:updated');
 					}
 
 					if (typeof nodeData.conditions[i].condition !== 'undefined' && nodeData.conditions[i].condition !== 'placeholder') {
@@ -142,16 +139,14 @@ module.exports = {
 
 					if (typeof nodeData.conditions[i].value !== 'undefined' && nodeData.conditions[i].value.length > 0) {
 						const validation = nodeElement.find(`.conditions .branch select[data-variable-get] option:selected`).data('validation');
-						console.log(validation);
 						if (validation === 'int') {
 							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-int]`).val(nodeData.conditions[i].value);
 						} else if (validation === 'string') {
 							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-string]`).val(nodeData.conditions[i].value);
 						} else if (validation === 'bool') {
-							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 						} else if (validation === 'enum') {
-							console.log(nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`));
-							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected');
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 						}
 					}
 				}
@@ -164,21 +159,19 @@ module.exports = {
 			}
 
 			if (typeof nodeData.set.operation !== undefined && nodeData.set.operation !== 'placeholder') {
-				nodeElement.find(`.set select[data-operation] option[value='${nodeData.set.operation}']`).prop('selected', 'selected').trigger('chosen:updated');
+				nodeElement.find(`.set select[data-operation] option[value='${nodeData.set.operation}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 			}
 
 			if (typeof nodeData.set.value !== undefined && nodeData.set.value !== 'placeholder') {
-				nodeElement.find(`.set select[data-operation] option[value='${nodeData.set.operation}']`).prop('selected', 'selected').trigger('chosen:updated');
-
 				const validation = nodeElement.find(`.set select[data-variable-set] option:selected`).data('validation');
 				if (validation === 'int') {
 					nodeElement.find(`.set input[data-int]`).val(nodeData.set.value);
 				} else if (validation === 'string') {
 					nodeElement.find(`.set input[data-string]`).val(nodeData.set.value);
 				} else if (validation === 'bool') {
-					nodeElement.find(`.set select[data-bool] option[value='${nodeData.set.value}']`).prop('selected', 'selected');
+					nodeElement.find(`.set select[data-bool] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 				} else if (validation === 'enum') {
-					nodeElement.find(`.set select[data-enum] option[value='${nodeData.set.value}']`).prop('selected', 'selected');
+					nodeElement.find(`.set select[data-enum] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
 				}
 			}
 		} else {

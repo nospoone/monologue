@@ -79,7 +79,18 @@ module.exports = {
 					dataNode.conditions[i] = dataNode.conditions[i] || {};
 					dataNode.conditions[i].variable = $(e).parent().find('select[data-variable-get] option:selected').val();
 					dataNode.conditions[i].condition = $(e).find('select[data-condition] option:selected').val();
-					dataNode.conditions[i].value = $(e).find('input[type=text]').val();
+
+					const validation = $(e).parent().find('select[data-variable-get] option:selected').data('validation');
+
+					if (validation === 'int') {
+						dataNode.conditions[i].value = nodeElement.find('input[data-int]').val();
+					} else if (validation === 'string') {
+						dataNode.conditions[i].value = nodeElement.find('input[data-string]').val();
+					} else if (validation === 'bool') {
+						dataNode.conditions[i].value = nodeElement.find('select[data-bool] option:selected').val();
+					} else if (validation === 'enum') {
+						dataNode.conditions[i].value = nodeElement.find('select[data-enum] option:selected').val();
+					}
 				});
 			} else if (nodeType === 'set') {
 				dataNode.set = {

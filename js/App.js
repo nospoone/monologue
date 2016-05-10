@@ -27,8 +27,8 @@ const app = {
 		});
 
 		// debug autoload
-		// app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
-		app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
+		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
+		// app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
 		app.view.loadProject(app.state, app.data, app.events, app.nodes);
 
 		app.draw.canvas.element = $('#canvas')[0];
@@ -568,7 +568,9 @@ const app = {
 			if (validation === 'enum') {
 				const varId = parseInt($(select).val(), 10);
 				$.each(select.parent().find('.value select[data-enum] option'), (k, e) => {
-					if ($(e).data('parent') !== varId) {
+					if ($(e).data('parent') === varId) {
+						$(e).show();
+					} else {
 						$(e).hide();
 					}
 				});
