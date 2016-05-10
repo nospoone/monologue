@@ -1,0 +1,15 @@
+{
+	"name": "Trigger",
+	"type": "normal",
+	"id": "73389cc2-5a71-4b6e-9ead-78752bb292d7",
+	"fields": [{
+		"id": "68a8d76a-c175-4be0-91cb-7e9d4ee1005e",
+		"position": 0,
+		"type": "select",
+		"placeholder": "Trigger",
+		"binding": "trigger",
+		"validation": "enum",
+		"maxlength": -1,
+		"values": ["cutscene0", "cutscene1", "cutscene2", "cutscene3", "cutscene4"]
+	}]
+}

@@ -112,70 +112,72 @@ module.exports = {
 			nodeElement.find('span.connectFrom, span.connectFromTrigger').remove();
 		}
 
-		if (nodes.getNodeById(nodeData.type).type === 'branch') {
-			nodeElement.addClass('branch');
-			if (typeof nodeData.conditions !== 'undefined') {
-				let conditionCount = 0;
-				for (let j = 0; j < nodeData.conditions.length; j++) {
-					if (typeof nodeData.conditions[j].variable !== 'undefined' || typeof nodeData.conditions[j].value !== 'undefined' || typeof nodeData.conditions[j].condition !== 'undefined') {
-						conditionCount++;
-					}
-				}
-
-				while (nodeElement.find('.conditions .branch .value').length < conditionCount) {
-					nodeElement.find('.conditions .branch').append(nodeElement.find('.conditions .branch .value:last-child').clone());
-					nodeElement.find('.conditions .links').append(nodeElement.find('.conditions .links span.connectTo:last-child').clone());
-				}
-
-				for (let i = 0; i < nodeData.conditions.length; i++) {
-					if (typeof nodeData.conditions[i].variable !== 'undefined') {
-						nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').parent().trigger('chosen:updated');
+		if (typeof nodes.getNodeById(nodeData.type) !== 'undefined') {
+			if (nodes.getNodeById(nodeData.type).type === 'branch') {
+				nodeElement.addClass('branch');
+				if (typeof nodeData.conditions !== 'undefined') {
+					let conditionCount = 0;
+					for (let j = 0; j < nodeData.conditions.length; j++) {
+						if (typeof nodeData.conditions[j].variable !== 'undefined' || typeof nodeData.conditions[j].value !== 'undefined' || typeof nodeData.conditions[j].condition !== 'undefined') {
+							conditionCount++;
+						}
 					}
 
-					if (typeof nodeData.conditions[i].condition !== 'undefined' && nodeData.conditions[i].condition !== 'placeholder') {
-						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition]`).removeClass('placeholder');
-						nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition] option[value='${nodeData.conditions[i].condition}']`).prop('selected', 'selected');
+					while (nodeElement.find('.conditions .branch .value').length < conditionCount) {
+						nodeElement.find('.conditions .branch').append(nodeElement.find('.conditions .branch .value:last-child').clone());
+						nodeElement.find('.conditions .links').append(nodeElement.find('.conditions .links span.connectTo:last-child').clone());
 					}
 
-					if (typeof nodeData.conditions[i].value !== 'undefined' && nodeData.conditions[i].value.length > 0) {
-						const validation = nodeElement.find(`.conditions .branch select[data-variable-get] option:selected`).data('validation');
-						if (validation === 'int') {
-							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-int]`).val(nodeData.conditions[i].value);
-						} else if (validation === 'string') {
-							nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-string]`).val(nodeData.conditions[i].value);
-						} else if (validation === 'bool') {
-							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
-						} else if (validation === 'enum') {
-							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+					for (let i = 0; i < nodeData.conditions.length; i++) {
+						if (typeof nodeData.conditions[i].variable !== 'undefined') {
+							nodeElement.find(`.conditions .branch select[data-variable-get] option[value='${nodeData.conditions[i].variable}']`).prop('selected', 'selected').parent().trigger('chosen:updated');
+						}
+
+						if (typeof nodeData.conditions[i].condition !== 'undefined' && nodeData.conditions[i].condition !== 'placeholder') {
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition]`).removeClass('placeholder');
+							nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-condition] option[value='${nodeData.conditions[i].condition}']`).prop('selected', 'selected');
+						}
+
+						if (typeof nodeData.conditions[i].value !== 'undefined' && nodeData.conditions[i].value.length > 0) {
+							const validation = nodeElement.find(`.conditions .branch select[data-variable-get] option:selected`).data('validation');
+							if (validation === 'int') {
+								nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-int]`).val(nodeData.conditions[i].value);
+							} else if (validation === 'string') {
+								nodeElement.find(`.conditions .branch .value:eq(${i}) input[data-string]`).val(nodeData.conditions[i].value);
+							} else if (validation === 'bool') {
+								nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-bool] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+							} else if (validation === 'enum') {
+								nodeElement.find(`.conditions .branch .value:eq(${i}) select[data-enum] option[value='${nodeData.conditions[i].value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+							}
 						}
 					}
 				}
-			}
-		} else if (nodes.getNodeById(nodeData.type).type === 'set') {
-			nodeElement.addClass('set');
+			} else if (nodes.getNodeById(nodeData.type).type === 'set') {
+				nodeElement.addClass('set');
 
-			if (typeof nodeData.set.variable !== undefined) {
-				nodeElement.find(`.set select[data-variable-set] option[value='${nodeData.set.variable}']`).prop('selected', 'selected').trigger('chosen:updated');
-			}
-
-			if (typeof nodeData.set.operation !== undefined && nodeData.set.operation !== 'placeholder') {
-				nodeElement.find(`.set select[data-operation] option[value='${nodeData.set.operation}']`).prop('selected', 'selected').parent().removeClass('placeholder');
-			}
-
-			if (typeof nodeData.set.value !== undefined && nodeData.set.value !== 'placeholder') {
-				const validation = nodeElement.find(`.set select[data-variable-set] option:selected`).data('validation');
-				if (validation === 'int') {
-					nodeElement.find(`.set input[data-int]`).val(nodeData.set.value);
-				} else if (validation === 'string') {
-					nodeElement.find(`.set input[data-string]`).val(nodeData.set.value);
-				} else if (validation === 'bool') {
-					nodeElement.find(`.set select[data-bool] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
-				} else if (validation === 'enum') {
-					nodeElement.find(`.set select[data-enum] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+				if (typeof nodeData.set.variable !== undefined) {
+					nodeElement.find(`.set select[data-variable-set] option[value='${nodeData.set.variable}']`).prop('selected', 'selected').trigger('chosen:updated');
 				}
+
+				if (typeof nodeData.set.operation !== undefined && nodeData.set.operation !== 'placeholder') {
+					nodeElement.find(`.set select[data-operation] option[value='${nodeData.set.operation}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+				}
+
+				if (typeof nodeData.set.value !== undefined && nodeData.set.value !== 'placeholder') {
+					const validation = nodeElement.find(`.set select[data-variable-set] option:selected`).data('validation');
+					if (validation === 'int') {
+						nodeElement.find(`.set input[data-int]`).val(nodeData.set.value);
+					} else if (validation === 'string') {
+						nodeElement.find(`.set input[data-string]`).val(nodeData.set.value);
+					} else if (validation === 'bool') {
+						nodeElement.find(`.set select[data-bool] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+					} else if (validation === 'enum') {
+						nodeElement.find(`.set select[data-enum] option[value='${nodeData.set.value}']`).prop('selected', 'selected').parent().removeClass('placeholder');
+					}
+				}
+			} else {
+				nodeElement.addClass('normal');
 			}
-		} else {
-			nodeElement.addClass('normal');
 		}
 
 		return nodeElement;
