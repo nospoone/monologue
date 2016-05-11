@@ -6,7 +6,6 @@ module.exports = {
 	project: null,
 	trees: null,
 	treeCategories: null,
-	languages: null,
 	variables: null,
 	nodes: [],
 	getNodeCoordinates(treeId, nodeId) {
