@@ -1,19 +1,19 @@
 {
 	"name": "monologue",
 	"productName": "Monologue",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"main": "main.js",
 	"license": "MIT",
 	"repository": "nospoone/monologue",
-	"electronVersion": "0.36.0",
+	"electronVersion": "1.0.1",
 	"scripts": {
 		"prestart": "gulp less && gulp jade",
 		"start": "electron main.js",
 		"test": "xo",
-		"build": "electron-packager . monologue --out=dist --ignore='^/dist$' --prune --asar --all --version=0.36.0"
+		"build": "electron-packager . monologue --out=dist --ignore='^/dist$' --prune --asar --all --version=1.0.1"
 	},
 	"dependencies": {
-		"electron-prebuilt": "^0.36.0",
+		"electron-prebuilt": "^1.0.1",
 		"tsv": "^0.2.0"
 	},
 	"devDependencies": {
