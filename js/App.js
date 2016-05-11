@@ -301,7 +301,7 @@ const app = {
 
 			$('section#nodes').on('click', '.links span.connectFromTrigger, .links span.connectFrom', () => {
 				if (app.state.link.linking) {
-					app.data.link(app.state);
+					app.data.link(app.state, app.nodes);
 					app.state.link.linking = false;
 					app.state.link.linkingFrom = null;
 					app.state.link.linkIndex = null;

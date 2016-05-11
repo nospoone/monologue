@@ -153,11 +153,12 @@ module.exports = {
 			}
 		});
 	},
-	link(state) {
+	link(state, nodes) {
 		const nodeFrom = this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id'));
 		nodeFrom.conditions = nodeFrom.conditions || [];
 		nodeFrom.conditions[state.link.linkIndex] = {};
 		nodeFrom.conditions[state.link.linkIndex].link = state.link.linkTarget.data('id');
+		this.updateNode(state, state.link.linkingFrom, nodes);
 	},
 	bumpLinks(state, id, elseLinked) {
 		const nodeFrom = this.getNodeByID(state.currentTree, id);
