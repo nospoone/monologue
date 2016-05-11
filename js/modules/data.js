@@ -142,15 +142,17 @@ module.exports = {
 	},
 	// removes all links from/to this node
 	unlink(state, id) {
-		this.trees[state.currentTree].nodes.forEach(node => {
-			if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
-				for (const condition of node.conditions) {
-					if (condition !== null && typeof condition.link !== 'undefined' && condition.link === id) {
-						condition.link = -1;
+		if (typeof this.trees[state.currentTree] !== 'undefined') {
+			this.trees[state.currentTree].nodes.forEach(node => {
+				if (typeof node.conditions !== 'undefined' && node.conditions.length > 0) {
+					for (const condition of node.conditions) {
+						if (condition !== null && typeof condition.link !== 'undefined' && condition.link === id) {
+							condition.link = -1;
+						}
 					}
 				}
-			}
-		});
+			});
+		}
 	},
 	link(state, nodes) {
 		const nodeFrom = this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id'));
