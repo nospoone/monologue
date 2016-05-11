@@ -186,14 +186,18 @@ module.exports = {
 		for (let i = 0; i < this.translations.length; i++) {
 			if (this.translations[i][language] !== undefined) {
 				const lang = this.translations[i][language];
-				for (let j = 0; j < lang.length; j++) {
-					if (lang[j].flag === key) {
-						lang[j].content = text;
-						return;
-					} else if (lang[j].flag !== key && j === lang.length - 1) {
-						lang.push({flag: key, content: text});
-						return;
+				if (lang.length > 0) {
+					for (let j = 0; j < lang.length; j++) {
+						if (lang[j].flag === key) {
+							lang[j].content = text;
+							return;
+						} else if (lang[j].flag !== key && j === lang.length - 1) {
+							lang.push({flag: key, content: text});
+							return;
+						}
 					}
+				} else {
+					lang.push({flag: key, content: text});
 				}
 			}
 		}
