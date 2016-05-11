@@ -8,8 +8,6 @@ module.exports = {
 	treeCategories: null,
 	languages: null,
 	variables: null,
-	voices: null,
-	characters: null,
 	nodes: [],
 	getNodeCoordinates(treeId, nodeId) {
 		const node = this.getNodeByID(treeId, nodeId);
@@ -29,7 +27,6 @@ module.exports = {
 
 		currentTree.nodes.push({
 			id: newId,
-			link: -1,
 			editor: {
 				x: x || 0,
 				y: y || 0
@@ -55,7 +52,7 @@ module.exports = {
 			dataNode.type = nodeElement.find('select.nodetype option:selected').val();
 			const nodeType = nodes.getNodeById(dataNode.type).type;
 
-			dataNode.elements = dataNode.elements || {};
+			dataNode.elements = {};
 			$.each(nodeElement.find('.controls [data-binding]'), (i, e) => {
 				switch ($(e).prop('tagName')) {
 					case 'INPUT':
@@ -74,6 +71,7 @@ module.exports = {
 			});
 
 			if (nodeType === 'branch') {
+				dataNode.nodetype = 'branch';
 				dataNode.conditions = dataNode.conditions || [];
 				$.each(nodeElement.find('.conditions .branch .value'), (i, e) => {
 					dataNode.conditions[i] = dataNode.conditions[i] || {};
@@ -83,16 +81,17 @@ module.exports = {
 					const validation = $(e).parent().find('select[data-variable-get] option:selected').data('validation');
 
 					if (validation === 'int') {
-						dataNode.conditions[i].value = nodeElement.find('input[data-int]').val();
+						dataNode.conditions[i].value = $(e).find('input[data-int]').val();
 					} else if (validation === 'string') {
-						dataNode.conditions[i].value = nodeElement.find('input[data-string]').val();
+						dataNode.conditions[i].value = $(e).find('input[data-string]').val();
 					} else if (validation === 'bool') {
-						dataNode.conditions[i].value = nodeElement.find('select[data-bool] option:selected').val();
+						dataNode.conditions[i].value = $(e).find('select[data-bool] option:selected').val();
 					} else if (validation === 'enum') {
-						dataNode.conditions[i].value = nodeElement.find('select[data-enum] option:selected').val();
+						dataNode.conditions[i].value = $(e).find('select[data-enum] option:selected').val();
 					}
 				});
 			} else if (nodeType === 'set') {
+				dataNode.nodetype = 'set';
 				dataNode.set = {
 					variable: nodeElement.find('.set select[data-variable-set] option:selected').val(),
 					operation: nodeElement.find('.set .value select[data-operation] option:selected').val()
@@ -108,6 +107,8 @@ module.exports = {
 				} else if (validation === 'enum') {
 					dataNode.set.value = nodeElement.find('.set .value select[data-enum] option:selected').val();
 				}
+			} else {
+				dataNode.nodetype = 'normal';
 			}
 		}
 	},
@@ -155,7 +156,7 @@ module.exports = {
 	link(state) {
 		const nodeFrom = this.getNodeByID(state.currentTree, state.link.linkingFrom.data('id'));
 		nodeFrom.conditions = nodeFrom.conditions || [];
-		nodeFrom.conditions[state.link.linkIndex] = nodeFrom.conditions[state.link.linkIndex] || {};
+		nodeFrom.conditions[state.link.linkIndex] = {};
 		nodeFrom.conditions[state.link.linkIndex].link = state.link.linkTarget.data('id');
 	},
 	bumpLinks(state, id, elseLinked) {

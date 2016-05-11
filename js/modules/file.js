@@ -14,10 +14,7 @@ module.exports = {
 
 		data.project = parsedFile.project;
 		data.variables = parsedFile.project.variables;
-		data.customVariables = parsedFile.project.customVariables;
 		data.treeCategories = parsedFile.project.treeCategories;
-		data.voices = parsedFile.project.voices;
-		data.characters = parsedFile.project.characters;
 		data.trees = parsedFile.trees;
 		data.translations = parsedFile.translations;
 		data.nodes = parsedFile.project.nodes;
@@ -65,8 +62,10 @@ module.exports = {
 			const location = path.join(path.dirname(this.currentProjectFile), `${firstHalf}-${secondHalf}.tsv`);
 
 			language[Object.keys(language)[0]].forEach(text => {
-				while (text.content.indexOf('\n') > -1) {
-					text.content = text.content.replace("\n", "<N>");
+				if (typeof text.content !== 'undefined') {
+					while (text.content.indexOf('\n') > -1) {
+						text.content = text.content.replace("\n", "<N>");
+					}
 				}
 			});
 

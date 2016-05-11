@@ -26,11 +26,6 @@ const app = {
 			leftSelected: '.project-settings .left'
 		});
 
-		// debug autoload
-		app.file.openProject(app.state, app.data, 'E:\\_dev\\monologue\\_ref\\example.mpf');
-		// app.file.openProject(app.state, app.data, 'C:\\Projects\\Web\\Monologue\\_ref\\example.mpf');
-		app.view.loadProject(app.state, app.data, app.events, app.nodes);
-
 		app.draw.canvas.element = $('#canvas')[0];
 		app.draw.canvas.context = app.draw.canvas.element.getContext('2d');
 		requestAnimationFrame(app.rafLoop);
@@ -239,6 +234,16 @@ const app = {
 				if (e.which === 112 && app.state.langToggled) {
 					app.state.langToggled = false;
 					app.view.changeLanguage(app.state, app.data, app.state.toggledFromLanguage);
+				}
+			});
+
+			// update all nodes
+			$(window).on('keyup', e => {
+				if (e.which === 123) {
+					app.view.showStatusMessage('Updating all nodes...');
+					$.each($('section#nodes .node:not(.template)'), (k, e) => {
+						app.data.updateNode(app.state, $(e), app.nodes);
+					});
 				}
 			});
 
