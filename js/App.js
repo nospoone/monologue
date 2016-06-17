@@ -404,7 +404,7 @@ const app = {
 								$('[data-variable-get], [data-variable-set]').addClass('error');
 								$('.control span.error.duplicate', variableSettings).removeClass('hidden');
 							} else {
-								const newId = app.data.addVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val());
+								const newId = app.data.addVariable(variableName, $('select[data-project-new-variable-type] option:selected', variableSettings).val(), get, set);
 								let getSet = '';
 								if (get || set) {
 									getSet += '(';
