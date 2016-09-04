@@ -232,7 +232,7 @@ module.exports = {
 			const nodeId = $(element).data('id');
 			$.each($(element).find('textarea'), (k, e) => {
 				const dataNode = data.getNodeByID(state.currentTree, nodeId);
-				if (typeof dataNode.elements !== 'undefined' && typeof dataNode.elements[$(e).data('binding')] !== 'undefined') {
+				if (typeof dataNode !== 'undefined' && typeof dataNode.elements !== 'undefined' && typeof dataNode.elements[$(e).data('binding')] !== 'undefined') {
 					$(e).val(data.getText(newLanguage, dataNode.elements[$(e).data('binding')]));
 				}
 			});
