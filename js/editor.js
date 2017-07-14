@@ -2,9 +2,10 @@
 
 const $ = require('../js/lib/jquery.js');
 const uuid = require('../js/editor/uuid.js');
-const dialog = require('remote').require('dialog');
-const fs = require('remote').require('fs');
-const browserWindow = require('remote').require('browser-window').fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
+const {dialog} = require('electron').remote;
+const {BrowserWindow} = require('electron').remote;
+const {fs} = require('electron').remote;
+const browserWindow = BrowserWindow.fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
 
 const editor = {
 	bootstrap() {

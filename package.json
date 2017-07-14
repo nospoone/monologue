@@ -13,16 +13,16 @@
 		"build": "electron-packager . monologue --out=dist --ignore='^/dist$' --prune --asar --all --version=1.0.1"
 	},
 	"dependencies": {
-		"electron-prebuilt": "^1.0.1",
-		"tsv": "^0.2.0"
+		"electron-prebuilt": "1.0.1",
+		"tsv": "0.2.0"
 	},
 	"devDependencies": {
-		"del": "^2.2.0",
-		"electron-packager": "^5.0.0",
-		"gulp": "^3.9.1",
-		"gulp-jade": "^1.1.0",
-		"gulp-less": "^3.0.5",
-		"xo": "^0.13.0"
+		"del": "2.2.0",
+		"electron-packager": "5.0.0",
+		"gulp": "3.9.1",
+		"gulp-jade": "1.1.0",
+		"gulp-less": "3.0.5",
+		"xo": "0.13.0"
 	},
 	"xo": {
 		"esnext": true,

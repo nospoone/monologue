@@ -1,6 +1,7 @@
 'use strict';
 
-const browserWindow = require('remote').require("browser-window").getFocusedWindow();
+const {BrowserWindow} = require('electron').remote;
+const browserWindow = BrowserWindow.getFocusedWindow();
 const $ = require('../../js/lib/jquery.js');
 
 module.exports = {

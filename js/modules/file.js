@@ -1,9 +1,8 @@
 'use strict';
 
-const remote = require('remote');
-const fs = remote.require('fs');
-const path = remote.require('path');
-const tsv = remote.require('tsv');
+const {fs} = require('electron').remote;
+const {path} = require('electron').remote;
+const {tsv} = require('electron').remote;
 const $ = require('../../js/lib/jquery.js');
 
 module.exports = {

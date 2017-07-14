@@ -1,7 +1,8 @@
 'use strict';
 
-const dialog = require('remote').require('dialog');
-const browserWindow = require('remote').require('browser-window').fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
+const {dialog} = require('electron').remote;
+const {BrowserWindow} = require('electron').remote;
+const bw = BrowserWindow.fromId(parseInt(window.location.href.split("?")[1].split("=")[1], 10));
 const $ = require('../js/lib/jquery.js');
 
 const app = {
@@ -39,19 +40,19 @@ const app = {
 			const scope = 'nav#menu-bar';
 
 			$('span.close', scope).on('click', () => {
-				browserWindow.close();
+				bw.close();
 			});
 
 			$('span.minimize', scope).on('click', () => {
-				browserWindow.minimize();
+				bw.minimize();
 			});
 
 			$('span.maximize', scope).on('click', e => {
-				if (browserWindow.isMaximized()) {
-					browserWindow.unmaximize();
+				if (bw.isMaximized()) {
+					bw.unmaximize();
 					$(e.target).removeClass('maximized');
 				} else {
-					browserWindow.maximize();
+					bw.maximize();
 					$(e.target).addClass('maximized');
 				}
 			});
@@ -196,7 +197,7 @@ const app = {
 		bindSplashEvents() {
 			const scope = 'div#splash';
 			$('span.open', scope).on('click', e => {
-				const file = dialog.showOpenDialog(browserWindow, {
+				const file = dialog.showOpenDialog(bw, {
 					title: 'Open Project...',
 					properties: ['openFile'],
 					filters: [

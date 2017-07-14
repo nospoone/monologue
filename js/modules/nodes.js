@@ -1,9 +1,8 @@
 'use strict';
 
-const remote = require('remote');
-const fs = remote.require('fs');
-const path = remote.require('path');
-const app = remote.app;
+const {fs} = require('electron').remote;
+const {path} = require('electron').remote;
+const app = require('electron').remote.app;
 const raw = [];
 const $ = require('../../js/lib/jquery.js');
 
